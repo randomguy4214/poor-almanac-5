@@ -1,4 +1,4 @@
-# poor-almanac-4
+# poor-almanac-5
 
 combining fundamentals of companies and latest prices into one excel output. 
 goal is to compare fundamentals with market 
