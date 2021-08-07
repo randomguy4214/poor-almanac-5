@@ -15,7 +15,7 @@ input_folder = "0_input"
 output_folder = "0_output"
 
 # import csv with relevant data
-df = pd.read_csv(os.path.join(cwd,input_folder,"4_fundamentals_last_quarter.csv"))
+df = pd.read_csv(os.path.join(cwd,input_folder,"4_fundamentals.csv"))
 df['price'] = df['price'].astype(float)
 
 # export as full to xlsx for debugging purposes
