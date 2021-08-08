@@ -26,6 +26,8 @@ df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inpl
 df_merged.drop_duplicates()
 df_merged.reset_index(inplace=True)
 
+# divide everything by 1000
+
 # calculate additional variables
 df_merged['NAV'] = df_merged['Total Assets'] - df_merged['Total Liabilities']
 df_merged['WC'] = df_merged['Total Current Assets'] - df_merged['Total Current Liabilities']
@@ -34,12 +36,12 @@ df_merged['NAV_per_share_to_price'] = df_merged.NAV_per_share / df_merged['price
 df_merged['FCF_per_share'] = (df_merged['Net Cash from Operating Activities'] - df_merged['Net Cash from Investing Activities']) / df_merged['Shares (Diluted)']
 df_merged['marg'] = df_merged['Gross Profit'] / df_merged['Revenue'] * 100
 
-# reorder
+# reorder and drop irrelevant columns
 cols_to_order = ['Date','symbol', 'price', 'low', 'high', 'from_low', 'from_high', 'NAV_per_share_to_price', 'FCF_per_share', 'marg']
 new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
 df_merged = df_merged[new_columns]
 df_merged = df_merged.round(2)
-del df_merged['Ticker']
+df_merged.drop(['SimFinId', 'Index', 'Ticker', 'Currency', 'Publish Date', 'Restated Date', 'Source', 'Sector', 'IndustryId'], axis = 1, inplace=True)
 
 # export full fundamentals
 df_merged.to_csv(os.path.join(cwd,input_folder,'4_fundamentals.csv'), index=False)

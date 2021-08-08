@@ -35,7 +35,16 @@ df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inpl
 # keep only latest per company
 df_merged.drop_duplicates('Ticker', keep='last', inplace=True)
 
-# export
+# loop through dtypes and divide
+for column in df_merged.columns:
+
+    if df_merged[column].dtype != 'object':
+        df_merged[column] = df_merged[column].div(1000000)
+
+# reorder and export
+cols_to_order = ['Ticker', 'Company Name', 'Industry', 'Fiscal Year']
+new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
+df_merged = df_merged[new_columns]
+
 df_merged.to_csv(os.path.join(cwd, input_folder,"3_fundamentals_processed.csv"))
-#print(df_merged.columns.values)
 
