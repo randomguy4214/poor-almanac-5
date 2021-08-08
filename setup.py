@@ -5,5 +5,5 @@ setup(
     version = "1.0",
     description = "work in progress",
     packages = find_packages(),
-    install_requires = ['pandas', 'gc', 'openpyxl', 'investpy']
+    install_requires = ['pandas', 'openpyxl', 'investpy']
 )
