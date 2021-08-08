@@ -41,7 +41,7 @@ cols_to_order = ['Date','symbol', 'price', 'low', 'high', 'from_low', 'from_high
 new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
 df_merged = df_merged[new_columns]
 df_merged = df_merged.round(2)
-df_merged.drop(['SimFinId', 'Index', 'Ticker', 'Currency', 'Publish Date', 'Restated Date', 'Source', 'Sector', 'IndustryId'], axis = 1, inplace=True)
+df_merged.drop(['SimFinId', 'Ticker', 'Currency', 'Publish Date', 'Restated Date', 'Source', 'Sector', 'IndustryId'], axis = 1, inplace=True)
 
 # export full fundamentals
 df_merged.to_csv(os.path.join(cwd,input_folder,'4_fundamentals.csv'), index=False)
