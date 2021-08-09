@@ -1,5 +1,8 @@
 #!/usr/bin/python
 
+import check_folders
+print('0 folders checked - done')
+
 import prices_updated
 print('1 prices_updated - done')
 
