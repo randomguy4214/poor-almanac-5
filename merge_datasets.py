@@ -21,7 +21,7 @@ df_prices = pd.read_csv(os.path.join(cwd,input_folder,"2_prices_additional_calc.
 df_fundamentals_processed = pd.read_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.csv"), index_col=0)
 
 # merge data sets
-df_merged = pd.merge(df_prices, df_fundamentals_processed, how='inner', left_on=['symbol'], right_on=['Ticker'], suffixes=('', '_drop'))
+df_merged = pd.merge(df_prices, df_fundamentals_processed, how='left', left_on=['symbol'], right_on=['Ticker'], suffixes=('', '_drop'))
 df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
 df_merged.drop_duplicates()
 df_merged.reset_index(inplace=True)
