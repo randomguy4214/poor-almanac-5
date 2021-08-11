@@ -61,7 +61,6 @@ df_merged.to_csv(os.path.join(cwd,input_folder,"2_prices_additional_calc.csv"))
 # pre-filter stocks for the export
 prices_additional_calc = pd.read_csv(os.path.join(cwd,input_folder,"2_prices_additional_calc.csv"),usecols = ['symbol', 'from_low'])
 prices_filter = prices_additional_calc[~prices_additional_calc['symbol'].str.contains('-|_')]
-prices_filter = prices_filter.loc[(prices_filter['symbol']<=15] # look here
 prices_filter.reset_index(drop=True)
 
 # export tickers
