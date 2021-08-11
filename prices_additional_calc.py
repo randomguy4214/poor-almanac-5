@@ -58,21 +58,12 @@ new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
 df_merged = df_merged[new_columns]
 df_merged.to_csv(os.path.join(cwd,input_folder,"2_prices_additional_calc.csv"))
 
-# export tickers
-#df_tickers_all = df_merged['symbol'][~df_merged['symbol'].str.contains('-|_')]
-#df_tickers_all.drop_duplicates()
-#df_tickers_all.to_csv(os.path.join(cwd,input_folder,"2_tickers_all.csv"), index = False)
-
-# pre-filter stocks for the next step
+# pre-filter stocks for the export
 prices_additional_calc = pd.read_csv(os.path.join(cwd,input_folder,"2_prices_additional_calc.csv"),usecols = ['symbol', 'from_low'])
 prices_filter = prices_additional_calc[~prices_additional_calc['symbol'].str.contains('-|_')]
-#prices_filter = prices_filter[prices_filter['from_low']<=15] # look here
+prices_filter = prices_filter.loc[(prices_filter['symbol']<=15] # look here
 prices_filter.reset_index(drop=True)
 
-#stocks_input = investpy.get_stocks(country='united states')
-#investpy_stocks = pd.DataFrame(stocks_input['symbol'])
-
-#tickers_filtered = pd.merge(investpy_stocks, prices_filter, how='inner', left_on='symbol', right_on='symbol', suffixes=('', '_drop'))
-#tickers_filtered.drop([col for col in tickers_filtered.columns if 'drop' in col], axis=1, inplace=True)
-stocks = prices_filter[['symbol']].sort_values(by=['symbol'], ascending= True).drop_duplicates() #changed from tickers_filtered to debug
+# export tickers
+stocks = prices_filter[['symbol']].sort_values(by=['symbol'], ascending= True).drop_duplicates()
 stocks.to_csv(os.path.join(cwd,input_folder,"2_tickers_filtered.csv"), index = False)
