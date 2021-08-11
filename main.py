@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import check_folders
-print('0 folders checked - done')
+print('0 folders checked - done') #not implemented yet
 
 import prices_updated
 print('1 prices_updated - done')
