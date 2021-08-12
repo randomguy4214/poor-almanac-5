@@ -2,7 +2,6 @@
 
 import pandas as pd
 import os
-import investpy
 pd.options.mode.chained_assignment = None  # default='warn'
 
 # formatting
