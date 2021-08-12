@@ -7,7 +7,7 @@ import prices_updated
 print('1 prices_updated - done')
 
 import prices_additional_calc
-print('2 prices_additional_calc = done')
+print('2 prices_additional_calc - done')
 
 import prepare_financials
 print('3 prepare_financials - done')
