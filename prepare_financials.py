@@ -11,29 +11,11 @@ cwd = os.getcwd()
 input_folder = "0_input"
 prices_folder = "data"
 output_folder = "0_output"
-simfin = "simfin"
 
-income_csv = pd.read_csv(os.path.join(cwd,input_folder,simfin,"us-income-ttm-full.csv"), sep=";")
-bs_csv = pd.read_csv(os.path.join(cwd,input_folder,simfin,"us-balance-ttm-full.csv"), sep=";")
-cf_csv = pd.read_csv(os.path.join(cwd,input_folder,simfin,"us-cashflow-ttm-full.csv"), sep=";")
-c_csv = pd.read_csv(os.path.join(cwd,input_folder,simfin,"us-companies.csv"), sep=";")
-i_csv = pd.read_csv(os.path.join(cwd,input_folder,simfin,"industries.csv"), sep=";")
 
-# merge financial statements
-df_merged = pd.merge(income_csv, bs_csv, how='inner', left_on=['SimFinId', 'Fiscal Year', 'Fiscal Period'], right_on=['SimFinId', 'Fiscal Year', 'Fiscal Period'], suffixes=('', '_drop'))
-df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
-df_to_merge = df_merged
-df_merged = pd.merge(df_to_merge, cf_csv, how='inner', left_on=['SimFinId', 'Fiscal Year', 'Fiscal Period'], right_on=['SimFinId', 'Fiscal Year', 'Fiscal Period'], suffixes=('', '_drop'))
-df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
-df_to_merge = df_merged
-df_merged = pd.merge(df_to_merge, c_csv, how='left', left_on=['SimFinId'], right_on=['SimFinId'], suffixes=('', '_drop'))
-df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
-df_to_merge = df_merged
-df_merged = pd.merge(df_to_merge, i_csv, how='left', left_on=['IndustryId'], right_on=['IndustryId'], suffixes=('', '_drop'))
-df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
+#drop_list = drop_list_industry['Industry'].tolist()
+#df = df[~df['Industry'].isin(drop_list)] # drop some industries
 
-# keep only latest per company
-df_merged.drop_duplicates('Ticker', keep='last', inplace=True)
 
 # loop through dtypes and divide
 for column in df_merged.columns:

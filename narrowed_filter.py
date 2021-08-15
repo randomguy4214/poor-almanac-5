@@ -16,11 +16,9 @@ output_folder = "0_output"
 drop_list_folder = "drop_list"
 
 # import csv with relevant data
-df = pd.read_csv(os.path.join(cwd,input_folder,"4_fundamentals.csv"))
+df = pd.read_csv(os.path.join(cwd,input_folder,"2_prices_additional_calc.csv"), index_col=0)
 df['price'] = df['price'].astype(float)
-
-# export as full to xlsx for debugging purposes
-df.to_excel(os.path.join(cwd,output_folder,"4_df_export.xlsx"),sheet_name='output', index=False)
+#print(df)
 
 # filter out irrelevant
 df = df.loc[(df['Date'] == max(df['Date']))] # find max date and drop stocks that are not up-to-date
@@ -38,13 +36,16 @@ drop_list_ticker = pd.read_csv(os.path.join(cwd,input_folder,drop_list_folder,"d
 drop_list_industry = pd.read_csv(os.path.join(cwd,input_folder,drop_list_folder,"drop_list_industry.csv"))
 drop_list = drop_list_ticker['symbol'].tolist()
 df = df[~df['symbol'].isin(drop_list)] # drop some tickers
-drop_list = drop_list_industry['Industry'].tolist()
-df = df[~df['Industry'].isin(drop_list)] # drop some industries
 
 # export
 df_export = df
 df_export = df_export.round(2)
-df_export = df_export.sort_values(by=['NAV_per_share_to_price','from_low'],ascending=[False,True], na_position='first')
+#df_export = df_export.sort_values(by=['NAV_per_share_to_price','from_low'],ascending=[False,True], na_position='first')
 df_export = df_export.drop_duplicates(subset='symbol', keep="last")
-df_export.to_excel(os.path.join(cwd,output_folder,"5_df_export.xlsx"),sheet_name='output', index=False)
+df_export.reset_index(drop=True, inplace=True)
+df_export.to_csv(os.path.join(cwd,input_folder,"3_narrowed_filter.csv"))
 #print(df_export)
+
+# export tickers
+stocks = df_export[['symbol']].sort_values(by=['symbol'], ascending= True).drop_duplicates()
+stocks.to_csv(os.path.join(cwd,input_folder,"3_tickers_narrowed.csv"), index = False)

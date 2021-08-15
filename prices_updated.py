@@ -28,12 +28,12 @@ for path in paths:
     path_in_str = str(path)
     try:
         if ('etfs|-|_') not in path_in_str: # loop through folders and filter out weird shit
-            test1 = pd.read_csv(path,low_memory=False)
-            test1['<DATE>'] = test1['<DATE>'].astype(int)
-            test1 = test1[test1['<DATE>'] > yearago]
-            test1['symbol'] = test1['<TICKER>'].str.replace(".US","",regex=True)
+            tickers_parse = pd.read_csv(path,low_memory=False)
+            tickers_parse['<DATE>'] = tickers_parse['<DATE>'].astype(int)
+            tickers_parse = tickers_parse[tickers_parse['<DATE>'] > yearago]
+            tickers_parse['symbol'] = tickers_parse['<TICKER>'].str.replace(".US","",regex=True)
             #,<TICKER>,<PER>,<DATE>,<TIME>,<OPEN>,<HIGH>,<LOW>,<CLOSE>,<VOL>,<OPENINT>
-            prices_table.append(test1)
+            prices_table.append(tickers_parse)
     except:
         pass
 
