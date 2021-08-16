@@ -14,7 +14,7 @@ prices_folder = "data"
 output_folder = "0_output"
 
 tickers_narrowed = pd.read_csv(os.path.join(cwd,input_folder,"3_tickers_narrowed.csv"))
-tickers_narrowed = tickers_narrowed.head(n=2)
+tickers_narrowed = tickers_narrowed #.head(n=2)
 ticker_narrowed = tickers_narrowed.values.tolist()
 tickers = ' '.join(tickers_narrowed["symbol"].astype(str)).strip()
 #print(tickers)
