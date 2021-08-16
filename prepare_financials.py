@@ -14,7 +14,7 @@ prices_folder = "data"
 output_folder = "0_output"
 
 tickers_narrowed = pd.read_csv(os.path.join(cwd,input_folder,"3_tickers_narrowed.csv"))
-tickers_narrowed = tickers_narrowed #.head(n=2)
+tickers_narrowed = tickers_narrowed #.head(n=1)
 ticker_narrowed = tickers_narrowed.values.tolist()
 tickers = ' '.join(tickers_narrowed["symbol"].astype(str)).strip()
 #print(tickers)
@@ -44,8 +44,14 @@ for t in tickers.split(' '):
         df_T.rename(columns={'netTangibleAssets':'NAV'}, inplace=True)
         df_T['WC'] = df_T['totalCurrentAssets'] - df_T['totalCurrentLiabilities']
         df_T['symbol'] = t
-        #append
-        financials_table.append(df_T)
+        df_T['Period'] = df_T.index
+
+        # get "quote data"
+        df_yf_quote_data = get_quote_data(t)
+        df_yf_quote_data_1 = pd.Series(df_yf_quote_data)
+        df_yf_quote_data_2 = pd.DataFrame(df_yf_quote_data_1).T
+        df_yf_quote_data_2.reset_index(drop=False, inplace=True)
+        df_yf_quote_data_2 = df_yf_quote_data_2.drop(columns=['index'])
 
         #get company info
         df_yf_info = get_company_info(t)
@@ -55,7 +61,27 @@ for t in tickers.split(' '):
         df_info = df_yf_info.T
         df_info['symbol'] = t
         df_info.reset_index(drop=False, inplace=True)
-        company_info.append(df_info)
+
+        # merge
+        to_merge = df_T
+        df_merged = pd.merge(df_T, df_yf_quote_data_2, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
+        df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
+        df_merged.drop_duplicates()
+        df_merged.reset_index(inplace=True)
+
+        to_merge = df_merged
+        df_merged = pd.merge(to_merge, df_info, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
+        df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
+        df_merged.drop_duplicates()
+        df_merged.reset_index(inplace=True)
+
+        #append
+        cols_to_order = ['Period', 'symbol', 'NAV', 'sharesOutstanding']
+        new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
+        df_merged = df_merged[new_columns]
+        df_merged.drop(columns=['level_0','index'])
+        financials_table.append(df_merged)
+
     except:
         pass
 
@@ -65,7 +91,4 @@ financials_table.drop_duplicates()
 financials_table.to_csv(os.path.join(cwd,input_folder,"4_fundamentals_processed.csv"))
 financials_table.to_excel(os.path.join(cwd,input_folder,"4_fundamentals_processed.xlsx"))
 
-company_info = pd.concat(company_info)
-company_info.drop_duplicates()
-company_info.to_excel(os.path.join(cwd,input_folder,"4_company_info.xlsx"))
 
