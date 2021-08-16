@@ -19,6 +19,7 @@ ticker_narrowed = tickers_narrowed.values.tolist()
 tickers = ' '.join(tickers_narrowed["symbol"].astype(str)).strip()
 print(tickers)
 
+
 financials_table = []
 for t in tickers.split(' '):
     #try:
