@@ -10,11 +10,13 @@ Designed in PyCharm, but will work anywhere. The code relies on 2 things: stooq 
     c. therefore there is a pre-filter for some stocks to reduce requests to yahoo_fin.
    
 1. Download from https://static.stooq.com/db/h/d_us_txt.zip
-2. Create folders 0_input and 0_output
-3. Extract "data" folder from stooq into 0_input
-4. Run "main.py" to loop through all the scripts
-5. "narrowed filter" reduces the number of stocks to the ones that didnt increase in price in last year and also are below 5 bucks.
-6. Check file with highest numeration to see the processed results in a neat view. everything in between is for checks / curiosity.
+2. Run "main.py" to loop through all the scripts
+3. If error, extract "data" folder from stooq into 0_input
+4. "narrowed filter" reduces the number of stocks universe to apply yahoo_fin for.
+   # filter on different parameters
+   df = df.loc[(df['price'] < 5)] # price tag less than $5 
+   df = df.loc[(df['from_low'] < 15)] # less than 15% increase from the lowest point
+5. Check file with the highest numeration to see the processed results in a neat view. everything in between is for checks / curiosity.
 
 things to add in the future: 
 1. Info from options chains: mainly if there are options and what is the IV on nearest calls. Maybe open interest. 
