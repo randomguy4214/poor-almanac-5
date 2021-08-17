@@ -47,7 +47,7 @@ df_merged['FCF_per_share'] = (df_merged['totalCashFromOperatingActivities'] - df
 df_merged['marg'] = (df_merged['totalRevenue'] - df_merged['costOfRevenue']) / df_merged['totalRevenue'] * 100
 
 # reorder and drop irrelevant columns
-cols_to_order = ['Date', 'symbol', 'price', 'low', 'high', 'from_low', 'from_high', 'NAV_per_share_to_price', 'FCF_per_share', 'marg', 'longName', 'industry']
+cols_to_order = ['symbol', 'price', 'low', 'high', 'from_low', 'from_high', 'NAV_per_share_to_price', 'FCF_per_share', 'marg', 'longName', 'industry']
 new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
 #df_merged = df_merged[new_columns]
 # df_merged = df_merged.round(2)
