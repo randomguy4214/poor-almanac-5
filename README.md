@@ -3,8 +3,8 @@
 combining fundamentals of companies and latest prices into one excel output. 
 goal is to compare fundamentals with market 
 
-Designed in PyCharm, but will work anywhere
-The code relies on 2 things: stooq and yahoo_fin 
+Designed in PyCharm, but will work anywhere. The code relies on 2 things: stooq and yahoo_fin 
+
     a. yahoo_fin instead of yfinance or anything else - good luck finding free / opensource api that pulls fundamentals 
     b. similar reason for stooq as an input for prices - yahoo/anything else will block you after a few requests
     c. therefore there is a pre-filter for some stocks to reduce requests to yahoo_fin.
