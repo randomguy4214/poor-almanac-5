@@ -79,7 +79,7 @@ for t in tickers.split(' '):
         cols_to_order = ['Period', 'symbol', 'NAV', 'sharesOutstanding']
         new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
         df_merged = df_merged[new_columns]
-        df_merged.drop(columns=['level_0','index'])
+        df_merged.drop(['level_0','index'], axis = 1, inplace=True)
         financials_table.append(df_merged)
 
     except:

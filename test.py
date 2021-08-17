@@ -12,16 +12,6 @@ input_folder = "0_input"
 prices_folder = "data"
 output_folder = "0_output"
 
-tickers_narrowed = pd.read_csv(os.path.join(cwd,input_folder,"3_tickers_narrowed.csv"))
-tickers_narrowed = tickers_narrowed.head(n=1)
-ticker_narrowed = tickers_narrowed.values.tolist()
-tickers = ' '.join(tickers_narrowed["symbol"].astype(str)).strip()
-#print(tickers)
-
-from yahoo_fin.stock_info import * #initiate yahoo_fin
-financials_table = []
-company_info = []
-for t in tickers.split(' '):
 
 
 

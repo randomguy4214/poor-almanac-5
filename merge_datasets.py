@@ -14,12 +14,17 @@ pd.options.mode.use_inf_as_na = True
 cwd = os.getcwd()
 input_folder = "0_input"
 prices_folder = "data"
-output_folder = "0_output"
 
-# import CSVs
-df_prices = pd.read_csv(os.path.join(cwd,input_folder,"2_prices_additional_calc.csv"), index_col=0)
-df_fundamentals_processed = pd.read_csv(os.path.join(cwd,input_folder,"4_fundamentals_processed.csv"))
-df_fundamentals_processed  = df_fundamentals_processed[df_fundamentals_processed['endDate'] == "t0"]
+# import files
+drop_list_ticker = pd.read_csv(os.path.join(cwd,input_folder,"0_drop_list_ticker.csv"))
+drop_list_industry = pd.read_csv(os.path.join(cwd,input_folder,"0_drop_list_industry.csv"))
+df_prices = pd.read_csv(os.path.join(cwd,input_folder,"3_narrowed_filter.csv"), low_memory=False)
+df_fundamentals_processed = pd.read_excel(os.path.join(cwd,input_folder,"4_fundamentals_processed.xlsx"))
+
+#some additional filtering
+df_prices = df_prices[df_prices['Date'] == df_prices['Date'].max()] #double check
+df_fundamentals_processed = df_fundamentals_processed[df_fundamentals_processed['Period'] == "t0"]
+df_fundamentals_processed = df_fundamentals_processed[df_fundamentals_processed['country'] == "United States"]
 
 # merge data sets
 df_merged = pd.merge(df_prices, df_fundamentals_processed, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
@@ -27,23 +32,31 @@ df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inpl
 df_merged.drop_duplicates()
 df_merged.reset_index(inplace=True)
 
-# divide everything by 1000
+# filter on tickers and industries
+drop_list = drop_list_ticker['symbol'].tolist()
+df_merged = df_merged[~df_merged['symbol'].isin(drop_list)] # drop some tickers
+drop_list = drop_list_industry['Industry'].tolist()
+df_merged = df_merged[~df_merged['industry'].isin(drop_list)] # drop some tickers
 
 # calculate additional variables
-df_merged['NAV_per_share'] = df_merged['NAV'] / df_merged['Shares (Diluted)']
-df_merged['NAV_per_share_to_price'] = df_merged.NAV_per_share / df_merged['price']
-df_merged['FCF_per_share'] = (df_merged['Net Cash from Operating Activities'] - df_merged['Net Cash from Investing Activities']) / df_merged['Shares (Diluted)']
-df_merged['marg'] = df_merged['Gross Profit'] / df_merged['Revenue'] * 100
+df_merged['NAV_per_share'] = df_merged['NAV'] / df_merged['sharesOutstanding']
+df_merged['NAV_per_share_to_price'] = df_merged['NAV_per_share'] / df_merged['price']
+#df_merged['FCF_per_share'] = (df_merged['Net Cash from Operating Activities'] - df_merged['Net Cash from Investing Activities']) / df_merged['Shares (Diluted)']
+df_merged['FCF_per_share'] = (df_merged['totalCashFromOperatingActivities'] - df_merged['capitalExpenditures']) / df_merged['sharesOutstanding']
+#df_merged['marg'] = df_merged['Gross Profit'] / df_merged['Revenue'] * 100
+df_merged['marg'] = (df_merged['totalRevenue'] - df_merged['costOfRevenue']) / df_merged['totalRevenue'] * 100
 
 # reorder and drop irrelevant columns
-cols_to_order = ['Date','symbol', 'price', 'low', 'high', 'from_low', 'from_high', 'NAV_per_share_to_price', 'FCF_per_share', 'marg']
+cols_to_order = ['Date', 'symbol', 'price', 'low', 'high', 'from_low', 'from_high', 'NAV_per_share_to_price', 'FCF_per_share', 'marg', 'longName', 'industry']
 new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
-df_merged = df_merged[new_columns]
-df_merged = df_merged.round(2)
-df_merged.drop(['SimFinId', 'Ticker', 'Currency', 'index', 'Publish Date', 'Restated Date', 'Source', 'Sector', 'IndustryId', 'NAV_per_share'], axis = 1, inplace=True)
+#df_merged = df_merged[new_columns]
+# df_merged = df_merged.round(2)
 
+df_merged_2 = df_merged[cols_to_order]
+df_merged_2 = df_merged_2.round(2)
+df_merged_2.sort_values(by=['NAV_per_share_to_price','from_low'], ascending=[False,True], inplace=True)
 # export full fundamentals
-df_merged.to_csv(os.path.join(cwd,input_folder,'4_fundamentals.csv'), index=False)
+df_merged_2.to_excel(os.path.join(cwd,input_folder,'5_merged.xlsx'), index=False)
 
 
 

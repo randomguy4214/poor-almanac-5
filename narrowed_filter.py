@@ -31,12 +31,6 @@ df = df.loc[(df['price'] < 5)] # price tag less than $5
 df = df.loc[(df['from_low'] < 15)] # less than x% increase from lowest point
 #df = df.loc[(df['NAV_per_share_to_price'] > 0.5)] # Book to market is less than x%
 
-# filter on tickers and industries
-drop_list_ticker = pd.read_csv(os.path.join(cwd,input_folder,drop_list_folder,"drop_list_ticker.csv"))
-drop_list_industry = pd.read_csv(os.path.join(cwd,input_folder,drop_list_folder,"drop_list_industry.csv"))
-drop_list = drop_list_ticker['symbol'].tolist()
-df = df[~df['symbol'].isin(drop_list)] # drop some tickers
-
 # export
 df_export = df
 df_export = df_export.round(2)

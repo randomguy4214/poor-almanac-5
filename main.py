@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-import check_folders
-print('0 folders checked - done') #not implemented yet
+import checks
+print('0 checks - done')
 
 import prices_updated
 print('1 prices_updated - done')
@@ -16,6 +16,6 @@ import prepare_financials
 print('4 prepare_financials - done')
 
 import merge_datasets
-print('4 merge_datasets - done')
+print('5 merge_datasets - done')
 
 
