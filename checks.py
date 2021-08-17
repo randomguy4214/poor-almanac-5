@@ -19,7 +19,7 @@ else:
 
 # check folder data
 if not os.path.exists(os.path.join(cwd,input_folder,prices_folder)):
-    print("bad! you need to donwload and unzip from https://static.stooq.com/db/h/d_us_txt.zip")
+    print("bad! you need to download and unzip from https://static.stooq.com/db/h/d_us_txt.zip")
     print("please download first. exiting the code")
     sys.exit()
 else:
