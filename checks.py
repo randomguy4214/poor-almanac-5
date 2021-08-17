@@ -23,7 +23,7 @@ if not os.path.exists(os.path.join(cwd,input_folder,prices_folder)):
     print("please download first. exiting the code")
     sys.exit()
 else:
-    print("good! folder data already exists. but are you sure it has the latest info? please go to ")
+    print("good! folder data already exists. but are you sure it has the latest info? please go to https://static.stooq.com/db/h/d_us_txt.zip")
 
 # check drop list tickers
 if not os.path.exists(os.path.join(cwd,input_folder,"0_drop_list_ticker.csv")):

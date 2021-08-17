@@ -9,12 +9,12 @@ The code relies on 2 things: stooq and yahoo_fin
     b. similar reason for stooq as an input for prices - yahoo/anything else will block you after a few requests
     c. therefore there is a pre-filter for some stocks to reduce requests to yahoo_fin.
    
-1. Download from https://stooq.com/db/h/ for US on a daily level
+1. Download from https://static.stooq.com/db/h/d_us_txt.zip
 2. Create folders 0_input and 0_output
 3. Extract "data" folder from stooq into 0_input
-4. Run "main.py" to loop through all the scripts ~~and you will get 2 files~~ 
-~~5. There is a huge filter in "prices_additional_calc" at the end of the code that will significantly impact the speed~~
-fix is coming soon.
+4. Run "main.py" to loop through all the scripts
+5. "narrowed filter" reduces the number of stocks to the ones that didnt increase in price in last year and also are below 5 bucks.
+6. Check file with highest numeration to see the processed results in a neat view. everything in between is for checks / curiosity.
 
 things to add in the future: 
 1. Info from options chains: mainly if there are options and what is the IV on nearest calls. Maybe open interest. 
