@@ -1,7 +1,7 @@
 # poor-almanac-5
 
 combining fundamentals of companies and latest prices into one excel output. 
-goal is to compare fundamentals with market 
+goal is to compare fundamentals with the market.
 
 Designed in PyCharm, but will work anywhere. The code relies on 2 things: stooq and yahoo_fin 
 
