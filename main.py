@@ -15,7 +15,7 @@ print('3 narrowed_filter - initiating')
 import narrowed_filter
 print('3 narrowed_filter - done')
 
-print('4 prepare_financials - initiating')
+print('4 prepare_financials - initiating. Printing Stock and Progress')
 import prepare_financials
 print('4 prepare_financials - done')
 
