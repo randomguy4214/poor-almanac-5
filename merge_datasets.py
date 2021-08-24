@@ -39,8 +39,8 @@ drop_list_ticker = drop_list['symbol'].tolist()
 df_merged = df_merged[~df_merged['symbol'].isin(drop_list_ticker)] # drop some tickers
 drop_list_industry = drop_list['industry'].tolist()
 df_merged = df_merged[~df_merged['industry'].isin(drop_list_industry)] # drop some industries
-drop_list_country = drop_list['industry'].tolist()
-df_merged = df_merged[~df_merged['industry'].isin(drop_list_country)] # drop some industries
+drop_list_country = drop_list['country'].tolist()
+df_merged = df_merged[~df_merged['country'].isin(drop_list_country)] # drop some industries
 
 # calculate additional variables
 df_merged['NAV_per_share'] = df_merged['NAV'] / df_merged['sharesOutstanding']
