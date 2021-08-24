@@ -53,7 +53,7 @@ cols_to_order = ['symbol', 'price', 'low', 'high', 'from_low', 'from_high', 'B/P
 new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
 df = df_merged[cols_to_order]
 df = df.round(2)
-df.sort_values(by=['B/P','from_low'], ascending=[False,True], inplace=True)
+df.sort_values(by=['B/P', 'from_low'], ascending=[False,True], inplace=True)
 df = df.loc[(df['from_low'] < 20)] # less than x% increase from lowest point
 
 # export
