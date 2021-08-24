@@ -31,6 +31,9 @@ df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inpl
 df_merged.drop_duplicates()
 df_merged.reset_index(inplace=True)
 
+# drop if no longName (usually filters out trash companies that dont have info on yahoo finance)
+df_merged = df_merged[~df_merged['longName'].isnull()]
+
 # filter on tickers and industries
 drop_list_ticker = drop_list['symbol'].tolist()
 df_merged = df_merged[~df_merged['symbol'].isin(drop_list_ticker)] # drop some tickers
