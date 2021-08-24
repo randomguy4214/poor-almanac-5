@@ -26,19 +26,11 @@ else:
     print("good! folder data already exists. but are you sure it has the latest info? please go to https://static.stooq.com/db/h/d_us_txt.zip")
 
 # check drop list tickers
-if not os.path.exists(os.path.join(cwd,input_folder,"0_drop_list_ticker.csv")):
-    drop_list_ticker_dict = {'symbol': ['AGOS']}
-    drop_list_ticker = pd.DataFrame(data=drop_list_ticker_dict)
-    drop_list_ticker.to_csv(os.path.join(cwd,input_folder,"0_drop_list_ticker.csv"))
-    print("drop_list_ticker created")
+if not os.path.exists(os.path.join(cwd,input_folder,"0_drop_list.csv")):
+    drop_list = pd.DataFrame({'symbol': ['AGOS'],
+                       'industry': ['Biotechnology'],
+                       'country': ['China']})
+    drop_list.to_csv(os.path.join(cwd,input_folder,"0_drop_list.csv"))
+    print("drop_list created")
 else:
-    print("good! drop_list_ticker already exists")
-
-# check drop list industries
-if not os.path.exists(os.path.join(cwd,input_folder,"0_drop_list_industry.csv")):
-    drop_list_industry_dict = {'Industry': ['Biotechnology']}
-    drop_list_industry = pd.DataFrame(data=drop_list_industry_dict)
-    drop_list_industry.to_csv(os.path.join(cwd,input_folder,"0_drop_list_industry.csv"))
-    print("drop_list_industry created")
-else:
-    print("good! drop_list_industry already exists")
+    print("good! drop_list already exists")

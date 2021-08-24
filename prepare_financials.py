@@ -15,7 +15,8 @@ output_folder = "0_output"
 
 # prepare tickers list
 tickers_narrowed = pd.read_csv(os.path.join(cwd,input_folder,"3_tickers_narrowed.csv"))
-tickers_narrowed = tickers_narrowed #.head(n=3)
+#tickers_narrowed = tickers_narrowed[tickers_narrowed['symbol'].str.contains("ARTAW|ALTUW|UROY")] #test tickers
+tickers_narrowed = tickers_narrowed #.head(n=3)  #test tickers
 ticker_narrowed = tickers_narrowed.values.tolist()
 tickers = ' '.join(tickers_narrowed["symbol"].astype(str)).strip()
 
@@ -96,4 +97,8 @@ financials_table.drop_duplicates()
 financials_table.to_csv(os.path.join(cwd,input_folder,"4_fundamentals_processed.csv"))
 financials_table.to_excel(os.path.join(cwd,input_folder,"4_fundamentals_processed.xlsx"))
 
+#some code to consider for prices import
+#data = yf.download(tickers_string, start="2020-08-15", end="2021-08-15",
+#                   group_by="ticker",  threads = True)
+#data.to_csv(os.path.join(cwd,input_folder,"yf_test2.csv"))
 

@@ -16,15 +16,14 @@ input_folder = "0_input"
 prices_folder = "data"
 
 # import files
-drop_list_ticker = pd.read_csv(os.path.join(cwd,input_folder,"0_drop_list_ticker.csv"))
-drop_list_industry = pd.read_csv(os.path.join(cwd,input_folder,"0_drop_list_industry.csv"))
+drop_list = pd.read_csv(os.path.join(cwd,input_folder,"0_drop_list.csv"))
 df_prices = pd.read_csv(os.path.join(cwd,input_folder,"3_narrowed_filter.csv"), low_memory=False)
 df_fundamentals_processed = pd.read_excel(os.path.join(cwd,input_folder,"4_fundamentals_processed.xlsx"))
 
 #some additional filtering
 df_prices = df_prices[df_prices['Date'] == df_prices['Date'].max()] #double check
 df_fundamentals_processed = df_fundamentals_processed[df_fundamentals_processed['Period'] == "t0"]
-df_fundamentals_processed = df_fundamentals_processed[df_fundamentals_processed['country'] == "United States"]
+#df_fundamentals_processed = df_fundamentals_processed[df_fundamentals_processed['country'] == "United States"]
 
 # merge data sets
 df_merged = pd.merge(df_prices, df_fundamentals_processed, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
@@ -33,15 +32,16 @@ df_merged.drop_duplicates()
 df_merged.reset_index(inplace=True)
 
 # filter on tickers and industries
-drop_list = drop_list_ticker['symbol'].tolist()
-df_merged = df_merged[~df_merged['symbol'].isin(drop_list)] # drop some tickers
-drop_list = drop_list_industry['Industry'].tolist()
-df_merged = df_merged[~df_merged['industry'].isin(drop_list)] # drop some tickers
+drop_list_ticker = drop_list['symbol'].tolist()
+df_merged = df_merged[~df_merged['symbol'].isin(drop_list_ticker)] # drop some tickers
+drop_list_industry = drop_list['industry'].tolist()
+df_merged = df_merged[~df_merged['industry'].isin(drop_list_industry)] # drop some industries
+drop_list_country = drop_list['industry'].tolist()
+df_merged = df_merged[~df_merged['industry'].isin(drop_list_country)] # drop some industries
 
 # calculate additional variables
 df_merged['NAV_per_share'] = df_merged['NAV'] / df_merged['sharesOutstanding']
 df_merged['NAV_per_share_to_price'] = df_merged['NAV_per_share'] / df_merged['price']
-#df_merged['FCF_per_share'] = (df_merged['Net Cash from Operating Activities'] - df_merged['Net Cash from Investing Activities']) / df_merged['Shares (Diluted)']
 df_merged['FCF_per_share'] = (df_merged['totalCashFromOperatingActivities'] - df_merged['capitalExpenditures']) / df_merged['sharesOutstanding']
 #df_merged['marg'] = df_merged['Gross Profit'] / df_merged['Revenue'] * 100
 df_merged['marg'] = (df_merged['totalRevenue'] - df_merged['costOfRevenue']) / df_merged['totalRevenue'] * 100
