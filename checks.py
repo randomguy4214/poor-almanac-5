@@ -28,7 +28,7 @@ else:
 # check drop list tickers
 if not os.path.exists(os.path.join(cwd,input_folder,"0_drop_list.xlsx")):
     drop_list = pd.DataFrame({
-        'symbol': ['AGOS', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        'symbol': ['AGOS', 'WPG', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         'industry': ['Biotechnology', 'Gold', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         'country': ['China', 'Macau', 'Argentina', 'Chile', 'South Africa', 'Cayman Islands', 'Russia', 'India'
                     , 'Greece', 'Brazil', 'Bermuda', 'Japan', 'Australia', 'Cyprus', 'Denmark', 'Peru', 'Spain'
