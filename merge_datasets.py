@@ -54,7 +54,7 @@ new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
 df = df_merged[cols_to_order]
 df = df.round(2)
 df.sort_values(by=['B/P', 'from_low'], ascending=[False,True], inplace=True)
-df = df.loc[(df['from_low'] < 20)] # less than x% increase from lowest point
+df = df.loc[(df['from_low'] < 15)] # less than x% increase from lowest point
 
 # export
 df.to_excel(os.path.join(cwd,input_folder,'5_merged.xlsx'), index=False)
