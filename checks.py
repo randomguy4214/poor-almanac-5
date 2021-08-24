@@ -26,11 +26,13 @@ else:
     print("good! folder data already exists. but are you sure it has the latest info? please go to https://static.stooq.com/db/h/d_us_txt.zip")
 
 # check drop list tickers
-if not os.path.exists(os.path.join(cwd,input_folder,"0_drop_list.csv")):
-    drop_list = pd.DataFrame({'symbol': ['AGOS'],
-                       'industry': ['Biotechnology'],
-                       'country': ['China']})
-    drop_list.to_csv(os.path.join(cwd,input_folder,"0_drop_list.csv"))
+if not os.path.exists(os.path.join(cwd,input_folder,"0_drop_list.xlsx")):
+    drop_list = pd.DataFrame({
+        'symbol': ['AGOS', 0, 0, 0, 0, 0, 0],
+        'industry': ['Biotechnology', 0, 0, 0, 0, 0, 0],
+        'country': ['China', 'Macau', 'Argentina', 'Chile', 'South Africa', 'Cayman Islands', 'Russia']
+                             })
+    drop_list.to_excel(os.path.join(cwd,input_folder,"0_drop_list.xlsx"))
     print("drop_list created")
 else:
     print("good! drop_list already exists")
