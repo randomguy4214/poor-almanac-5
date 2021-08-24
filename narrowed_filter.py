@@ -22,14 +22,11 @@ df['price'] = df['price'].astype(float)
 
 # filter out irrelevant
 df = df.loc[(df['Date'] == max(df['Date']))] # find max date and drop stocks that are not up-to-date
-df = df[~df['symbol'].str.contains('-WS')] # filter out warrants
-df = df[~df['symbol'].str.contains('-H')] # filter out idk
-df = df[~df['symbol'].str.contains('-I')] # filter out idk
+df = df[~df['symbol'].str.contains('-WS|-H|-I')] # filter out warrants
 
 # filter on different parameters
 df = df.loc[(df['price'] < 5)] # price tag less than $5
-df = df.loc[(df['from_low'] < 15)] # less than x% increase from lowest point
-#df = df.loc[(df['NAV_per_share_to_price'] > 0.5)] # Book to market is less than x%
+#df = df.loc[(df['from_low'] < 15)] # less than x% increase from lowest point
 
 # export
 df_export = df
