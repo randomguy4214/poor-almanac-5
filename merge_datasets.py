@@ -44,16 +44,16 @@ df_merged = df_merged[~df_merged['country'].isin(drop_list_country)] # drop some
 
 # calculate additional variables
 df_merged['NAV_per_share'] = df_merged['NAV'] / df_merged['sharesOutstanding']
-df_merged['NAV/SO/P'] = df_merged['NAV_per_share'] / df_merged['price']
+df_merged['B/P'] = df_merged['NAV_per_share'] / df_merged['price']
 df_merged['FCF_per_share'] = (df_merged['totalCashFromOperatingActivities'] - df_merged['capitalExpenditures']) / df_merged['sharesOutstanding']
 df_merged['marg'] = (df_merged['totalRevenue'] - df_merged['costOfRevenue']) / df_merged['totalRevenue'] * 100
 
 # reorder and drop irrelevant columns
-cols_to_order = ['symbol', 'price', 'low', 'high', 'from_low', 'from_high', 'NAV/SO/P', 'FCF_per_share', 'marg', 'longName', 'industry', 'country']
+cols_to_order = ['symbol', 'price', 'low', 'high', 'from_low', 'from_high', 'B/P', 'FCF_per_share', 'marg', 'longName', 'industry', 'country']
 new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
 df = df_merged[cols_to_order]
 df = df.round(2)
-df.sort_values(by=['NAV/SO/P','from_low'], ascending=[False,True], inplace=True)
+df.sort_values(by=['B/P','from_low'], ascending=[False,True], inplace=True)
 df = df.loc[(df['from_low'] < 20)] # less than x% increase from lowest point
 
 # export
