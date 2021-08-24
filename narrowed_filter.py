@@ -25,7 +25,7 @@ df = df.loc[(df['Date'] == max(df['Date']))] # find max date and drop stocks tha
 df = df[~df['symbol'].str.contains('-WS|-H|-I')] # filter out warrants
 
 # filter on different parameters
-df = df.loc[(df['price'] < 5)] # price tag less than $5
+#df = df.loc[(df['price'] < 5)] # price tag less than $5
 #df = df.loc[(df['from_low'] < 20)] # less than x% increase from lowest point
 
 # export
