@@ -52,8 +52,8 @@ df_merged['marg'] = (df_merged['totalRevenue'] - df_merged['costOfRevenue']) / d
 cols_to_order = ['symbol', 'price', 'low', 'high', 'from_low', 'from_high', 'B/P', 'FCF/S', 'marg', 'longName', 'industry', 'country']
 new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
 df = df_merged[cols_to_order]
-df = df.round(2)
-df.sort_values(by=['B/P', 'from_low'], ascending=[False,True], inplace=True)
+df = df.round(2).fillna(method="ffill")
+df.sort_values(by=['B/P', 'from_low'], ascending=[False,True], inplace=True, na_position ='last')
 df = df.loc[(df['from_low'] < 15)] # less than x% increase from lowest point
 
 # export
