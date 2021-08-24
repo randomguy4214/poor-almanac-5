@@ -18,7 +18,7 @@ prices_folder = "data"
 # import files
 drop_list = pd.read_excel(os.path.join(cwd,input_folder,"0_drop_list.xlsx"))
 df_prices = pd.read_csv(os.path.join(cwd,input_folder,"3_narrowed_filter.csv"), low_memory=False)
-df_fundamentals_processed = pd.read_csv(os.path.join(cwd,input_folder,"4_fundamentals_processed.csv"))
+df_fundamentals_processed = pd.read_csv(os.path.join(cwd,input_folder,"4_fundamentals_processed.csv"), low_memory=False)
 
 #some additional filtering
 df_prices = df_prices[df_prices['Date'] == df_prices['Date'].max()] #double check
