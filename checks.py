@@ -29,9 +29,12 @@ else:
 if not os.path.exists(os.path.join(cwd,input_folder,"0_drop_list.xlsx")):
     drop_list = pd.DataFrame({
         'symbol': ['AGOS', 'WPG', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
         'industry': ['Biotechnology', 'Gold', 'Oil & Gas E&P', 'Oil & Gas Equipment & Services'
                     , 'Oil & Gas Refining & Marketing', 'Other Industrial Metals & Mining'
-                    , 'Other Precious Metals & Mining', 'Silver', 'Asset Management', 'Insurance—Property & Casualty', 'Shell Companies', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    , 'Other Precious Metals & Mining', 'Silver', 'Asset Management', 'Insurance—Property & Casualty'
+                    , 'Shell Companies', 'Banks—Regional', 'Insurance—Life', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
         'country': ['China', 'Macau', 'Argentina', 'Chile', 'South Africa', 'Cayman Islands', 'Russia', 'India'
                     , 'Greece', 'Brazil', 'Bermuda', 'Japan', 'Australia', 'Cyprus', 'Denmark', 'Peru', 'Spain'
                     , 'Singapore', 'Turkey', 'Israel', 'Hong Kong', 'Netherlands', 'Philippines']
