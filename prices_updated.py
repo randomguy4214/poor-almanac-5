@@ -34,6 +34,7 @@ for path in paths:
             tickers_parse['symbol'] = tickers_parse['<TICKER>'].str.replace(".US","",regex=True)
             #,<TICKER>,<PER>,<DATE>,<TIME>,<OPEN>,<HIGH>,<LOW>,<CLOSE>,<VOL>,<OPENINT>
             prices_table.append(tickers_parse)
+            print(path)
     except:
         pass
 
