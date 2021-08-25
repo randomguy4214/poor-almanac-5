@@ -59,6 +59,14 @@ for t in tickers.split(' '):
         df_yf_quote_data_2.reset_index(drop=False, inplace=True)
         df_yf_quote_data_2 = df_yf_quote_data_2.drop(columns=['index'])
 
+        #get statistics
+        df_yf_stats = get_stats(t)
+        df_yf_stats.reset_index(drop=True, inplace=True)
+        df_yf_stats.set_index('Attribute', inplace=True)
+        df_stats = df_yf_stats.T
+        df_stats['symbol'] = t
+        df_stats.reset_index(drop=True, inplace=True)
+
         #get company info
         df_yf_info = get_company_info(t)
         df_yf_info.reset_index(drop=False, inplace=True)
@@ -69,23 +77,32 @@ for t in tickers.split(' '):
         df_info.reset_index(drop=False, inplace=True)
 
         # merge
+        # financials to quote data
         to_merge = df_T
         df_merged = pd.merge(df_T, df_yf_quote_data_2, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
         df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
         df_merged.drop_duplicates()
-        df_merged.reset_index(inplace=True)
+        df_merged.reset_index(drop=True, inplace=True)
 
+        # to stats
+        to_merge = df_merged
+        df_merged = pd.merge(to_merge, df_stats, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
+        df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
+        df_merged.drop_duplicates()
+        df_merged.reset_index(drop=True, inplace=True)
+
+        # to info
         to_merge = df_merged
         df_merged = pd.merge(to_merge, df_info, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
         df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
         df_merged.drop_duplicates()
-        df_merged.reset_index(inplace=True)
+        df_merged.reset_index(drop=True, inplace=True)
 
-        #append
+        # append
         cols_to_order = ['Period', 'symbol', 'NAV', 'sharesOutstanding']
         new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
         df_merged = df_merged[new_columns]
-        df_merged.drop(['level_0','index'], axis = 1, inplace=True)
+        #df_merged.drop(['level_0','index'], axis = 1, inplace=True)
         financials_table.append(df_merged)
 
     except:

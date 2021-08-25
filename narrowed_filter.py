@@ -31,7 +31,6 @@ df = df[~df['symbol'].str.contains('-WS|-H|-I')] # filter out warrants
 # export
 df_export = df
 df_export = df_export.round(2)
-#df_export = df_export.sort_values(by=['NAV_per_share_to_price','from_low'],ascending=[False,True], na_position='first')
 df_export = df_export.drop_duplicates(subset='symbol', keep="last")
 df_export.reset_index(drop=True, inplace=True)
 df_export.to_csv(os.path.join(cwd,input_folder,"3_narrowed_filter.csv"))
