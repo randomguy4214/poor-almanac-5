@@ -28,13 +28,13 @@ else:
 # check drop list tickers
 if not os.path.exists(os.path.join(cwd,input_folder,"0_drop_list.xlsx")):
     drop_list = pd.DataFrame({
-        'symbol': ['AGOS', 'WPG', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        'symbol': ['AGOS', 'WPG', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         'industry': ['Biotechnology', 'Gold', 'Oil & Gas E&P', 'Oil & Gas Equipment & Services'
                     , 'Oil & Gas Refining & Marketing', 'Other Industrial Metals & Mining'
-                    , 'Other Precious Metals & Mining', 'Silver', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    , 'Other Precious Metals & Mining', 'Silver', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         'country': ['China', 'Macau', 'Argentina', 'Chile', 'South Africa', 'Cayman Islands', 'Russia', 'India'
                     , 'Greece', 'Brazil', 'Bermuda', 'Japan', 'Australia', 'Cyprus', 'Denmark', 'Peru', 'Spain'
-                    , 'Singapore', 'Turkey', 'Israel', 'Hong Kong', 'Netherlands']
+                    , 'Singapore', 'Turkey', 'Israel', 'Hong Kong', 'Netherlands', 'Philippines']
                              })
     drop_list.to_excel(os.path.join(cwd,input_folder,"0_drop_list.xlsx"))
     print("drop_list created")
