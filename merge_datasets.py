@@ -20,7 +20,7 @@ drop_list = pd.read_excel(os.path.join(cwd,input_folder,"0_drop_list.xlsx"))
 df_prices = pd.read_csv(os.path.join(cwd,input_folder,"3_narrowed_filter.csv"), low_memory=False)
 df_fundamentals_processed = pd.read_csv(os.path.join(cwd,input_folder,"4_fundamentals_processed.csv"), low_memory=False)
 
-#some additional filtering
+# select only latest data
 df_prices = df_prices[df_prices['Date'] == df_prices['Date'].max()] #double check
 df_fundamentals_processed = df_fundamentals_processed[df_fundamentals_processed['Period'] == "t0"]
 
@@ -40,9 +40,9 @@ df_merged = df_merged[~df_merged['country'].isin(drop_list_country)] # drop some
 
 # rename
 df = df_merged
-df['SR'] = df['Short % of Float (Aug 12, 2021) 4'].str.rstrip('%').replace(',','')
-df['OpMarg'] = df['Operating Margin (ttm)'].str.rstrip('%').replace(',','')
-df['%Ins'] = df['% Held by Insiders 1'].str.rstrip('%').replace(',','').astype('float')
+df['Short%'] = df['Short % of Float (Aug 12, 2021) 4'].str.rstrip('%').str.replace(',','').astype('float')
+df['OpMarg'] = df['Operating Margin (ttm)'].str.rstrip('%').str.replace(',','').astype('float')
+df['%Ins'] = df['% Held by Insiders 1'].str.rstrip('%').str.replace(',','').astype('float')
 df['BVPS'] = df['Book Value Per Share (mrq)']
 
 # fix from https://stackoverflow.com/questions/39684548/convert-the-string-2-90k-to-2900-or-5-2m-to-5200000-in-pandas-dataframe
@@ -80,7 +80,7 @@ cols_to_order = ['symbol', 'price'
     , 'from_low', 'from_high'
     , 'OpMarg'
     , 'longName', 'industry', 'country'
-    , 'SR', '%Ins'
+    , 'Short%', '%Ins'
     , 'B/S/P', 'BVPS'
     , 'WC/S/P'
     , 'WC/Debt', 'Total Debt (mrq)', 'FCF/S/P'
