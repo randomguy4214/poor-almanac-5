@@ -92,7 +92,3 @@ df_export.sort_values(by=['from_low'], ascending=[False], inplace=True, na_posit
 
 # export
 df_export.to_excel(os.path.join(cwd,input_folder,'5_df_output.xlsx'), index=False)
-
-
-
-
