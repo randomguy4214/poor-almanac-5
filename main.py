@@ -21,5 +21,6 @@ print('4 prepare_financials - done')
 
 import merge_datasets
 print('5 merge_datasets - done')
+print('please check which Short % of float is used (line 43)')
 
 

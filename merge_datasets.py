@@ -40,7 +40,7 @@ df_merged = df_merged[~df_merged['country'].isin(drop_list_country)] # drop some
 
 # rename
 df = df_merged
-df['SR'] = df['Short Ratio (Aug 12, 2021) 4'] #.str.rstrip('%').replace(',','')
+df['SR'] = df['Short % of Float (Aug 12, 2021) 4'].str.rstrip('%').replace(',','')
 df['OpMarg'] = df['Operating Margin (ttm)'].str.rstrip('%').replace(',','')
 df['%Ins'] = df['% Held by Insiders 1'].str.rstrip('%').replace(',','').astype('float')
 df['BVPS'] = df['Book Value Per Share (mrq)']
@@ -72,7 +72,7 @@ df['WC/Debt'] = df['WC'] / df['Debt']
 #df = df.loc[df['B/S/P'] > 0.8]
 
 # drop if no longName (usually filters out trash companies that dont have info on yahoo finance)
-#df = df_merged[~df_merged['longName'].isnull()]
+df = df_merged[~df_merged['longName'].isnull()]
 
 # reorder and select relevant columns
 cols_to_order = ['symbol', 'price'
