@@ -15,7 +15,7 @@ df['price'] = df['price'].astype(float)
 
 # filter out irrelevant
 df = df.loc[(df['Date'] == max(df['Date']))] # find max date and drop stocks that are not up-to-date
-df = df[~df['symbol'].str.contains('-WS|-H|-I|-B')] # filter out warrants
+df = df[~df['symbol'].str.contains('-WS|-H|-I|-B|-U|_B')] # filter out unnecessary
 
 # export
 df_export = df

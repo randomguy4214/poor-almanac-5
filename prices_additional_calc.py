@@ -12,8 +12,6 @@ output_folder = "0_output"
 
 # import prices
 prices_table = pd.read_csv(os.path.join(cwd,input_folder,"1_prices_updated.csv"))
-#test = prices_table[(prices_table == 'HRL').any(axis=1)] #debug
-#test.to_csv(os.path.join(cwd,input_folder,"test.csv"), index = False)
 
 # extract current price
 df_prices_highest_dates = prices_table[['symbol','Date']]
@@ -24,7 +22,6 @@ df_prices_highest_dates = df_prices_highest_dates.max()
 df_latest_price = pd.merge(df_prices_highest_dates, prices_table, how='inner', left_on=['symbol', 'Date'], right_on=['symbol', 'Date'], suffixes=('', '_drop'))
 df_latest_price.drop([col for col in df_latest_price.columns if 'drop' in col], axis=1, inplace=True)
 df_latest_price = df_latest_price[['symbol','Date','price']]
-#print(df_latest_price[(df_latest_price == 'HRL').any(axis=1)]) #debug
 
 # importing prices to find highest / lowest for 52week
 df_prices = prices_table
