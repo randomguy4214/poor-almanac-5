@@ -66,7 +66,7 @@ df['B/P'] = df['NAV_per_share'] / df['price']
 df['FCF/S'] = (df['totalCashFromOperatingActivities'] - df['capitalExpenditures']) / df['sharesOutstanding']
 df['FCF/S/P'] = df['FCF/S'] / df['price']
 df['marg'] = (df['totalRevenue'] - df['costOfRevenue']) / df['totalRevenue'] * 100
-df['WC/S'] = df['WC'] / df['sharesOutstanding']
+df['WC/S'] = df['WC'] / df['SO']
 df['WC/S/P'] = df['WC/S'] / df['price']
 df['WC/Debt'] = df['WC'] / df['Debt']
 
@@ -77,7 +77,7 @@ cols_to_order = ['symbol', 'price', 'low', 'high', 'from_low', 'from_high'
     , 'Short % of Shares Outstanding 4', '% Held by Insiders 1'
     , 'longName', 'industry', 'country'
     , 'B/P', 'Book Value Per Share (mrq)'
-    , 'Shares Outstanding 5', 'SO', 'WC/S/P'
+    , 'SO', 'WC/S/P'
     , 'WC/Debt', 'Debt'
     ]
 new_columns = cols_to_order + (df.columns.drop(cols_to_order).tolist())
