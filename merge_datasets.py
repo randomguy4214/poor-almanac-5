@@ -23,16 +23,12 @@ df_fundamentals_processed = pd.read_csv(os.path.join(cwd,input_folder,"4_fundame
 #some additional filtering
 df_prices = df_prices[df_prices['Date'] == df_prices['Date'].max()] #double check
 df_fundamentals_processed = df_fundamentals_processed[df_fundamentals_processed['Period'] == "t0"]
-#df_fundamentals_processed = df_fundamentals_processed[df_fundamentals_processed['country'] == "United States"]
 
 # merge data sets
 df_merged = pd.merge(df_prices, df_fundamentals_processed, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
 df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
 df_merged.drop_duplicates()
 df_merged.reset_index(inplace=True)
-
-# drop if no longName (usually filters out trash companies that dont have info on yahoo finance)
-df_merged = df_merged[~df_merged['longName'].isnull()]
 
 # filter on tickers and industries
 drop_list_ticker = drop_list['symbol'].tolist()
@@ -44,7 +40,10 @@ df_merged = df_merged[~df_merged['country'].isin(drop_list_country)] # drop some
 
 # rename
 df = df_merged
-df['SR'] = df['Short Ratio (Aug 12, 2021) 4'].astype(float)
+df['SR'] = df['Short Ratio (Aug 12, 2021) 4'] #.str.rstrip('%').replace(',','')
+df['OpMarg'] = df['Operating Margin (ttm)'].str.rstrip('%').replace(',','')
+df['%Ins'] = df['% Held by Insiders 1'].str.rstrip('%').replace(',','').astype('float')
+df['BVPS'] = df['Book Value Per Share (mrq)']
 
 # fix from https://stackoverflow.com/questions/39684548/convert-the-string-2-90k-to-2900-or-5-2m-to-5200000-in-pandas-dataframe
 df['Debt'] = (df['Total Debt (mrq)'].replace(r'[ktmbKTMB]+$', '', regex=True).astype(float) *
@@ -69,24 +68,27 @@ df['WC/S/P'] = df['WC/S'] / df['price']
 df['WC/Debt'] = df['WC'] / df['Debt']
 
 # filter
-df = df.loc[(df['from_low'] < 15) | (df['price'] < 5)] # less than x% increase from lowest point or less than 5 bucks
-df = df.loc[df['B/S/P'] > 0.8]
+#df = df.loc[(df['from_low'] < 15) | (df['price'] < 5)] # less than x% increase from lowest point or less than 5 bucks
+#df = df.loc[df['B/S/P'] > 0.8]
+
+# drop if no longName (usually filters out trash companies that dont have info on yahoo finance)
+#df = df_merged[~df_merged['longName'].isnull()]
 
 # reorder and select relevant columns
 cols_to_order = ['symbol', 'price'
     #, 'low', 'high'
     , 'from_low', 'from_high'
-    , 'Operating Margin (ttm)'
+    , 'OpMarg'
     , 'longName', 'industry', 'country'
-    , 'SR', '% Held by Insiders 1'
-    , 'B/S/P', 'Book Value Per Share (mrq)'
+    , 'SR', '%Ins'
+    , 'B/S/P', 'BVPS'
     , 'WC/S/P'
     , 'WC/Debt', 'Total Debt (mrq)', 'FCF/S/P'
     ]
 new_columns = cols_to_order + (df.columns.drop(cols_to_order).tolist())
 df_export = df[cols_to_order]
 df_export = df_export.round(2).fillna(method="ffill")
-df_export.sort_values(by=['B/S/P', 'from_low'], ascending=[False,True], inplace=True, na_position ='last')
+df_export.sort_values(by=['from_low'], ascending=[False], inplace=True, na_position ='last')
 
 # export
 df_export.to_excel(os.path.join(cwd,input_folder,'5_df_output.xlsx'), index=False)

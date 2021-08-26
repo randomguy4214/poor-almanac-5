@@ -2,13 +2,7 @@
 
 import pandas as pd
 import os
-pd.options.mode.chained_assignment = None  # default='warn'
-
-# formatting
-#pd.set_option('display.max_rows', None)
-pd.set_option('display.max_columns', None)
-pd.options.display.float_format = '{:20,.2f}'.format
-pd.options.mode.use_inf_as_na = True
+pd.options.mode.chained_assignment = None
 
 # set directories and files
 cwd = os.getcwd()

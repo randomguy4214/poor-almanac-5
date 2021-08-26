@@ -102,7 +102,6 @@ for t in tickers.split(' '):
         cols_to_order = ['Period', 'symbol', 'NAV', 'sharesOutstanding']
         new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
         df_merged = df_merged[new_columns]
-        #df_merged.drop(['level_0','index'], axis = 1, inplace=True)
         financials_table.append(df_merged)
 
     except:
@@ -115,7 +114,7 @@ financials_table.to_csv(os.path.join(cwd,input_folder,"4_fundamentals_processed.
 financials_table.to_excel(os.path.join(cwd,input_folder,"4_fundamentals_processed.xlsx"))
 
 df_columns=pd.DataFrame(financials_table.columns.T)
-df_columns.to_excel(os.path.join(cwd,input_folder,'4_columns.xlsx'))
+df_columns.to_excel(os.path.join(cwd,input_folder,'4_fundamentals_columns.xlsx'))
 
 #some code to consider for prices import
 #data = yf.download(tickers_string, start="2020-08-15", end="2021-08-15",
