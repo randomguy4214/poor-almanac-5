@@ -87,6 +87,7 @@ cols_to_order = ['symbol', 'price'
     , 'WC/S/P'
     , 'WC/Debt', 'Total Debt (mrq)', 'FCF/S/P'
     ]
+
 new_columns = cols_to_order + (df.columns.drop(cols_to_order).tolist())
 df_export = df[cols_to_order]
 df_export = df_export.round(2).fillna(method="ffill")
