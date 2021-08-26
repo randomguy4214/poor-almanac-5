@@ -8,7 +8,7 @@ And pandas to process the data.
 
 1. Download from https://static.stooq.com/db/h/d_us_txt.zip
 2. Run "main.py" to loop through all the scripts
-3. If error, extract "data" folder from stooq into 0_input
+3. If error, extract "data" folder from stooq into "stooq" folder
 4. Find the file with the highest numeration to see the processed results in a neat view. everything in between is for checks / curiosity.
 
 things to add in the future: 
