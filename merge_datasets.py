@@ -46,15 +46,19 @@ df_merged = df_merged[~df_merged['country'].isin(drop_list_country)] # drop some
 df_merged['NAV_per_share'] = df_merged['NAV'] / df_merged['sharesOutstanding']
 df_merged['B/P'] = df_merged['NAV_per_share'] / df_merged['price']
 df_merged['FCF/S'] = (df_merged['totalCashFromOperatingActivities'] - df_merged['capitalExpenditures']) / df_merged['sharesOutstanding']
+df_merged['FCF/S/P'] = df_merged['FCF/S'] / df_merged['price']
 df_merged['marg'] = (df_merged['totalRevenue'] - df_merged['costOfRevenue']) / df_merged['totalRevenue'] * 100
+df_merged['WC/S'] = df_merged['WC'] / df_merged['sharesOutstanding']
+df_merged['WC/S/P'] = df_merged['WC/S'] / df_merged['price']
+df_merged['WC/Debt'] = df_merged['WC'] / df_merged['Total Debt (mrq)']
 
 # reorder and drop irrelevant columns
 cols_to_order = ['symbol', 'price', 'low', 'high', 'from_low', 'from_high'
-    , 'FCF/S', 'marg', 'Operating Margin (ttm)'
+    , 'FCF/S/P', 'marg', 'Operating Margin (ttm)'
     , 'Short % of Shares Outstanding 4', '% Held by Insiders 1'
     , 'longName', 'industry', 'country'
-    , 'B/P', 'bookValue', 'Book Value Per Share (mrq)'
-    , 'Shares Outstanding 5', 'WC'
+    , 'B/P', 'Book Value Per Share (mrq)'
+    , 'Shares Outstanding 5', 'WC/S/P', 'WC/Debt'
     ]
 new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
 df = df_merged[cols_to_order]
