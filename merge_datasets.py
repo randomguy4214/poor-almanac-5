@@ -42,17 +42,24 @@ df_merged = df_merged[~df_merged['industry'].isin(drop_list_industry)] # drop so
 drop_list_country = drop_list['country'].tolist()
 df_merged = df_merged[~df_merged['country'].isin(drop_list_country)] # drop some industries
 
-# calculate additional variables
-df_merged['NAV_per_share'] = df_merged['NAV'] / df_merged['sharesOutstanding']
-df_merged['B/P'] = df_merged['NAV_per_share'] / df_merged['price']
-df_merged['FCF/S'] = (df_merged['totalCashFromOperatingActivities'] - df_merged['capitalExpenditures']) / df_merged['sharesOutstanding']
-df_merged['FCF/S/P'] = df_merged['FCF/S'] / df_merged['price']
-df_merged['marg'] = (df_merged['totalRevenue'] - df_merged['costOfRevenue']) / df_merged['totalRevenue'] * 100
-df_merged['WC/S'] = df_merged['WC'] / df_merged['sharesOutstanding']
-df_merged['WC/S/P'] = df_merged['WC/S'] / df_merged['price']
-df_merged['WC/Debt'] = df_merged['WC'] / df_merged['Total Debt (mrq)']
+# rename
+df = df_merged
 
-# reorder and drop irrelevant columns
+# filter
+df = df.loc[(df['from_low'] < 15)] # less than x% increase from lowest point
+
+# calculate additional variables
+df['NAV_per_share'] = df['NAV'] / df['sharesOutstanding']
+df['B/P'] = df['NAV_per_share'] / df['price']
+df['FCF/S'] = (df['totalCashFromOperatingActivities'] - df['capitalExpenditures']) / df['sharesOutstanding']
+df['FCF/S/P'] = df['FCF/S'] / df['price']
+df['marg'] = (df['totalRevenue'] - df['costOfRevenue']) / df['totalRevenue'] * 100
+df['WC/S'] = df['WC'] / df['sharesOutstanding']
+df['WC/S/P'] = df['WC/S'] / df['price']
+df['WC/Debt'] = df['WC'] / df['Total Debt (mrq)']
+
+
+# reorder and select relevant columns
 cols_to_order = ['symbol', 'price', 'low', 'high', 'from_low', 'from_high'
     , 'FCF/S/P', 'marg', 'Operating Margin (ttm)'
     , 'Short % of Shares Outstanding 4', '% Held by Insiders 1'
@@ -60,16 +67,14 @@ cols_to_order = ['symbol', 'price', 'low', 'high', 'from_low', 'from_high'
     , 'B/P', 'Book Value Per Share (mrq)'
     , 'Shares Outstanding 5', 'WC/S/P', 'WC/Debt'
     ]
-new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
-df = df_merged[cols_to_order]
-df = df.round(2).fillna(method="ffill")
-df.sort_values(by=['B/P', 'from_low'], ascending=[False,True], inplace=True, na_position ='last')
+new_columns = cols_to_order + (df.columns.drop(cols_to_order).tolist())
+df_export = df[cols_to_order]
+df_export = df_export.round(2).fillna(method="ffill")
+df_export.sort_values(by=['B/P', 'from_low'], ascending=[False,True], inplace=True, na_position ='last')
 
-# filter
-df = df.loc[(df['from_low'] < 15)] # less than x% increase from lowest point
 
 # export
-df.to_excel(os.path.join(cwd,input_folder,'5_merged.xlsx'), index=False)
+df_export.to_excel(os.path.join(cwd,input_folder,'5_df_output.xlsx'), index=False)
 
 
 
