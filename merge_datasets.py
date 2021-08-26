@@ -49,11 +49,19 @@ df_merged['FCF/S'] = (df_merged['totalCashFromOperatingActivities'] - df_merged[
 df_merged['marg'] = (df_merged['totalRevenue'] - df_merged['costOfRevenue']) / df_merged['totalRevenue'] * 100
 
 # reorder and drop irrelevant columns
-cols_to_order = ['symbol', 'price', 'low', 'high', 'from_low', 'from_high', 'B/P', 'FCF/S', 'marg', 'longName', 'industry', 'country']
+cols_to_order = ['symbol', 'price', 'low', 'high', 'from_low', 'from_high'
+    , 'FCF/S', 'marg', 'Operating Margin (ttm)'
+    , 'Short % of Shares Outstanding 4', '% Held by Insiders 1'
+    , 'longName', 'industry', 'country'
+    , 'B/P', 'bookValue', 'Book Value Per Share (mrq)'
+    , 'Shares Outstanding 5', 'WC'
+    ]
 new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
 df = df_merged[cols_to_order]
 df = df.round(2).fillna(method="ffill")
 df.sort_values(by=['B/P', 'from_low'], ascending=[False,True], inplace=True, na_position ='last')
+
+# filter
 df = df.loc[(df['from_low'] < 15)] # less than x% increase from lowest point
 
 # export
