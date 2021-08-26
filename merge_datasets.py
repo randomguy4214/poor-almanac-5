@@ -46,19 +46,16 @@ df_merged = df_merged[~df_merged['country'].isin(drop_list_country)] # drop some
 df = df_merged
 df['SR'] = df['Short Ratio (Aug 12, 2021) 4'].astype(float)
 
-# filter
-df = df.loc[(df['from_low'] < 15) | (df['price'] < 5)] # less than x% increase from lowest point or less than 5 bucks
-
 # fix from https://stackoverflow.com/questions/39684548/convert-the-string-2-90k-to-2900-or-5-2m-to-5200000-in-pandas-dataframe
-df['Debt'] = (df['Total Debt (mrq)'].replace(r'[kmbKMB]+$', '', regex=True).astype(float) *
-            df['Total Debt (mrq)'].str.extract(r'[\d\.]+([kmbKMB]+)', expand=False).fillna(1).replace(
-            ['k','m', 'b', 'K','M', 'B']
-            , [10**3, 10**6, 10**9, 10**3, 10**6, 10**9]).astype(int))
+df['Debt'] = (df['Total Debt (mrq)'].replace(r'[ktmbKTMB]+$', '', regex=True).astype(float) *
+            df['Total Debt (mrq)'].str.extract(r'[\d\.]+([ktmbKTMB]+)', expand=False).fillna(1).replace(
+            ['k', 't', 'm', 'b', 'K', 'T', 'M', 'B']
+            , [10**3, 10**3, 10**6, 10**9, 10**3, 10**3, 10**6, 10**9]).astype(int))
 
-df['SO'] = (df['Shares Outstanding 5'].replace(r'[kmbKMB]+$', '', regex=True).astype(float) *
-            df['Shares Outstanding 5'].str.extract(r'[\d\.]+([kmbKMB]+)', expand=False).fillna(1).replace(
-            ['k','m', 'b', 'K','M', 'B']
-            , [10**3, 10**6, 10**9, 10**3, 10**6, 10**9]).astype(int))
+df['SO'] = (df['Shares Outstanding 5'].replace(r'[ktmbKTMB]+$', '', regex=True).astype(float) *
+            df['Shares Outstanding 5'].str.extract(r'[\d\.]+([ktmbKTMB]+)', expand=False).fillna(1).replace(
+            ['k', 't', 'm', 'b', 'K', 'T', 'M', 'B']
+            , [10**3, 10**3, 10**6, 10**9, 10**3, 10**3, 10**6, 10**9]).astype(int))
 
 
 # calculate additional variables
@@ -71,6 +68,9 @@ df['WC/S'] = df['WC'] / df['SO']
 df['WC/S/P'] = df['WC/S'] / df['price']
 df['WC/Debt'] = df['WC'] / df['Debt']
 
+# filter
+df = df.loc[(df['from_low'] < 15) | (df['price'] < 5)] # less than x% increase from lowest point or less than 5 bucks
+df = df.loc[df['B/S/P'] > 0.8]
 
 # reorder and select relevant columns
 cols_to_order = ['symbol', 'price'
@@ -87,7 +87,6 @@ new_columns = cols_to_order + (df.columns.drop(cols_to_order).tolist())
 df_export = df[cols_to_order]
 df_export = df_export.round(2).fillna(method="ffill")
 df_export.sort_values(by=['B/S/P', 'from_low'], ascending=[False,True], inplace=True, na_position ='last')
-
 
 # export
 df_export.to_excel(os.path.join(cwd,input_folder,'5_df_output.xlsx'), index=False)
