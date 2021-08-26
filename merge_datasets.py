@@ -65,7 +65,8 @@ df = df_merged
 
 # process
 df['Short%'] = df['Short%'].str.rstrip('%').str.replace(',','').astype('float')
-df['OpMarg'] = df['Operating Margin (ttm)'].str.rstrip('%').str.replace(',','').astype('float')
+#df['OpMarg'] = df['Operating Margin (ttm)'].str.rstrip('%').str.replace(',','').astype('float')
+df['OpMarg'] = ((df['totalRevenue'] - df['costOfRevenue']) / df['totalRevenue']).astype('float')
 df['%Ins'] = df['% Held by Insiders 1'].str.rstrip('%').str.replace(',','').astype('float')
 df['BVPS'] = df['Book Value Per Share (mrq)']
 
