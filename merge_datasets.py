@@ -48,6 +48,9 @@ df = df_merged
 # filter
 df = df.loc[(df['from_low'] < 15)] # less than x% increase from lowest point
 
+# fix
+#df['Total Debt (mrq)'] = df['Total Debt (mrq)'].astype(int)
+
 # calculate additional variables
 df['NAV_per_share'] = df['NAV'] / df['sharesOutstanding']
 df['B/P'] = df['NAV_per_share'] / df['price']
@@ -56,7 +59,7 @@ df['FCF/S/P'] = df['FCF/S'] / df['price']
 df['marg'] = (df['totalRevenue'] - df['costOfRevenue']) / df['totalRevenue'] * 100
 df['WC/S'] = df['WC'] / df['sharesOutstanding']
 df['WC/S/P'] = df['WC/S'] / df['price']
-df['WC/Debt'] = df['WC'] / df['Total Debt (mrq)']
+#df['WC/Debt'] = df['WC'] / df['Total Debt (mrq)']
 
 
 # reorder and select relevant columns
@@ -65,7 +68,9 @@ cols_to_order = ['symbol', 'price', 'low', 'high', 'from_low', 'from_high'
     , 'Short % of Shares Outstanding 4', '% Held by Insiders 1'
     , 'longName', 'industry', 'country'
     , 'B/P', 'Book Value Per Share (mrq)'
-    , 'Shares Outstanding 5', 'WC/S/P', 'WC/Debt'
+    , 'Shares Outstanding 5', 'WC/S/P'
+    #, 'WC/Debt'
+    , 'Total Debt (mrq)'
     ]
 new_columns = cols_to_order + (df.columns.drop(cols_to_order).tolist())
 df_export = df[cols_to_order]
