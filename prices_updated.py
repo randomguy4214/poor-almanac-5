@@ -6,7 +6,7 @@ import os
 # set directories and files
 cwd = os.getcwd()
 input_folder = "0_input"
-prices_folder = "data"
+stooq = "stooq"
 output_folder = "0_output"
 
 # find 52weeks
@@ -15,7 +15,7 @@ today = int(str(date.today()).replace("-",""))
 yearago = int(str(date.today() - timedelta(days=365)).replace("-",""))
 
 from pathlib import Path
-paths = Path(os.path.join(cwd,input_folder,prices_folder)).glob('**/*.txt')
+paths = Path(os.path.join(cwd,input_folder,stooq)).glob('**/*.txt')
 
 prices_table = []
 for path in paths:
