@@ -86,7 +86,7 @@ cols_to_order = ['symbol', 'price'
 new_columns = cols_to_order + (df.columns.drop(cols_to_order).tolist())
 df_export = df[cols_to_order]
 df_export = df_export.round(2).fillna(method="ffill")
-df_export.sort_values(by=['B/P', 'from_low'], ascending=[False,True], inplace=True, na_position ='last')
+df_export.sort_values(by=['B/S/P', 'from_low'], ascending=[False,True], inplace=True, na_position ='last')
 
 
 # export
