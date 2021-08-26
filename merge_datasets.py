@@ -86,7 +86,7 @@ df['NAV_per_share'] = df['NAV'] / df['sharesOutstanding']
 df['B/S/P'] = df['NAV_per_share'] / df['price']
 df['FCF/S'] = (df['totalCashFromOperatingActivities'] - df['capitalExpenditures']) / df['sharesOutstanding']
 df['FCF/S/P'] = df['FCF/S'] / df['price']
-df['marg'] = (df['totalRevenue'] - df['costOfRevenue']) / df['totalRevenue'] * 100
+df['marg'] = (df['totalRevenue'] - df['totalOperatingExpenses']) / df['totalRevenue'] * 100
 df['WC/S'] = df['WC'] / df['SO']
 df['WC/S/P'] = df['WC/S'] / df['price']
 df['WC/Debt'] = df['WC'] / df['Debt']
@@ -94,7 +94,7 @@ df['Rev/S/P'] = df['Revenue Per Share (ttm)'] / df['price']
 
 # filter
 df = df.loc[(df['from_low'] < 15) | (df['price'] < 5)] # less than x% increase from lowest point or less than 5 bucks
-df = df.loc[df['B/S/P'] > 0.7]
+df = df.loc[df['B/S/P'] > 0.6]
 
 # reorder and select relevant columns
 cols_to_order = ['symbol', 'price'
