@@ -52,7 +52,7 @@ df_shorts = df_shorts.melt(id_vars=["symbol"], var_name="Date")
 df_shorts = df_shorts.dropna(axis = 0)
 df_shorts.columns = [*df_shorts.columns[:-1], 'Short%']
 
-#merge this shit
+# merge this shit
 df_to_merge = df_merged
 df_merged = pd.merge(df_to_merge, df_shorts, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
 df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
