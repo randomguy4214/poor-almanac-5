@@ -40,7 +40,8 @@ df_merged = df_merged[~df_merged['country'].isin(drop_list_country)] # drop some
 
 # rename
 df = df_merged
-df['Short%'] = df['Short % of Float (Aug 12, 2021) 4'].str.rstrip('%').str.replace(',','').astype('float')
+df['Short%'] = pd.DataFrame(df.filter(regex='Short % of Float ')).iloc[:,0] #.str.rstrip('%').str.replace(',','').astype('float')
+
 df['OpMarg'] = df['Operating Margin (ttm)'].str.rstrip('%').str.replace(',','').astype('float')
 df['%Ins'] = df['% Held by Insiders 1'].str.rstrip('%').str.replace(',','').astype('float')
 df['BVPS'] = df['Book Value Per Share (mrq)']
@@ -66,6 +67,7 @@ df['marg'] = (df['totalRevenue'] - df['costOfRevenue']) / df['totalRevenue'] * 1
 df['WC/S'] = df['WC'] / df['SO']
 df['WC/S/P'] = df['WC/S'] / df['price']
 df['WC/Debt'] = df['WC'] / df['Debt']
+df['Rev/S/P'] = df['Revenue Per Share (ttm)'] / df['price']
 
 # filter
 #df = df.loc[(df['from_low'] < 15) | (df['price'] < 5)] # less than x% increase from lowest point or less than 5 bucks
@@ -81,7 +83,7 @@ cols_to_order = ['symbol', 'price'
     , 'OpMarg'
     , 'longName', 'industry', 'country'
     , 'Short%', '%Ins'
-    , 'B/S/P', 'BVPS'
+    , 'B/S/P', 'BVPS', 'Rev/S/P'
     , 'WC/S/P'
     , 'WC/Debt', 'Total Debt (mrq)', 'FCF/S/P'
     ]
