@@ -74,7 +74,7 @@ df['WC/Debt'] = df['WC'] / df['Debt']
 # reorder and select relevant columns
 cols_to_order = ['symbol', 'price', 'low', 'high', 'from_low', 'from_high'
     , 'FCF/S/P', 'marg', 'Operating Margin (ttm)'
-    , 'Short % of Shares Outstanding 4', '% Held by Insiders 1'
+    , 'Short Ratio (Aug 12, 2021) 4', '% Held by Insiders 1'
     , 'longName', 'industry', 'country'
     , 'B/P', 'Book Value Per Share (mrq)'
     , 'SO', 'WC/S/P'
