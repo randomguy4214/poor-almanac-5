@@ -12,10 +12,10 @@ output_folder = "0_output"
 
 # import prices
 prices_table = pd.read_csv(os.path.join(cwd,input_folder,"1_prices_updated.csv"))
-
+#prices_table['symbol'] = prices_table['symbol'].str.replace(".US","",regex=True).replace(".DE","",regex=True).astype(str)
 # extract current price
 df_prices_highest_dates = prices_table[['symbol','Date']]
-df_prices_highest_dates['Date'] = df_prices_highest_dates['Date'].astype(int)
+df_prices_highest_dates['Date'] = df_prices_highest_dates['Date']
 df_prices_highest_dates = df_prices_highest_dates.groupby(['symbol'])
 df_prices_highest_dates = df_prices_highest_dates.max()
 
