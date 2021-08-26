@@ -26,7 +26,6 @@ prices_table = []
 
 for path in paths:
     path_in_str = str(path)
-    print(path_in_str)
     try:
         if ('etfs|-|_') not in path_in_str: # loop through folders and filter out weird shit
             tickers_parse = pd.read_csv(path,low_memory=False)
