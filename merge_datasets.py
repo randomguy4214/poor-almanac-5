@@ -44,9 +44,10 @@ df_merged = df_merged[~df_merged['country'].isin(drop_list_country)] # drop some
 
 # rename
 df = df_merged
+df['SR'] = df['Short Ratio (Aug 12, 2021) 4'].astype(float)
 
 # filter
-df = df.loc[(df['from_low'] < 15)] # less than x% increase from lowest point
+df = df.loc[(df['from_low'] < 15) | (df['price'] < 5)] # less than x% increase from lowest point or less than 5 bucks
 
 # fix from https://stackoverflow.com/questions/39684548/convert-the-string-2-90k-to-2900-or-5-2m-to-5200000-in-pandas-dataframe
 df['Debt'] = (df['Total Debt (mrq)'].replace(r'[kmbKMB]+$', '', regex=True).astype(float) *
@@ -62,7 +63,7 @@ df['SO'] = (df['Shares Outstanding 5'].replace(r'[kmbKMB]+$', '', regex=True).as
 
 # calculate additional variables
 df['NAV_per_share'] = df['NAV'] / df['sharesOutstanding']
-df['B/P'] = df['NAV_per_share'] / df['price']
+df['B/S/P'] = df['NAV_per_share'] / df['price']
 df['FCF/S'] = (df['totalCashFromOperatingActivities'] - df['capitalExpenditures']) / df['sharesOutstanding']
 df['FCF/S/P'] = df['FCF/S'] / df['price']
 df['marg'] = (df['totalRevenue'] - df['costOfRevenue']) / df['totalRevenue'] * 100
@@ -72,13 +73,15 @@ df['WC/Debt'] = df['WC'] / df['Debt']
 
 
 # reorder and select relevant columns
-cols_to_order = ['symbol', 'price', 'low', 'high', 'from_low', 'from_high'
-    , 'FCF/S/P', 'marg', 'Operating Margin (ttm)'
-    , 'Short Ratio (Aug 12, 2021) 4', '% Held by Insiders 1'
+cols_to_order = ['symbol', 'price'
+    #, 'low', 'high'
+    , 'from_low', 'from_high'
+    , 'Operating Margin (ttm)'
     , 'longName', 'industry', 'country'
-    , 'B/P', 'Book Value Per Share (mrq)'
-    , 'SO', 'WC/S/P'
-    , 'WC/Debt', 'Debt'
+    , 'SR', '% Held by Insiders 1'
+    , 'B/S/P', 'Book Value Per Share (mrq)'
+    , 'WC/S/P'
+    , 'WC/Debt', 'Total Debt (mrq)', 'FCF/S/P'
     ]
 new_columns = cols_to_order + (df.columns.drop(cols_to_order).tolist())
 df_export = df[cols_to_order]
