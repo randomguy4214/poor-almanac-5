@@ -111,7 +111,7 @@ cols_to_order = ['symbol', 'price'
 #new_columns = cols_to_order + (df.columns.drop(cols_to_order).tolist())
 df_export = df[cols_to_order]
 df_export = df_export.round(2).fillna('')
-df_export.sort_values(by=['from_low'], ascending=[False], inplace=True, na_position ='last')
+df_export.sort_values(by=['from_low'], ascending=[True], inplace=True, na_position ='last')
 
 # export
 df_export.to_excel(os.path.join(cwd,input_folder,'5_df_output.xlsx'), index=False)
