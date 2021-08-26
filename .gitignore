@@ -140,6 +140,7 @@ dmypy.json
 *.txt
 
 /0_input/stooq
+/0_input/stooq/*
 
 !/0_input/drop_list.xlsx
 !/0_input/5_df_output.xslx
