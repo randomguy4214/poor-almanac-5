@@ -48,8 +48,17 @@ df = df_merged
 # filter
 df = df.loc[(df['from_low'] < 15)] # less than x% increase from lowest point
 
-# fix
-#df['Total Debt (mrq)'] = df['Total Debt (mrq)'].astype(int)
+# fix from https://stackoverflow.com/questions/39684548/convert-the-string-2-90k-to-2900-or-5-2m-to-5200000-in-pandas-dataframe
+df['Debt'] = (df['Total Debt (mrq)'].replace(r'[kmbKMB]+$', '', regex=True).astype(float) *
+            df['Total Debt (mrq)'].str.extract(r'[\d\.]+([kmbKMB]+)', expand=False).fillna(1).replace(
+            ['k','m', 'b', 'K','M', 'B']
+            , [10**3, 10**6, 10**9, 10**3, 10**6, 10**9]).astype(int))
+
+df['SO'] = (df['Shares Outstanding 5'].replace(r'[kmbKMB]+$', '', regex=True).astype(float) *
+            df['Shares Outstanding 5'].str.extract(r'[\d\.]+([kmbKMB]+)', expand=False).fillna(1).replace(
+            ['k','m', 'b', 'K','M', 'B']
+            , [10**3, 10**6, 10**9, 10**3, 10**6, 10**9]).astype(int))
+
 
 # calculate additional variables
 df['NAV_per_share'] = df['NAV'] / df['sharesOutstanding']
@@ -59,7 +68,7 @@ df['FCF/S/P'] = df['FCF/S'] / df['price']
 df['marg'] = (df['totalRevenue'] - df['costOfRevenue']) / df['totalRevenue'] * 100
 df['WC/S'] = df['WC'] / df['sharesOutstanding']
 df['WC/S/P'] = df['WC/S'] / df['price']
-#df['WC/Debt'] = df['WC'] / df['Total Debt (mrq)']
+df['WC/Debt'] = df['WC'] / df['Debt']
 
 
 # reorder and select relevant columns
@@ -68,9 +77,8 @@ cols_to_order = ['symbol', 'price', 'low', 'high', 'from_low', 'from_high'
     , 'Short % of Shares Outstanding 4', '% Held by Insiders 1'
     , 'longName', 'industry', 'country'
     , 'B/P', 'Book Value Per Share (mrq)'
-    , 'Shares Outstanding 5', 'WC/S/P'
-    #, 'WC/Debt'
-    , 'Total Debt (mrq)'
+    , 'Shares Outstanding 5', 'SO', 'WC/S/P'
+    , 'WC/Debt', 'Debt'
     ]
 new_columns = cols_to_order + (df.columns.drop(cols_to_order).tolist())
 df_export = df[cols_to_order]

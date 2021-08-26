@@ -33,7 +33,8 @@ if not os.path.exists(os.path.join(cwd,input_folder,"0_drop_list.xlsx")):
         'industry': ['Biotechnology', 'Gold', 'Oil & Gas E&P', 'Oil & Gas Equipment & Services'
                     , 'Oil & Gas Refining & Marketing', 'Other Industrial Metals & Mining'
                     , 'Other Precious Metals & Mining', 'Silver', 'Asset Management', 'Insurance—Property & Casualty'
-                    , 'Shell Companies', 'Banks—Regional', 'Insurance—Life', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    , 'Shell Companies', 'Banks—Regional', 'Insurance—Life', 'Banks—Diversified'
+                    , 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
         'country': ['China', 'Macau', 'Argentina', 'Chile', 'South Africa', 'Cayman Islands', 'Russia', 'India'
                     , 'Greece', 'Brazil', 'Bermuda', 'Japan', 'Australia', 'Cyprus', 'Denmark', 'Peru', 'Spain'
