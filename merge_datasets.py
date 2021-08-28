@@ -93,12 +93,12 @@ df['WC/Debt'] = df['WC'] / df['Debt']
 df['Rev/S/P'] = df['Revenue Per Share (ttm)'] / df['price']
 
 # filter
-df = df.loc[(df['from_low'] < 15) | (df['price'] < 5)] # less than x% increase from lowest point or less than 5 bucks
-df = df.loc[df['B/S/P'] > 0.6]
+#df = df.loc[(df['from_low'] < 15)] # less than x% increase from lowest point
+df = df.loc[(df['price'] < 5)] # less than 5 bucks
+# df = df.loc[df['B/S/P'] > 0.6] # Book to market
 
 # reorder and select relevant columns
 cols_to_order = ['symbol', 'price'
-    #, 'low', 'high'
     , 'from_low', 'from_high'
     , 'OpMarg'
     , 'longName', 'industry', 'country'

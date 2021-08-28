@@ -129,18 +129,7 @@ dmypy.json
 .pyre/
 
 # other
-.csv
-.xlsx
-.xls
-.txt
-
-*.csv
-*.xlsx
-*.xls
-*.txt
 
 /0_input/stooq
 /0_input/stooq/*
 
-!/0_input/drop_list.xlsx
-!/0_input/5_df_output.xslx
