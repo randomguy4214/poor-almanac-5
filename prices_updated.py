@@ -20,4 +20,4 @@ from datetime import date,timedelta
 today = int(str(date.today()).replace("-",""))
 yearago = int(str(date.today() - timedelta(days=365)).replace("-",""))
 
-ticker = ''
+ticker = 'DE000A2GSVV5'
