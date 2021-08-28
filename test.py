@@ -15,9 +15,14 @@ output_folder = "0_output"
 
 from yahoo_fin.stock_info import * #initiate yahoo_fin
 
-t = 'DE000A2GSVV5'
-df_yf_financials = get_financials(t, yearly=False, quarterly=True)
+t = 'BIOYF'
+df_yf_get_quote_table = get_quote_table(t , dict_result = True)
+df = pd.DataFrame.from_dict(df_yf_get_quote_table, orient='index')
+df = df.T
+df['symbol'] = t
 
-print(df_yf_financials)
 
-#df.to_excel(os.path.join(cwd,input_folder,'0_symbols.xlsx'))
+print(df)
+
+df.to_excel(os.path.join(cwd,input_folder,'df.xlsx'))
+

@@ -14,7 +14,7 @@ prices_folder = "data"
 output_folder = "0_output"
 
 # prepare tickers list
-tickers_narrowed = pd.read_csv(os.path.join(cwd,input_folder,"3_tickers_narrowed.csv"))
+tickers_narrowed = pd.read_csv(os.path.join(cwd,input_folder,"3_tickers_filtered.csv"))
 #tickers_narrowed = tickers_narrowed[tickers_narrowed['symbol'].str.contains("DE000A2GSVV5|ALTUW|UROY")] #test tickers
 #tickers_narrowed = tickers_narrowed #.head(n=3)  #test tickers
 ticker_narrowed = tickers_narrowed.values.tolist()
@@ -110,11 +110,11 @@ for t in tickers.split(' '):
 # reorder and export
 financials_table = pd.concat(financials_table)
 financials_table.drop_duplicates()
-financials_table.to_csv(os.path.join(cwd,input_folder,"4_fundamentals_processed.csv"))
-financials_table.to_excel(os.path.join(cwd,input_folder,"4_fundamentals_processed.xlsx"))
+financials_table.to_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.csv"))
+financials_table.to_excel(os.path.join(cwd,input_folder,"3_fundamentals_processed.xlsx"))
 
 df_columns=pd.DataFrame(financials_table.columns.T)
-df_columns.to_excel(os.path.join(cwd,input_folder,'4_fundamentals_columns.xlsx'))
+df_columns.to_excel(os.path.join(cwd,input_folder,'3_fundamentals_columns.xlsx'))
 
 #some code to consider for prices import
 #data = yf.download(tickers_string, start="2020-08-15", end="2021-08-15",
