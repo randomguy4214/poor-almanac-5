@@ -48,14 +48,14 @@ for t in tickers.split(' '):
         n = pd.to_numeric(tickers_narrowed["symbol"][tickers_narrowed["symbol"] == t].index).values
         print(t, n/index_max*100)
 
-        if not os.path.exists(os.path.join(cwd, input_folder, temp_folder, prices_temp, t, ".csv")):
+        name = t + ".csv"
+        if not os.path.exists(os.path.join(cwd, input_folder, temp_folder, prices_temp, name)):
             # get quote
             df_yf_get_quote_table = get_quote_table(t, dict_result=True)
             df = pd.DataFrame.from_dict(df_yf_get_quote_table, orient='index')
             df = df.T
             df['symbol'] = t
             # export
-            name = t + ".csv"
             df.to_csv(os.path.join(cwd, input_folder, temp_folder, prices_temp, name), index=False)
             #financials_table.append(df)
         else:

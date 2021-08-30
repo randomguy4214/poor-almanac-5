@@ -33,7 +33,8 @@ for t in tickers.split(' '):
         n = pd.to_numeric(tickers_narrowed["symbol"][tickers_narrowed["symbol"] == t].index).values
         print(t, n/index_max*100)
 
-        if not os.path.exists(os.path.join(cwd, input_folder, temp_folder, financials_temp, t, ".csv")):
+        name = t + ".csv"
+        if not os.path.exists(os.path.join(cwd, input_folder, temp_folder, financials_temp, name)):
 
             # first loop through "values" in "dictionary"
             df_yf_financials = get_financials(t, yearly=False, quarterly=True)
