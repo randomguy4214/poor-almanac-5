@@ -117,18 +117,3 @@ for t in tickers.split(' '):
             pass
     except:
         pass
-
-# reorder and export
-financials_table = pd.concat(financials_table)
-financials_table.drop_duplicates()
-financials_table.to_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.csv"))
-financials_table.to_excel(os.path.join(cwd,input_folder,"3_fundamentals_processed.xlsx"))
-
-df_columns=pd.DataFrame(financials_table.columns.T)
-df_columns.to_excel(os.path.join(cwd,input_folder,'3_fundamentals_columns.xlsx'))
-
-#some code to consider for prices import
-#data = yf.download(tickers_string, start="2020-08-15", end="2021-08-15",
-#                   group_by="ticker",  threads = True)
-#data.to_csv(os.path.join(cwd,input_folder,"yf_test2.csv"))
-
