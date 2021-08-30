@@ -130,9 +130,6 @@ dmypy.json
 
 # other
 
-/0_input/stooq
-/0_input/stooq/*
-/temp/
-/temp/*
-/0ld/
-/0ld/*
+0_input/temp
+0_input/temp/*
+0ld/
