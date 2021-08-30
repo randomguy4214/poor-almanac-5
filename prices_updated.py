@@ -41,7 +41,6 @@ tickers = ' '.join(tickers_narrowed["symbol"].astype(str)).strip()
 
 index_max = pd.to_numeric(tickers_narrowed.index.values.max())
 from yahoo_fin.stock_info import * #initiate yahoo_fin
-financials_table = []
 company_info = []
 for t in tickers.split(' '):
     try:
@@ -59,7 +58,8 @@ for t in tickers.split(' '):
             name = t + ".csv"
             df.to_csv(os.path.join(cwd, input_folder, temp_folder, prices_temp, name), index=False)
             #financials_table.append(df)
-
+        else:
+            pass
     except:
         pass
 
