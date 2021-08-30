@@ -112,7 +112,8 @@ for t in tickers.split(' '):
             # export
             name = t + ".csv"
             df_merged.to_csv(os.path.join(cwd, input_folder, temp_folder, financials_temp, name), index=False)
-
+        else:
+            pass
     except:
         pass
 
