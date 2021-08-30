@@ -3,17 +3,17 @@
 import checks
 print('0 checks - done')
 
-print('prices_updated - initiating')
+print('prices_updated - initiating. Printing Stock and % Progress.')
 import prices_update
 print('prices_updated - done')
 
-print('prices_additional_calc - initiating')
+print('prices_combine - initiating.')
 import prices_combine
-print('prices_additional_calc - done')
+print('prices_combine - done')
 
-print('prepare_financials - initiating. Printing Stock and Progress')
+print('financials_update - initiating. Printing Stock and % Progress.')
 import financials_update
-print('prepare_financials - done')
+print('financials_update - done')
 
 print('financials_combine - initiating.')
 import financials_combine
