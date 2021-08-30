@@ -57,7 +57,6 @@ for t in tickers.split(' '):
             df['symbol'] = t
             # export
             df.to_csv(os.path.join(cwd, input_folder, temp_folder, prices_temp, name), index=False)
-            #financials_table.append(df)
         else:
             pass
     except:
