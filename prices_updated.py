@@ -63,18 +63,5 @@ for t in tickers.split(' '):
     except:
         pass
 
-# reorder and export
-financials_table = pd.concat(financials_table)
-financials_table.drop_duplicates()
-financials_table.to_csv(os.path.join(cwd,input_folder,"2_prices_updated.csv"))
-financials_table.to_excel(os.path.join(cwd,input_folder,"2_prices_updated.xlsx"))
-
-
-# export tickers
-stocks = financials_table[['symbol']].sort_values(by=['symbol'], ascending= True).drop_duplicates()
-stocks.to_csv(os.path.join(cwd,input_folder,"3_tickers_filtered.csv"), index = False)
-
-df_columns=pd.DataFrame(financials_table.columns.T)
-df_columns.to_excel(os.path.join(cwd,input_folder,'2_prices_updated_columns.xlsx'))
 
 

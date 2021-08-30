@@ -132,4 +132,5 @@ dmypy.json
 
 /0_input/stooq
 /0_input/stooq/*
-
+/temp/
+/temp/*
