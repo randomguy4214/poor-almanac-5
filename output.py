@@ -114,7 +114,7 @@ for col in cols_to_format:
 cols_to_format = [i for i in df_export.columns]
 for col in cols_to_format:
     try:
-        if col in ['price']:
+        if col in ['price', 'B/S/P']:
             df_export[col]=df_export[col].round(2)
         else:
             df_export[col] = df_export[col].round(0)
@@ -128,7 +128,7 @@ df_export.sort_values(by=['from_low'], ascending=[True], inplace=True, na_positi
 # filter
 #df_export = df_export.loc[(df_export['from_low'] < 15)] # less than x% increase from lowest point
 #df_export = df_export.loc[(df_export['price'] < 5)] # less than 5 bucks
-df_export = df_export.loc[df_export['B/S/P'] > 0.6] # Book to market
+#df_export = df_export.loc[df_export['B/S/P'] > 0.6] # Book to market
 
 # export
 df_export.to_excel(os.path.join(cwd,input_folder,'5_df_output.xlsx'), index=False)
