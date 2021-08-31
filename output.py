@@ -84,11 +84,6 @@ df['WC/S/P'] = df['WC/S'] / df['price']
 df['WC/Debt'] = df['WC'] / df['Debt']
 df['Rev/S/P'] = df['Revenue Per Share (ttm)'] / df['price']
 
-# filter
-#df = df.loc[(df['from_low'] < 15)] # less than x% increase from lowest point
-df = df.loc[(df['price'] < 5)] # less than 5 bucks
-# df = df.loc[df['B/S/P'] > 0.6] # Book to market
-
 # reorder and select relevant columns
 cols_to_order = ['symbol', 'price'
     , 'from_low', 'from_high'
@@ -124,6 +119,11 @@ df_export['price'] = df_export['price'].round(2)
 
 # sort
 df_export.sort_values(by=['from_low'], ascending=[True], inplace=True, na_position ='last')
+
+# filter
+#df = df.loc[(df['from_low'] < 15)] # less than x% increase from lowest point
+#df = df.loc[(df['price'] < 5)] # less than 5 bucks
+df = df.loc[df['B/S/P'] > 0.6] # Book to market
 
 # export
 df_export.to_excel(os.path.join(cwd,input_folder,'5_df_output.xlsx'), index=False)
