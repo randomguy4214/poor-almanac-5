@@ -19,7 +19,7 @@ financials_temp = "financials"
 from pathlib import Path
 paths = Path(os.path.join(cwd,input_folder,temp_folder,financials_temp)).glob('**/*.csv')
 
-prices_table = []
+financials_table = []
 for path in paths:
     path_in_str = str(path)
     try:
@@ -28,7 +28,6 @@ for path in paths:
         print(path_in_str)
     except:
         pass
-
 
 # reorder and export
 financials_table = pd.concat(financials_table)

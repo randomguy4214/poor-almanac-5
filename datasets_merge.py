@@ -16,9 +16,8 @@ prices_temp = "prices"
 prices_table = pd.read_csv(os.path.join(cwd,input_folder,"2_prices_updated.csv"))
 fundamentals_table = pd.read_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.csv"))
 
-df_latest_price = pd.merge(df_prices_highest_dates, prices_table, how='inner', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
+df_latest_price = pd.merge(fundamentals_table, prices_table, how='inner', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
 df_latest_price.drop([col for col in df_latest_price.columns if 'drop' in col], axis=1, inplace=True)
-df_latest_price = df_latest_price[['symbol','Date','price']]
 
 # adding from low/high
 df_merged['from_low'] = (df_merged['price'] - df_merged['low'])/df_merged.low * 100
