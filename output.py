@@ -99,7 +99,7 @@ cols_to_order = ['symbol', 'price'
 new_columns = cols_to_order + (df.columns.drop(cols_to_order).tolist())
 df_export = df[cols_to_order]
 
-# format
+# fillna
 cols_to_format = [i for i in df_export.columns]
 for col in cols_to_format:
     try:
@@ -110,13 +110,14 @@ for col in cols_to_format:
     except:
         pass
 
+# format
 cols_to_format = [i for i in df_export.columns]
 for col in cols_to_format:
     try:
-        if col in ['price', 'B/S/P', 'from_low', 'from_high', 'OpMarg']:
-            df_export[col]=df_export[col].round(0)
+        if col in ['price']:
+            df_export[col]=df_export[col].round(2)
         else:
-            df_export[col] = df_export[col].round(2)
+            df_export[col] = df_export[col].round(0)
     except:
         pass
 
