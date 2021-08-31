@@ -103,7 +103,7 @@ df_export = df[cols_to_order]
 cols_to_format = [i for i in df_export.columns]
 for col in cols_to_format:
     try:
-        if col in ['from_low', 'from_high', 'OpMarg', 'B/S/P']:
+        if col in ['price', 'from_low', 'from_high', 'OpMarg', 'B/S/P']:
             df_export[col]=df_export[col].fillna(0)
         else:
             pass
