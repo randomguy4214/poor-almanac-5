@@ -32,16 +32,18 @@ df = df[~df['longName'].isnull()]
 # find latest shorts value
 df_shorts = pd.DataFrame(df.filter(regex='Short % of Float|symbol')).iloc[:,:]
 df_shorts.dropna(how='all', axis=1, inplace=True)
-df_shorts_names = df_shorts.columns.str.strip('Short % of Float (|) 4')
-df_shorts_names_dates = pd.to_datetime(df_shorts_names, errors='coerce')
+#df_shorts_names = df_shorts.columns.str.strip('Short % of Float')
+df_shorts_names = df_shorts.columns.str.extract('.*\((.*)\).*')
+df_shorts_names.rename(columns={ df_shorts_names.columns[0]: "date" }, inplace = True)
+df_shorts_names_dates = pd.to_datetime(df_shorts_names['date'])#, errors='coerce')
 df_shorts.columns = df_shorts_names_dates
 df_shorts_names_dates = df_shorts_names_dates.sort_values(ascending=False)
-#print(df_shorts_names_dates)
 df_shorts = df_shorts[df_shorts_names_dates]
 df_shorts.columns = [*df_shorts.columns[:-1], 'symbol']
 df_shorts = df_shorts.melt(id_vars=["symbol"], var_name="Date")
 df_shorts = df_shorts.dropna(axis = 0)
 df_shorts.columns = [*df_shorts.columns[:-1], 'Short%']
+#df_shorts.to_excel(os.path.join(cwd,input_folder,'5_df_shorts.xlsx'), index=False)
 
 # merge this shit
 df_merged = pd.merge(df, df_shorts, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
