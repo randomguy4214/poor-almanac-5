@@ -100,30 +100,34 @@ new_columns = cols_to_order + (df.columns.drop(cols_to_order).tolist())
 df_export = df[cols_to_order]
 
 # format
-cols_to_format = [i for i in df_export.columns if i in ['from_low', 'from_high', 'OpMarg']]
+cols_to_format = [i for i in df_export.columns]
 for col in cols_to_format:
     try:
-        df_export[col]=df_export[col].fillna(0)
+        if col in ['from_low', 'from_high', 'OpMarg', 'B/S/P']:
+            df_export[col]=df_export[col].fillna(0)
+        else:
+            pass
     except:
         pass
 
-cols_to_format = [i for i in df_export.columns if i not in ['price']]
+cols_to_format = [i for i in df_export.columns]
 for col in cols_to_format:
     try:
-        df_export[col]=df_export[col].round(0)
+        if col in ['price', 'B/S/P', 'from_low', 'from_high', 'OpMarg']:
+            df_export[col]=df_export[col].round(0)
+        else:
+            df_export[col] = df_export[col].round(2)
     except:
         pass
 
-# round(2) the price
-df_export['price'] = df_export['price'].round(2)
 
 # sort
 df_export.sort_values(by=['from_low'], ascending=[True], inplace=True, na_position ='last')
 
 # filter
-#df = df.loc[(df['from_low'] < 15)] # less than x% increase from lowest point
-#df = df.loc[(df['price'] < 5)] # less than 5 bucks
-df = df.loc[df['B/S/P'] > 0.6] # Book to market
+#df_export = df_export.loc[(df_export['from_low'] < 15)] # less than x% increase from lowest point
+#df_export = df_export.loc[(df_export['price'] < 5)] # less than 5 bucks
+df_export = df_export.loc[df_export['B/S/P'] > 0.6] # Book to market
 
 # export
 df_export.to_excel(os.path.join(cwd,input_folder,'5_df_output.xlsx'), index=False)
