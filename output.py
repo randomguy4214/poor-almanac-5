@@ -36,6 +36,7 @@ df_shorts_names = df_shorts.columns.str.strip('Short % of Float (|) 4')
 df_shorts_names_dates = pd.to_datetime(df_shorts_names, errors='coerce')
 df_shorts.columns = df_shorts_names_dates
 df_shorts_names_dates = df_shorts_names_dates.sort_values(ascending=False)
+#print(df_shorts_names_dates)
 df_shorts = df_shorts[df_shorts_names_dates]
 df_shorts.columns = [*df_shorts.columns[:-1], 'symbol']
 df_shorts = df_shorts.melt(id_vars=["symbol"], var_name="Date")
