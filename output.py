@@ -5,7 +5,6 @@ import os
 pd.options.mode.chained_assignment = None  # default='warn'
 
 # formatting
-#pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pd.options.display.float_format = '{:20,.2f}'.format
 pd.options.mode.use_inf_as_na = True
@@ -98,8 +97,29 @@ cols_to_order = ['symbol', 'price'
     , 'WC/Debt', 'Total Debt (mrq)', 'FCF/S/P'
     ]
 
+# reorder
 new_columns = cols_to_order + (df.columns.drop(cols_to_order).tolist())
 df_export = df[cols_to_order]
+
+# format
+cols_to_format = [i for i in df_export.columns if i in ['from_low', 'from_high', 'OpMarg']]
+for col in cols_to_format:
+    try:
+        df_export[col]=df_export[col].fillna(0)
+    except:
+        pass
+
+cols_to_format = [i for i in df_export.columns if i not in ['price']]
+for col in cols_to_format:
+    try:
+        df_export[col]=df_export[col].round(0)
+    except:
+        pass
+
+# round(2) the price
+df_export['price'] = df_export['price'].round(2)
+
+# sort
 df_export.sort_values(by=['from_low'], ascending=[True], inplace=True, na_position ='last')
 
 # export
