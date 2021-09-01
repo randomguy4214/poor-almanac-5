@@ -133,7 +133,6 @@ dmypy.json
 0_input/temp/*
 0ld/*
 
-0_input/3_fundamentals_columns.xlsx
 0_input/3_fundamentals_processed.csv
 0_input/3_fundamentals_processed.xlsx
 0_input/4_merged.xlsx
