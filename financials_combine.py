@@ -13,7 +13,6 @@ input_folder = "0_input"
 prices_folder = "data"
 output_folder = "0_output"
 temp_folder = "temp"
-prices_temp = "prices"
 financials_temp = "financials"
 
 from pathlib import Path
@@ -32,7 +31,7 @@ for path in paths:
 # export
 financials_table = pd.concat(financials_table)
 financials_table.drop_duplicates()
-financials_table.to_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.csv"))
+financials_table.to_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.csv"), index=False)
 financials_table.to_excel(os.path.join(cwd,input_folder,"3_fundamentals_processed.xlsx"))
 
 # export tickers
