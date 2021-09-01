@@ -130,10 +130,7 @@ dmypy.json
 
 # other
 
-0_input/temp/*
 0ld/*
-
-
 0_input/2_prices_updated.csv
 0_input/2_prices_updated.xlsx
 0_input/2_prices_updated_columns.xlsx
