@@ -136,5 +136,8 @@ dmypy.json
 0_input/2_prices_updated_columns.xlsx
 0_input/3_fundamentals_processed.csv
 0_input/3_fundamentals_processed.xlsx
+0_input/3_fundamentals_columns.xlsx
+0_input/3_tickers_filtered.csv
+0_input/4_tickers_filtered.csv
 0_input/4_merged.xlsx
 0_input/4_merged.csv
