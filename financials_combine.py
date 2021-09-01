@@ -36,7 +36,8 @@ financials_table.to_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.
 financials_table.to_excel(os.path.join(cwd,input_folder,"3_fundamentals_processed.xlsx"))
 
 # export tickers
-stocks = financials_table[['symbol']].sort_values(by=['symbol'], ascending= True).drop_duplicates()
+stocks = financials_table[['symbol']].astype(str).drop_duplicates()
+stocks = stocks.sort_values(by=['symbol'], ascending= True)
 stocks.to_csv(os.path.join(cwd,input_folder,"3_tickers_filtered.csv"), index = False)
 
 # export column
