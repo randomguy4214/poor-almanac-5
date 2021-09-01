@@ -44,11 +44,6 @@ df_merged = df_merged[new_columns]
 df_merged.to_csv(os.path.join(cwd,input_folder,"4_merged.csv"))
 df_merged.to_excel(os.path.join(cwd,input_folder,"4_merged.xlsx"))
 
-# pre-filter stocks for the export
-prices_additional_calc = pd.read_csv(os.path.join(cwd,input_folder,"4_merged.csv"),usecols = ['symbol', 'from_low'])
-prices_filter = prices_additional_calc[~prices_additional_calc['symbol'].str.contains('-|_')]
-prices_filter.reset_index(drop=True)
-
 # export tickers again. just to have more narrowed result
 stocks = prices_filter[['symbol']].sort_values(by=['symbol'], ascending= True).drop_duplicates()
 stocks.to_csv(os.path.join(cwd,input_folder,"4_tickers_filtered.csv"), index = False)
