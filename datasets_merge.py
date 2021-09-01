@@ -13,12 +13,13 @@ temp_folder = "temp"
 prices_temp = "prices"
 
 # import prices
-prices_table = pd.read_csv(os.path.join(cwd,input_folder,"2_prices_updated.csv"))
+prices_table = pd.read_csv(os.path.join(cwd,input_folder,"2_prices_updated.csv"), low_memory=False)
 fundamentals_table = pd.read_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.csv"), low_memory=False)
 
 df_merged = pd.merge(fundamentals_table, prices_table, how='inner', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
 df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
 df_merged = df_merged.rename(columns={'52 Week High 3': '52h', '52 Week Low 3': '52l', 'Quote Price': 'price'}, inplace=True)
+print(df_merged)
 
 # adding from low/high
 df_merged['from_low'] = (df_merged['price'] - df_merged['52l'])/df_merged.low * 100
@@ -40,4 +41,4 @@ prices_filter.reset_index(drop=True)
 
 # export tickers again. just to have more narrowed result
 stocks = prices_filter[['symbol']].sort_values(by=['symbol'], ascending= True).drop_duplicates()
-stocks.to_csv(os.path.join(cwd,input_folder,"3_tickers_filtered.csv"), index = False)
+stocks.to_csv(os.path.join(cwd,input_folder,"4_tickers_filtered.csv"), index = False)
