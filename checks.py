@@ -20,7 +20,7 @@ else:
     print("good! folder 0_input already exists")
 
 # check temp folder
-if not os.path.exists(os.path.join(cwd,input_folder,temp_folder, prices_temp)):
+if not os.path.exists(os.path.join(cwd,input_folder,temp_folder)):
     os.mkdir(os.path.join(cwd,input_folder,temp_folder))
     print("temp folder created")
 else:
