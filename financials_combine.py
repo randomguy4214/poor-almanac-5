@@ -30,6 +30,7 @@ for path in paths:
 
 # export
 financials_table = pd.concat(financials_table)
+financials_table['Quote Price'].fillna(financials_table['Previous Close'], inplace=True)
 financials_table.drop_duplicates()
 financials_table.to_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.csv"), index=False)
 financials_table.to_excel(os.path.join(cwd,input_folder,"3_fundamentals_processed.xlsx"))
