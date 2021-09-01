@@ -128,8 +128,10 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# other
+# use this command to clean cache after adding new files to gitignore
+# git rm --cached `git ls-files -i -c --exclude-from=.gitignore`
 
+# other
 0ld/*
 0_input/2_prices_updated.csv
 0_input/2_prices_updated.xlsx
