@@ -20,6 +20,7 @@ prices_table = pd.read_csv(os.path.join(cwd,input_folder,"2_prices_updated.csv")
 df_merged = pd.merge(fundamentals_table, prices_table, how='inner', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
 df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
 df_merged.rename(columns={'52 Week High 3': '52h', '52 Week Low 3': '52l', 'Quote Price': 'price'}, inplace=True)
+df_merged['price'].fillna(prices_table['Previous Close'], inplace=True)
 
 # fillna
 cols_to_format = [i for i in df_merged.columns]
@@ -36,14 +37,12 @@ for col in cols_to_format:
 df_merged['from_low'] = (df_merged['price'] - df_merged['52l'])/df_merged['52l'] * 100
 df_merged['from_high'] = (df_merged['price'] - df_merged['52h'])/df_merged['52h'] * 100
 
-df_merged['from_low'] = df_merged['from_low']
-df_merged['from_high'] = df_merged['from_high']
-
 # reorder and export
 cols_to_order = ['symbol', 'price', '52l', '52h', 'from_low', 'from_high']
 new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
 df_merged = df_merged[new_columns]
 df_merged.to_csv(os.path.join(cwd,input_folder,"4_merged.csv"))
+df_merged.to_excel(os.path.join(cwd,input_folder,"4_merged.xlsx"))
 
 # pre-filter stocks for the export
 prices_additional_calc = pd.read_csv(os.path.join(cwd,input_folder,"4_merged.csv"),usecols = ['symbol', 'from_low'])

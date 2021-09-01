@@ -27,7 +27,6 @@ for path in paths:
 
 # reorder and export
 prices_table = pd.concat(prices_table)
-prices_table['Quote Price'].fillna(prices_table['Previous Close'], inplace=True)
 prices_table.drop_duplicates()
 prices_table.to_csv(os.path.join(cwd,input_folder,"2_prices_updated.csv"), index=False)
 prices_table.to_excel(os.path.join(cwd,input_folder,"2_prices_updated.xlsx"))
