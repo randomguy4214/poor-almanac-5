@@ -14,17 +14,18 @@ prices_temp = "prices"
 
 # import prices
 prices_table = pd.read_csv(os.path.join(cwd,input_folder,"2_prices_updated.csv"))
-fundamentals_table = pd.read_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.csv"))
+fundamentals_table = pd.read_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.csv"), low_memory=False)
 
-df_latest_price = pd.merge(fundamentals_table, prices_table, how='inner', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
-df_latest_price.drop([col for col in df_latest_price.columns if 'drop' in col], axis=1, inplace=True)
+df_merged = pd.merge(fundamentals_table, prices_table, how='inner', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
+df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
+df_merged = df_merged.rename(columns={'52 Week High 3': '52h', '52 Week Low 3': '52l', 'Quote Price': 'price'}, inplace=True)
 
 # adding from low/high
-df_merged['from_low'] = (df_merged['price'] - df_merged['low'])/df_merged.low * 100
-df_merged['from_high'] = (df_merged['price'] - df_merged['high'])/df_merged.high * 100
+df_merged['from_low'] = (df_merged['price'] - df_merged['52l'])/df_merged.low * 100
+df_merged['from_high'] = (df_merged['price'] - df_merged['52h'])/df_merged.high * 100
 
-df_merged['from_low'] = df_merged['from_low'].astype(int)
-df_merged['from_high'] = df_merged['from_high'].astype(int)
+df_merged['from_low'] = df_merged['from_low']
+df_merged['from_high'] = df_merged['from_high']
 
 # reorder and export
 cols_to_order = ['symbol', 'price', 'low', 'high', 'from_low', 'from_high']
