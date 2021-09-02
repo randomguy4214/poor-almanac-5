@@ -20,15 +20,6 @@ df = pd.read_csv(os.path.join(cwd,input_folder,"4_merged.csv"), low_memory=False
 # select only latest data
 df = df[df['Period'] == "t0"]
 
-# filter and clean up
-drop_list_ticker = drop_list['symbol'].tolist()
-df = df[~df['symbol'].isin(drop_list_ticker)] # drop some tickers
-drop_list_industry = drop_list['industry'].tolist()
-df = df[~df['industry'].isin(drop_list_industry)] # drop some industries
-drop_list_country = drop_list['country'].tolist()
-df = df[~df['country'].isin(drop_list_country)] # drop some industries
-df = df[~df['longName'].isnull()]
-
 # find latest shorts value
 df_shorts = pd.DataFrame(df.filter(regex='Short % of Float|symbol')).iloc[:,:]
 df_shorts.dropna(how='all', axis=1, inplace=True)
@@ -124,7 +115,16 @@ for col in cols_to_format:
 df_export.sort_values(by=['from_low'], ascending=[True], inplace=True, na_position ='last')
 df_export.to_excel(os.path.join(cwd,input_folder,'5_df_output_unflitered.xlsx'), index=False)
 
-# filter
+# filter by drop list
+drop_list_ticker = drop_list['symbol'].tolist()
+df_export = df_export[~df_export['symbol'].isin(drop_list_ticker)] # drop some tickers
+drop_list_industry = drop_list['industry'].tolist()
+df_export = df_export[~df_export['industry'].isin(drop_list_industry)] # drop some industries
+drop_list_country = drop_list['country'].tolist()
+df_export = df_export[~df_export['country'].isin(drop_list_country)] # drop some industries
+df_export = df_export[~df_export['longName'].isnull()]
+
+# filter by variables
 df_export = df_export.loc[(df_export['from_low'] < 15)] # less than x% increase from lowest point
 df_export = df_export.loc[(df_export['price'] < 5)] # less than 5 bucks
 df_export = df_export.loc[df_export['B/S/P'] > 0.6] # Book to market
