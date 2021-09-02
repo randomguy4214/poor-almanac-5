@@ -20,7 +20,8 @@ prices_table = pd.read_csv(os.path.join(cwd,input_folder,"2_prices_updated.csv")
 df_merged = pd.merge(fundamentals_table, prices_table, how='inner', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
 df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
 df_merged.rename(columns={'52 Week High 3': '52h', '52 Week Low 3': '52l', 'Quote Price': 'price'}, inplace=True)
-df_merged['price'].fillna(prices_table['Previous Close'], inplace=True)
+df_merged['price'].fillna(df_merged['Previous Close'], inplace=True)
+df_merged['NAV'].fillna(df_merged['totalStockholderEquity'], inplace=True)
 
 # fillna
 cols_to_format = [i for i in df_merged.columns]
