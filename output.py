@@ -121,14 +121,14 @@ for col in cols_to_format:
     except:
         pass
 
-
-# sort
+# sort and export unfiltered
 df_export.sort_values(by=['from_low'], ascending=[True], inplace=True, na_position ='last')
+df_export.to_excel(os.path.join(cwd,input_folder,'5_df_output_unflitered.xlsx'), index=False)
 
 # filter
-#df_export = df_export.loc[(df_export['from_low'] < 15)] # less than x% increase from lowest point
-#df_export = df_export.loc[(df_export['price'] < 5)] # less than 5 bucks
-#df_export = df_export.loc[df_export['B/S/P'] > 0.6] # Book to market
+df_export = df_export.loc[(df_export['from_low'] < 15)] # less than x% increase from lowest point
+df_export = df_export.loc[(df_export['price'] < 5)] # less than 5 bucks
+df_export = df_export.loc[df_export['B/S/P'] > 0.6] # Book to market
 
 # export
 df_export.to_excel(os.path.join(cwd,input_folder,'5_df_output.xlsx'), index=False)
