@@ -11,4 +11,4 @@ Designed in PyCharm, but will work anywhere. The code relies on yahoo_fin to get
 4. You need to manually delete temp folders to update. 
 
 Yes, there are files which will be generated, but you cannot see them here. Because there are limits on uploads size. 
-
+Yes, if you know shit about coding it will be a bit of a challenges to install PyCharm and clone the repo. But I did it. So can you. 
