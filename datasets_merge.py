@@ -40,10 +40,14 @@ df_merged['from_low'] = (df_merged['price'] - df_merged['52l'])/df_merged['52l']
 df_merged['from_high'] = (df_merged['price'] - df_merged['52h'])/df_merged['52h'] * 100
 
 # adding TTM
-df_ttm = df_merged.groupby(['symbol'])[['totalRevenue', 'costOfRevenue','totalCashFromOperatingActivities', 'capitalExpenditures']].sum()
+df_ttm = df_merged.groupby(['symbol'])[['totalRevenue', 'costOfRevenue'
+                                        ,'totalCashFromOperatingActivities', 'capitalExpenditures'
+                                        , 'totalOperatingExpenses']].sum()
 df_ttm = df_ttm.reset_index(drop=False)
 df_ttm.rename(columns={'totalRevenue': 'totalRevenueTTM', 'costOfRevenue': 'costOfRevenueTTM'
-    , 'totalCashFromOperatingActivities': 'totalCashFromOperatingActivitiesTTM', 'capitalExpenditures': 'capitalExpendituresTTM' }, inplace=True)
+    , 'totalCashFromOperatingActivities': 'totalCashFromOperatingActivitiesTTM'
+    , 'totalOperatingExpenses': 'totalOperatingExpensesTTM'
+    , 'capitalExpenditures': 'capitalExpendituresTTM' }, inplace=True)
 
 # merging TTM
 df_to_merge = df_merged
