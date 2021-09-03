@@ -14,6 +14,8 @@ temp_folder = "temp"
 # import
 fundamentals_table = pd.read_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.csv"), low_memory=False)
 prices_table = pd.read_csv(os.path.join(cwd,input_folder,"2_prices_updated.csv"), low_memory=False)
+#fundamentals_table = fundamentals_table.head()
+#prices_table = prices_table.head()
 
 # merge
 df_merged = pd.merge(fundamentals_table, prices_table, how='inner', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
@@ -38,9 +40,10 @@ df_merged['from_low'] = (df_merged['price'] - df_merged['52l'])/df_merged['52l']
 df_merged['from_high'] = (df_merged['price'] - df_merged['52h'])/df_merged['52h'] * 100
 
 # adding TTM
-df_ttm = df_merged.groupby(['symbol'])[['totalRevenue', 'costOfRevenue','totalCashFromOperatingActivities']].sum()
+df_ttm = df_merged.groupby(['symbol'])[['totalRevenue', 'costOfRevenue','totalCashFromOperatingActivities', 'capitalExpenditures']].sum()
 df_ttm = df_ttm.reset_index(drop=False)
-df_ttm.rename(columns={'totalRevenue': 'totalRevenueTTM', 'costOfRevenue': 'costOfRevenueTTM', 'totalCashFromOperatingActivities': 'totalCashFromOperatingActivitiesTTM'}, inplace=True)
+df_ttm.rename(columns={'totalRevenue': 'totalRevenueTTM', 'costOfRevenue': 'costOfRevenueTTM'
+    , 'totalCashFromOperatingActivities': 'totalCashFromOperatingActivitiesTTM', 'capitalExpenditures': 'capitalExpendituresTTM' }, inplace=True)
 
 # merging TTM
 df_to_merge = df_merged

@@ -48,7 +48,7 @@ df = df_merged
 
 # process
 df['Short%'] = df['Short%'].str.rstrip('%').str.replace(',','').astype('float')
-df['OpMarg'] = ((df['totalRevenue'] - df['costOfRevenue']) / df['totalRevenue'] * 100).astype('float')
+df['OpMarg'] = ((df['totalRevenueTTM'] - df['costOfRevenueTTM']) / df['totalRevenueTTM'] * 100).astype('float')
 df['%Ins'] = df['% Held by Insiders 1'].str.rstrip('%').str.replace(',','').astype('float')
 df['BVPS'] = df['Book Value Per Share (mrq)']
 
@@ -66,9 +66,9 @@ df['SO'] = (df['Shares Outstanding 5'].replace(r'[ktmbKTMB]+$', '', regex=True).
 # calculate additional variables
 df['NAV_per_share'] = df['NAV'] / df['sharesOutstanding']
 df['B/S/P'] = df['NAV_per_share'] / df['price']
-df['FCF/S'] = (df['totalCashFromOperatingActivities'] - df['capitalExpenditures']) / df['sharesOutstanding']
+df['FCF/S'] = (df['totalCashFromOperatingActivitiesTTM'] - df['capitalExpendituresTTM']) / df['sharesOutstanding']
 df['FCF/S/P'] = df['FCF/S'] / df['price']
-df['marg'] = (df['totalRevenue'] - df['totalOperatingExpenses']) / df['totalRevenue'] * 100
+df['marg'] = (df['totalRevenueTTM'] - df['totalOperatingExpensesTTM']) / df['totalRevenueTTM'] * 100
 df['WC/S'] = df['WC'] / df['sharesOutstanding']
 df['WC/S/P'] = df['WC/S'] / df['price']
 df['WC/Debt'] = df['WC'] / df['Debt']
