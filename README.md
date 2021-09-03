@@ -9,3 +9,6 @@ Designed in PyCharm, but will work anywhere. The code relies on yahoo_fin to get
 2. If error, install pandas, yahoo_fin
 3. It runs incredibly slow (few days prob), because yahoo is blocking too many requests. And the code aims to get as much as possible.
 4. You need to manually delete temp folders to update. 
+
+Yes, there are files which will be generated, but you cannot see them here. Because there are limits on uploads size. 
+
