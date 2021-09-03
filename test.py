@@ -1,28 +1,24 @@
-#test file
 
 import pandas as pd
 import os
-import yahoo_fin as yf
+pd.options.mode.chained_assignment = None
 
-pd.set_option('display.max_columns', None)
-pd.options.display.float_format = '{:20,.2f}'.format
-pd.options.mode.use_inf_as_na = True
-
+# set directories and files
 cwd = os.getcwd()
 input_folder = "0_input"
 prices_folder = "data"
 output_folder = "0_output"
+temp_folder = "temp"
 
-from yahoo_fin.stock_info import * #initiate yahoo_fin
+# import
+fundamentals_table = pd.read_csv(os.path.join(cwd,input_folder,"4_merged.csv"), low_memory=False)
+fundamentals_table['totalRevenue'] = fundamentals_table['totalRevenue'].astype(int)
+df = fundamentals_table.groupby(['symbol'])[['totalRevenue', 'costOfRevenue','totalCashFromOperatingActivities']].sum()
+df = df.reset_index(drop=False)
+#df['costOfRevenue'] = fundamentals_table.groupby(['symbol'])['costOfRevenue'].sum()
 
-t = 'BIOYF'
-df_yf_get_quote_table = get_quote_table(t , dict_result = True)
-df = pd.DataFrame.from_dict(df_yf_get_quote_table, orient='index')
-df = df.T
-df['symbol'] = t
-
+#df['costOfRevenue']
+#df['totalCashFromOperatingActivities']
+#df['capitalExpenditures']
 
 print(df)
-
-df.to_excel(os.path.join(cwd,input_folder,'df.xlsx'))
-
