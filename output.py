@@ -26,8 +26,8 @@ cols_to_order = ['symbol', 'price'
     , 'B/S/P', 'BVPS', 'Rev/S/P'
     , 'WC/S/P'
     , 'WC/Debt', 'Total Debt (mrq)', 'OwnEa/S/P'
-    , 'totalCashFromOperatingActivitiesTTM', 'capitalExpendituresTTM'
-    , 'sharesOutstanding'
+    #, 'totalCashFromOperatingActivitiesTTM', 'capitalExpendituresTTM'
+    #, 'sharesOutstanding'
     ]
 
 # reorder
