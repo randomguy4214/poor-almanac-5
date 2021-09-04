@@ -28,7 +28,8 @@ df_ttm['capitalExpenditures'].fillna(df_ttm['totalCashflowsFromInvestingActiviti
 df_ttm.rename(columns={'totalRevenue': 'totalRevenueTTM', 'costOfRevenue': 'costOfRevenueTTM'
     , 'totalCashFromOperatingActivities': 'totalCashFromOperatingActivitiesTTM'
     , 'totalOperatingExpenses': 'totalOperatingExpensesTTM'
-    , 'capitalExpenditures': 'capitalExpendituresTTM' }, inplace=True)
+    , 'capitalExpenditures': 'capitalExpendituresTTM'
+    , 'Total Debt (mrq)': 'Debt'}, inplace=True)
 print("ttm precalculated")
 
 # select only latest data to filter out balance sheet
@@ -38,7 +39,10 @@ print("fundamentals_table period = t0")
 # merge fundamentals and prices
 df_merged = pd.merge(fundamentals_table, prices_table, how='inner', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
 df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
-df_merged.rename(columns={'52 Week High 3': '52h', '52 Week Low 3': '52l', 'Quote Price': 'price'}, inplace=True)
+df_merged.rename(columns={'52 Week High 3': '52h'
+    , '52 Week Low 3': '52l'
+    , 'Quote Price': 'price'
+    , 'Quarterly Revenue Growth (yoy)': 'QtrGrwth'}, inplace=True)
 print("fundamentals and prices loaded")
 
 # merge TTM
