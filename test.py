@@ -12,8 +12,8 @@ temp_folder = "temp"
 
 # import
 fundamentals_table = pd.read_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.csv"), low_memory=False)
-df = fundamentals_table
-df.value_counts(subset=['symbol'], sort=False)
-
+d = fundamentals_table.head(59)
+df = d.value_counts(subset=['symbol'], sort=False)
+df.sort_values(by=['2'], ascending=[True], inplace=True, na_position ='last')
 
 print(df)
