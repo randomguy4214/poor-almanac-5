@@ -106,6 +106,7 @@ df['NAV'].fillna(df['totalStockholderEquity'], inplace=True)
 df['Short%'] = df['Short%'].str.rstrip('%').str.replace(',','').astype('float')
 df['OpMarg'] = ((df['totalRevenueTTM'] - df['costOfRevenueTTM']) / df['totalRevenueTTM'] * 100).astype('float')
 df['%Ins'] = df['% Held by Insiders 1'].str.rstrip('%').str.replace(',','').astype('float')
+df['%QtrGrwth'] = df['QtrGrwth'].str.rstrip('%').str.replace(',','').astype('float')
 df['BVPS'] = df['Book Value Per Share (mrq)']
 
 # fix from https://stackoverflow.com/questions/39684548/convert-the-string-2-90k-to-2900-or-5-2m-to-5200000-in-pandas-dataframe

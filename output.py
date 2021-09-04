@@ -54,9 +54,9 @@ df_export = df_export[~df_export['country'].isin(drop_list_country)] # drop some
 df_export = df_export[~df_export['longName'].isnull()]
 
 # filter by variables
-#df_export = df_export.loc[(df_export['from_low'] < 15)] # less than x% increase from lowest point
+df_export = df_export.loc[(df_export['from_low'] < 50)] # less than x% increase from lowest point
 df_export = df_export.loc[(df_export['price'] < 5)] # less than 5 bucks
-df_export = df_export.loc[df_export['B/S/P'] > 0.6] # Book to market
+#df_export = df_export.loc[df_export['B/S/P'] > 0.6] # Book to market
 
 # export
 df_export.to_excel(os.path.join(cwd,'5_df_output.xlsx'), index=False)
