@@ -47,7 +47,7 @@ df_merged = pd.merge(df_to_merge, df_ttm, how='inner', left_on=['symbol'], right
 df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
 print("ttm merged")
 
-# fillna
+# fillNA
 cols_to_format = [i for i in df_merged.columns]
 for col in cols_to_format:
     try:
@@ -57,6 +57,7 @@ for col in cols_to_format:
             pass
     except:
         pass
+
 # adding from low/high
 df_merged['price'].fillna(df_merged['Previous Close'], inplace=True)
 df_merged['from_low'] = (df_merged['price'] - df_merged['52l'])/df_merged['52l'] * 100
@@ -110,8 +111,8 @@ df['SO'] = (df['Shares Outstanding 5'].replace(r'[ktmbKTMB]+$', '', regex=True).
             , [10**3, 10**3, 10**6, 10**9, 10**3, 10**3, 10**6, 10**9]).astype(int))
 
 # calculate additional variables
-df['NAV_per_share'] = df['NAV'] / df['sharesOutstanding']
-df['B/S/P'] = df['NAV_per_share'] / df['price']
+df['NAV/S'] = df['NAV'] / df['sharesOutstanding']
+df['B/S/P'] = df['NAV/S'] / df['price']
 df['OwnEa/S'] = (df['totalCashFromOperatingActivitiesTTM'] - df['capitalExpendituresTTM']) / df['sharesOutstanding']
 df['OwnEa/S/P'] = df['OwnEa/S'] / df['price']
 df['marg'] = (df['totalRevenueTTM'] - df['totalOperatingExpensesTTM']) / df['totalRevenueTTM'] * 100

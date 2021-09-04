@@ -8,7 +8,7 @@ import prices_update
 print('prices_updated - done')
 
 print('prices_combine - initiating.')
-import prices_combine
+import prices_processed
 print('prices_combine - done')
 
 print('financials_update - initiating. Printing Stock and % Progress.')
@@ -16,7 +16,7 @@ import financials_update
 print('financials_update - done')
 
 print('financials_combine - initiating.')
-import financials_combine
+import financials_processed
 print('financials_combine - done')
 
 print('datasets_merge - initiating.')

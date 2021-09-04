@@ -11,14 +11,9 @@ output_folder = "0_output"
 temp_folder = "temp"
 
 # import
-fundamentals_table = pd.read_csv(os.path.join(cwd,input_folder,"4_merged.csv"), low_memory=False)
-fundamentals_table['totalRevenue'] = fundamentals_table['totalRevenue'].astype(int)
-df = fundamentals_table.groupby(['symbol'])[['totalRevenue', 'costOfRevenue','totalCashFromOperatingActivities']].sum()
-df = df.reset_index(drop=False)
-#df['costOfRevenue'] = fundamentals_table.groupby(['symbol'])['costOfRevenue'].sum()
+fundamentals_table = pd.read_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.csv"), low_memory=False)
+df = fundamentals_table
+df.value_counts(subset=['symbol'], sort=False)
 
-#df['costOfRevenue']
-#df['totalCashFromOperatingActivities']
-#df['capitalExpenditures']
 
 print(df)
