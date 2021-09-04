@@ -59,4 +59,4 @@ df_export = df_export.loc[(df_export['price'] < 5)] # less than 5 bucks
 output_filtered = '5_df_output.xlsx'
 df_export.to_excel(os.path.join(cwd,output_filtered), index=False)
 
-print('please see the results in ' + output_filtered + ' for filtered and in ' + output_raw + ' for raw')
+print('please see the raw results in ' + output_raw + ' and filteted in '+ output_filtered)
