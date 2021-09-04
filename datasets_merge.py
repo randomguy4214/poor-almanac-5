@@ -43,7 +43,7 @@ df_merged.rename(columns={'52 Week High 3': '52h'
     , '52 Week Low 3': '52l'
     , 'Quote Price': 'price'
     , 'Quarterly Revenue Growth (yoy)': 'QtrGrwth'}, inplace=True)
-print("fundamentals and prices loaded")
+print("raw fundamentals and prices merged")
 
 # merge TTM
 df_to_merge = df_merged
@@ -51,10 +51,12 @@ df_merged = pd.merge(df_to_merge, df_ttm, how='inner', left_on=['symbol'], right
 df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
 print("ttm merged")
 
-# fix prices and shares if missing
+# fix prices and shares if missing or trash
 df_merged['price'].fillna(df_merged['Previous Close'], inplace=True)
 df_merged['price'].fillna(df_merged['Open'], inplace=True)
 df_merged['sharesOutstanding'].fillna(df_merged['marketCap']/df_merged['price'], inplace=True)
+#df_merged = df_merged.loc[(df_merged['price'] < 5000)]
+#df_merged = df_merged.loc[(df_merged['price'] > 0.001)]
 print('fixed prices and sharesOutstanding')
 
 #fix other if missing

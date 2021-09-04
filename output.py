@@ -36,13 +36,10 @@ cols_to_order = ['symbol', 'price'
 new_columns = cols_to_order + (df.columns.drop(cols_to_order).tolist())
 df_export = df[cols_to_order]
 
-# throw out trash
-df_export = df_export.loc[(df_export['price'] < 5000)]
-df_export = df_export.loc[(df_export['price'] > 0.001)]
-
 # sort and export unfiltered
 df_export.sort_values(by=['from_low'], ascending=[True], inplace=True, na_position ='last')
-df_export.to_excel(os.path.join(cwd,'5_df_output_unflitered.xlsx'), index=False)
+output_raw = '5_df_output_unflitered.xlsx'
+df_export.to_excel(os.path.join(cwd,output_raw), index=False)
 
 # filter by drop list
 drop_list_ticker = drop_list['symbol'].tolist()
@@ -59,4 +56,7 @@ df_export = df_export.loc[(df_export['price'] < 5)] # less than 5 bucks
 #df_export = df_export.loc[df_export['B/S/P'] > 0.6] # Book to market
 
 # export
-df_export.to_excel(os.path.join(cwd,'5_df_output.xlsx'), index=False)
+output_filtered = '5_df_output.xlsx'
+df_export.to_excel(os.path.join(cwd,output_filtered), index=False)
+
+print('please see the results in ' + output_filtered + ' for filtered and in ' + output_raw + ' for raw')
