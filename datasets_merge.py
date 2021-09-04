@@ -51,7 +51,7 @@ print("ttm merged")
 df_merged['price'].fillna(df_merged['Previous Close'], inplace=True)
 df_merged['price'].fillna(df_merged['Open'], inplace=True)
 df_merged['sharesOutstanding'].fillna(df_merged['marketCap']/df_merged['price'], inplace=True)
-print('fixed prices')
+print('fixed prices and sharesOutstanding')
 
 #fix other if missing
 cols_to_format = [i for i in df_merged.columns]
