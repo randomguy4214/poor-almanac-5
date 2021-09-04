@@ -113,7 +113,7 @@ df['SO'] = (df['Shares Outstanding 5'].replace(r'[ktmbKTMB]+$', '', regex=True).
 # calculate additional variables
 df['NAV/S'] = df['NAV'] / df['sharesOutstanding']
 df['B/S/P'] = df['NAV/S'] / df['price']
-df['OwnEa/S'] = (df['totalCashFromOperatingActivitiesTTM'] - df['capitalExpendituresTTM']) / df['sharesOutstanding']
+df['OwnEa/S'] = (df['totalCashFromOperatingActivitiesTTM'] + df['capitalExpendituresTTM']) / df['sharesOutstanding']
 df['OwnEa/S/P'] = df['OwnEa/S'] / df['price']
 df['marg'] = (df['totalRevenueTTM'] - df['totalOperatingExpensesTTM']) / df['totalRevenueTTM'] * 100
 df['WC/S'] = df['WC'] / df['sharesOutstanding']
@@ -145,14 +145,17 @@ for col in cols_to_format:
         pass
 print('formatting is done')
 
-# reorder and export
+# reorder
 cols_to_order = ['symbol', 'price', '52l', '52h', 'from_low', 'from_high']
 new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
 df_merged = df_merged[new_columns]
+print('reordering is done')
+
+#  export
 df_merged.to_csv(os.path.join(cwd,input_folder,"4_merged.csv"))
 df_merged.to_excel(os.path.join(cwd,input_folder,"4_merged.xlsx"))
 
 # export tickers again. just to have more narrowed result
 stocks = df_merged[['symbol']].sort_values(by=['symbol'], ascending= True).drop_duplicates()
 stocks.to_csv(os.path.join(cwd,input_folder,"4_tickers_filtered.csv"), index = False)
-print("datasets are merged")
+print("datasets are merged and exported")

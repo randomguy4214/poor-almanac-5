@@ -26,11 +26,16 @@ cols_to_order = ['symbol', 'price'
     , 'B/S/P', 'BVPS', 'Rev/S/P'
     , 'WC/S/P'
     , 'WC/Debt', 'Total Debt (mrq)', 'OwnEa/S/P'
+    , 'totalCashFromOperatingActivitiesTTM', 'capitalExpendituresTTM'
+    , 'sharesOutstanding'
     ]
 
 # reorder
 new_columns = cols_to_order + (df.columns.drop(cols_to_order).tolist())
 df_export = df[cols_to_order]
+
+# throw out trash
+df_export = df_export.loc[(df_export['price'] < 5000)]
 
 # sort and export unfiltered
 df_export.sort_values(by=['from_low'], ascending=[True], inplace=True, na_position ='last')
