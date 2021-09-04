@@ -10,8 +10,6 @@ pd.options.mode.use_inf_as_na = True
 
 cwd = os.getcwd()
 input_folder = "0_input"
-prices_folder = "data"
-output_folder = "0_output"
 temp_folder = "temp"
 financials_temp = "financials"
 

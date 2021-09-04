@@ -10,8 +10,8 @@ input_folder = "0_input"
 prices_folder = "data"
 output_folder = "0_output"
 temp_folder = "temp"
+print('starting merging the financials and prices datasets')
 
-print('starting merging the datasets')
 # import
 fundamentals_table = pd.read_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.csv"), low_memory=False)
 prices_table = pd.read_csv(os.path.join(cwd,input_folder,"2_prices_updated.csv"), low_memory=False)
@@ -39,7 +39,7 @@ print("fundamentals_table period = t0")
 df_merged = pd.merge(fundamentals_table, prices_table, how='inner', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
 df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
 df_merged.rename(columns={'52 Week High 3': '52h', '52 Week Low 3': '52l', 'Quote Price': 'price'}, inplace=True)
-print("fundamentals and prices merged")
+print("fundamentals and prices loaded")
 
 # merge TTM
 df_to_merge = df_merged
@@ -47,11 +47,17 @@ df_merged = pd.merge(df_to_merge, df_ttm, how='inner', left_on=['symbol'], right
 df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
 print("ttm merged")
 
-# fillNA
+# fix prices and shares if missing
+df_merged['price'].fillna(df_merged['Previous Close'], inplace=True)
+df_merged['price'].fillna(df_merged['Open'], inplace=True)
+df_merged['sharesOutstanding'].fillna(df_merged['marketCap']/df_merged['price'], inplace=True)
+print('fixed prices')
+
+#fix other if missing
 cols_to_format = [i for i in df_merged.columns]
 for col in cols_to_format:
     try:
-        if col in ['price', 'from_low', 'from_high']:
+        if col in ['price', 'from_low', 'from_high', 'SharesOutstanding']:
             df_merged[col]=df_merged[col].fillna(0)
         else:
             pass
@@ -59,7 +65,6 @@ for col in cols_to_format:
         pass
 
 # adding from low/high
-df_merged['price'].fillna(df_merged['Previous Close'], inplace=True)
 df_merged['from_low'] = (df_merged['price'] - df_merged['52l'])/df_merged['52l'] * 100
 df_merged['from_high'] = (df_merged['price'] - df_merged['52h'])/df_merged['52h'] * 100
 print('added low/high')

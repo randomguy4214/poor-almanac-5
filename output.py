@@ -36,6 +36,7 @@ df_export = df[cols_to_order]
 
 # throw out trash
 df_export = df_export.loc[(df_export['price'] < 5000)]
+df_export = df_export.loc[(df_export['price'] > 0.001)]
 
 # sort and export unfiltered
 df_export.sort_values(by=['from_low'], ascending=[True], inplace=True, na_position ='last')
