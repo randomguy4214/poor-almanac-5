@@ -15,7 +15,7 @@ print('starting merging the financials and prices datasets')
 # import
 fundamentals_table = pd.read_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.csv"), low_memory=False)
 prices_table = pd.read_csv(os.path.join(cwd,input_folder,"2_prices_updated.csv"), low_memory=False)
-#fundamentals_table = fundamentals_table.head(400)
+#fundamentals_table = fundamentals_table.head(1000)
 #prices_table = prices_table.head()
 print("importing fundamentals and prices is done")
 
@@ -55,8 +55,6 @@ print("ttm merged")
 df_merged['price'].fillna(df_merged['Previous Close'], inplace=True)
 df_merged['price'].fillna(df_merged['Open'], inplace=True)
 df_merged['sharesOutstanding'].fillna(df_merged['marketCap']/df_merged['price'], inplace=True)
-#df_merged = df_merged.loc[(df_merged['price'] < 5000)]
-#df_merged = df_merged.loc[(df_merged['price'] > 0.001)]
 print('fixed prices and sharesOutstanding')
 
 #fix other if missing
@@ -73,7 +71,9 @@ for col in cols_to_format:
 # adding from low/high
 df_merged['from_low'] = (df_merged['price'] - df_merged['52l'])/df_merged['52l'] * 100
 df_merged['from_high'] = (df_merged['price'] - df_merged['52h'])/df_merged['52h'] * 100
-print('added low/high')
+df_merged = df_merged[~(df_merged['from_low'] == 0) & ~(df_merged['from_high'] == -100)]
+#df_merged = df_merged[(df_merged['price'] > 0.001)]
+print('added low/high and filtered some trash')
 
 # find latest shorts value
 df_shorts = pd.DataFrame(df_merged.filter(regex='Short % of Float|symbol')).iloc[:,:]
@@ -164,6 +164,7 @@ df_merged = df_merged[new_columns]
 print('reordering is done')
 
 #  export
+print('export will take a while')
 df_merged.to_csv(os.path.join(cwd,input_folder,"4_merged.csv"))
 df_merged.to_excel(os.path.join(cwd,input_folder,"4_merged.xlsx"))
 
