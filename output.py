@@ -18,18 +18,31 @@ drop_list = pd.read_excel(os.path.join(cwd,input_folder,"0_drop_list.xlsx"))
 df = pd.read_csv(os.path.join(cwd,input_folder,"4_merged.csv"), low_memory=False)
 
 # reorder and select relevant columns
-cols_to_order = ['symbol', 'price'
-    , 'from_low', 'from_high'
+cols_to_order = [
+    'industry'
+    , 'country'
+    , 'longName'
+    , 'symbol'
+    , 'price'
+    , 'Market Cap'
+    , 'from_low'
+    , 'from_high'
     , 'OpMarg'
-    , 'longName', 'industry', 'country'
-    , 'Short%', '%Ins'
-    , 'B/S/P', 'BVPS', 'Rev/S/P'
-    , 'WC/S/P'
-    , 'WC/Debt', 'Debt'
     , 'OwnEa/S/P'
-    , 'QtrGrwth'
-    #, 'totalCashFromOperatingActivitiesTTM', 'capitalExpendituresTTM'
-    #, 'sharesOutstanding'
+    , '%QtrGrwth'
+    , 'Short%'
+    , 'B/S/P'
+    , 'BVPS'
+    , 'Rev/S/P'
+    , 'WC/S/P'
+    , 'WC/Debt'
+    , 'Debt'
+    , '%Ins'
+    , 'totalCashFromOperatingActivitiesTTM'
+    , 'capitalExpendituresTTM'
+    , 'capex_more_correct'
+    , 'sharesOutstanding'
+    , 'marCap'
     ]
 
 # reorder
@@ -51,12 +64,12 @@ df_export = df_export[~df_export['country'].isin(drop_list_country)] # drop some
 df_export = df_export[~df_export['longName'].isnull()]
 
 # filter by variables
-df_export = df_export.loc[(df_export['from_low'] < 50)] # less than x% increase from lowest point
-df_export = df_export.loc[(df_export['price'] < 5)] # less than 5 bucks
-#df_export = df_export.loc[df_export['B/S/P'] > 0.6] # Book to market
+df_export = df_export[(df_export['from_low'] < 50)] # less than x% increase from lowest point
+df_export = df_export[(df_export['price'] < 5)] # less than 5 bucks
+#df_export = df_export[df_export['B/S/P'] > 0.6] # Book to market
 
 # export
-output_filtered = '5_df_output.xlsx'
+output_filtered = '5_df_output_filtered.xlsx'
 df_export.to_excel(os.path.join(cwd,output_filtered), index=False)
 
 print('please see the raw results in ' + output_raw + ' and filteted in '+ output_filtered)

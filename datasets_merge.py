@@ -32,6 +32,12 @@ df_ttm.rename(columns={'totalRevenue': 'totalRevenueTTM', 'costOfRevenue': 'cost
     , 'Total Debt (mrq)': 'Debt'}, inplace=True)
 print("ttm precalculated")
 
+# calculating propertyPlantEquipment for first period
+df_PPE_first = fundamentals_table[fundamentals_table['Period'] == "t-3"]
+df_PPE = df_PPE_first[['symbol', 'propertyPlantEquipment']]
+df_PPE.rename(columns={'propertyPlantEquipment': 'PPE_t_3'}, inplace=True)
+print('PPE prepared for further calc' )
+
 # select only latest data to filter out balance sheet
 fundamentals_table = fundamentals_table[fundamentals_table['Period'] == "t0"]
 print("fundamentals_table period = t0")
@@ -50,6 +56,12 @@ df_to_merge = df_merged
 df_merged = pd.merge(df_to_merge, df_ttm, how='inner', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
 df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
 print("ttm merged")
+
+# merge PPE
+df_to_merge = df_merged
+df_merged = pd.merge(df_to_merge, df_PPE, how='inner', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
+df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
+print("PPE merged")
 
 # fix prices and shares if missing or trash
 df_merged['price'].fillna(df_merged['Previous Close'], inplace=True)
@@ -111,7 +123,8 @@ df['%Ins'] = df['% Held by Insiders 1'].str.rstrip('%').str.replace(',','').asty
 df['%QtrGrwth'] = df['QtrGrwth'].str.rstrip('%').str.replace(',','').astype('float')
 df['BVPS'] = df['Book Value Per Share (mrq)']
 
-# fix from https://stackoverflow.com/questions/39684548/convert-the-string-2-90k-to-2900-or-5-2m-to-5200000-in-pandas-dataframe
+# fix debt naming
+# from https://stackoverflow.com/questions/39684548/convert-the-string-2-90k-to-2900-or-5-2m-to-5200000-in-pandas-dataframe
 df['Debt'] = (df['Total Debt (mrq)'].replace(r'[ktmbKTMB]+$', '', regex=True).astype(float) *
             df['Total Debt (mrq)'].str.extract(r'[\d\.]+([ktmbKTMB]+)', expand=False).fillna(1).replace(
             ['k', 't', 'm', 'b', 'K', 'T', 'M', 'B']
@@ -122,11 +135,46 @@ df['SO'] = (df['Shares Outstanding 5'].replace(r'[ktmbKTMB]+$', '', regex=True).
             ['k', 't', 'm', 'b', 'K', 'T', 'M', 'B']
             , [10**3, 10**3, 10**6, 10**9, 10**3, 10**3, 10**6, 10**9]).astype(int))
 
+df['marCap'] = (df['Market Cap'].replace(r'[ktmbKTMB]+$', '', regex=True).astype(float) *
+            df['Market Cap'].str.extract(r'[\d\.]+([ktmbKTMB]+)', expand=False).fillna(1).replace(
+            ['k', 't', 'm', 'b', 'K', 'T', 'M', 'B']
+            , [10**3, 10**3, 10**6, 10**9, 10**3, 10**3, 10**6, 10**9]).astype(int))
+
 # calculate additional variables
+print('calculating additional variables')
+print('................................................................................................')
+print('Main goal is to find actual earnings to owner and compare them to the price.')
+print('As of now, there is no 5y data for companies, therefore we have to do an approximation.')
+print('Bad start, but we dont have anything better.')
+print('We take PPE for the last period, divide it by PPE first period, and extrapolate growth rate to 4 periods.')
+print('This way we can discount PPE in first quarter to get PPE last year.')
+print('We also assume that %QtrGrwth is equal to YoY growth of sales.')
+print('We discount sales TTM by %QtrGrwth to approximate last year sales.')
+print('Divide that by PPE and you get your maintenance capex ratio.')
+print('multiply this number by %QtrGrwth and get growth capex.')
+print('Substract that number and learn your reinvestment capex.')
+print('Use it to find Owners Earnings.')
+print('Divide that by shares outstanding and then divide by sales price.')
+print('This way you get your more correct earnings per share vs price')
+print('................................................................................................')
+
+df['PPE_growth_3_periods_ago'] = (df['propertyPlantEquipment'] - df['PPE_t_3']) / df['PPE_t_3'] -1
+df['PPE_growth_per_period'] = (1 + df['PPE_growth_3_periods_ago']).pow(1/3) - 1
+df['PPE_last_year'] = df['PPE_growth_3_periods_ago'] / (1+df['PPE_growth_per_period'])
+df['Sales_last_year'] = df['totalRevenueTTM'] / (1+df['%QtrGrwth'])
+df['Sales_absolute_increase'] = df['totalRevenueTTM'] - df['Sales_last_year']
+df['maint_capex_ratio'] = df['PPE_last_year'] / df['Sales_last_year']
+df['growth_capex'] = df['maint_capex_ratio'] * df['Sales_absolute_increase']
+df['capex_more_correct'] = df['capitalExpendituresTTM'] - df['growth_capex']
+df['capex_more_correct'] = df['capex_more_correct'].fillna(df['capitalExpendituresTTM'])
+df['capex_more_correct'] = df['capex_more_correct'].fillna(df['totalCashflowsFromInvestingActivities'])
+
 df['NAV/S'] = df['NAV'] / df['sharesOutstanding']
 df['B/S/P'] = df['NAV/S'] / df['price']
-df['OwnEa/S'] = (df['totalCashFromOperatingActivitiesTTM'] + df['capitalExpendituresTTM']) / df['sharesOutstanding']
+df['OwnEa'] =  df['totalCashFromOperatingActivitiesTTM'] + df['capex_more_correct']
+df['OwnEa/S'] = df['OwnEa'] / df['sharesOutstanding']
 df['OwnEa/S/P'] = df['OwnEa/S'] / df['price']
+
 df['marg'] = (df['totalRevenueTTM'] - df['totalOperatingExpensesTTM']) / df['totalRevenueTTM'] * 100
 df['WC/S'] = df['WC'] / df['sharesOutstanding']
 df['WC/S/P'] = df['WC/S'] / df['price']
