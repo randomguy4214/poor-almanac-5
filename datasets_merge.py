@@ -43,7 +43,7 @@ fundamentals_table = fundamentals_table[fundamentals_table['Period'] == "t0"]
 print("fundamentals_table period = t0")
 
 # merge fundamentals and prices
-df_merged = pd.merge(fundamentals_table, prices_table, how='inner', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
+df_merged = pd.merge(fundamentals_table, prices_table, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
 df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
 df_merged.rename(columns={'52 Week High 3': '52h'
     , '52 Week Low 3': '52l'
@@ -53,13 +53,13 @@ print("raw fundamentals and prices merged")
 
 # merge TTM
 df_to_merge = df_merged
-df_merged = pd.merge(df_to_merge, df_ttm, how='inner', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
+df_merged = pd.merge(df_to_merge, df_ttm, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
 df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
 print("ttm merged")
 
 # merge PPE
 df_to_merge = df_merged
-df_merged = pd.merge(df_to_merge, df_PPE, how='inner', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
+df_merged = pd.merge(df_to_merge, df_PPE, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
 df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
 print("PPE merged")
 
