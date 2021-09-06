@@ -28,6 +28,7 @@ cols_to_order = [
     , 'from_low'
     , 'from_high'
     , 'OpMarg'
+    , 'OwnEa/S'
     , 'OwnEa/S/P'
     , '%QtrGrwth'
     , 'Short%'
