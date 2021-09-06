@@ -32,7 +32,8 @@ prices_table.to_csv(os.path.join(cwd,input_folder,"2_prices_updated.csv"), index
 prices_table.to_excel(os.path.join(cwd,input_folder,"2_prices_updated.xlsx"))
 
 # export tickers
-stocks = prices_table[['symbol']].sort_values(by=['symbol'], ascending= True).drop_duplicates()
+stocks = prices_table[['symbol']].astype(str).sort_values(by=['symbol'], ascending= True)
+stocks.drop_duplicates()
 stocks.to_csv(os.path.join(cwd,input_folder,"2_tickers_filtered.csv"), index = False)
 
 df_columns=pd.DataFrame(prices_table.columns.T)
