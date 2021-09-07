@@ -77,6 +77,3 @@ for t in tickers.split(' '):
             pass
     except:
         pass
-
-
-
