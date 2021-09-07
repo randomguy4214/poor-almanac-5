@@ -66,6 +66,7 @@ print("PPE merged")
 # fix prices and shares if missing or trash
 df_merged['price'].fillna(df_merged['Previous Close'], inplace=True)
 df_merged['price'].fillna(df_merged['Open'], inplace=True)
+df_merged.loc[df_merged['sharesOutstanding'] < 1000, 'sharesOutstanding'] = df_merged['marketCap']/df_merged['price']
 df_merged['sharesOutstanding'].fillna(df_merged['marketCap']/df_merged['price'], inplace=True)
 print('fixed prices and sharesOutstanding')
 
