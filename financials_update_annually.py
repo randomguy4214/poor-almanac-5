@@ -42,7 +42,7 @@ for t in tickers.split(' '):
                 #df_keys = keys #we dont need "keys"
                 df = values
                 df.reset_index(drop=False, inplace=True)
-                df.columns.values[[0, 1, 2, 3, 4]] = ['Breakdown', 't0', 't-1', 't-2', 't-3']
+                df.columns.values[[0, 1, 2, 3, 4]] = ['Breakdown', 'y0', 'y-1', 'y-2', 'y-3']
                 values_table.append(df)
             values_table = pd.concat(values_table)
             values_table = values_table[~values_table['Breakdown'].duplicated(keep='first')] #catching double entries in values to properly reset the index
