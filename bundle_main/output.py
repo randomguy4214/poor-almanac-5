@@ -42,9 +42,9 @@ cols_to_order = [
     , 'WC/Debt'
     , 'Debt'
     , '%Ins'
-    , 'totalCashFromOperatingActivitiesTTM'
-    , 'capitalExpendituresTTM'
-    , 'capex_more_correct'
+    #, 'totalCashFromOperatingActivitiesTTM'
+    #, 'capitalExpendituresTTM'
+    #, 'capex_more_correct'
     , 'sharesOutstanding'
     , 'marCap'
     ]
@@ -70,7 +70,7 @@ df_export = df_export[~df_export['longName'].isnull()]
 # filter by variables
 df_export = df_export[(df_export['from_low'] >= 0)] # impossible
 df_export = df_export[(df_export['marCap'] >= 1000000)] # more than 1m marcap
-df_export = df_export[(df_export['from_low'] < 50)] # less than x% increase from lowest point
+df_export = df_export[(df_export['from_low'] < 30)] # less than x% increase from lowest point
 df_export = df_export[(df_export['price'] < 5)] # less than 5 bucks
 #df_export = df_export[df_export['B/S/P'] > 0.6] # Book to market
 
