@@ -17,6 +17,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\1MA.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\2GB.DE.csv">
           <value>
             <Attribute>
@@ -31,7 +38,49 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\39K.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\4XT.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\5GH.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\AB9.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\ABL.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\ABMC.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\ABT.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -45,7 +94,28 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\ADPT.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\AEHR.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\AEIN.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\AEIS.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -66,6 +136,41 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\AKCCF.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\ALOT.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\ALRN.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\ALRT.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\ALYA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\AMDLY.csv">
           <value>
             <Attribute>
@@ -73,7 +178,21 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\AME.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\AMFC.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\AMKR.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -95,6 +214,13 @@
           </value>
         </entry>
         <entry key="\0_input\temp\financials\AMTBB.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\APDN.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -129,6 +255,62 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\ASMVY.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\ASX.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\ATCX.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\ATEYY.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\ATGE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\ATRO.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\ATROB.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\ATSAF.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\AVAL.csv">
           <value>
             <Attribute>
@@ -143,6 +325,83 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\AVT.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\AWH.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\AXDX.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\AXIM.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\AYALY.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\AYTU.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\AYYLF.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\BADFF.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\BAESF.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\BAESY.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\BASX.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\BCML.csv">
           <value>
             <Attribute>
@@ -150,7 +409,35 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\BCTX.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\BDC.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\BDR.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\BDSX.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\BDT.DE.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -171,6 +458,27 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\BHE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\BIO.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\BIOC.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\BKGM.csv">
           <value>
             <Attribute>
@@ -179,6 +487,13 @@
           </value>
         </entry>
         <entry key="\0_input\temp\financials\BMBN.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\BMRA.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -199,6 +514,27 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\BSP.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\BUWA.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\CANF.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\CARE.csv">
           <value>
             <Attribute>
@@ -213,7 +549,77 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\CDNA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\CDNS.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\CDS.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\CELC.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\CELP.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\CHD.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\CLFD.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\CLPS.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\CLWT.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\CNBX.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\CNTG.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -227,7 +633,105 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\COBJF.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\CODX.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\COHU.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\CPF.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\CSBR.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\CSL.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\ITW.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\JBL.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\JGCCY.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\JNP.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\JNPR.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\KBR.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\KBSTF.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\KE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\KEYS.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -241,6 +745,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\MYD.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\NN6.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\STOK.csv">
           <value>
             <Attribute>
@@ -248,7 +766,63 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\SYT.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\SYZLF.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\TAUG.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\TDY.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\TECH.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\TER.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\TESS.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\TEY.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\TIKK.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -269,6 +843,27 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\TLIS.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\TNXP.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\TOMDF.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\TOWN.csv">
           <value>
             <Attribute>
@@ -283,7 +878,21 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\TRNS.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\TRT.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\TTOO.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -304,6 +913,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\TXT.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\UBAB.csv">
           <value>
             <Attribute>
@@ -318,7 +934,21 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\UEHPY.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\UNB.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\UNS1.DE.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -346,7 +976,35 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\VCYT.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\VECO.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\VIAV.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\VICR.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\VIVO.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -360,6 +1018,41 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\VNRX.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\VTSI.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\VVOS.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\VYNT.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\WLDBF.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\WLMS.csv">
           <value>
             <Attribute>
@@ -367,7 +1060,56 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\0_input\temp\financials\WORX.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\XGN.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\XIX.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\XLNX.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\YOKEY.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\YSN.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\0_input\temp\financials\ZGY.DE.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\0_input\temp\financials\ZIL2.DE.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
