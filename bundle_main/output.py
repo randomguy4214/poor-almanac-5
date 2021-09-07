@@ -45,7 +45,7 @@ cols_to_order = [
     #, 'totalCashFromOperatingActivitiesTTM'
     #, 'capitalExpendituresTTM'
     #, 'capex_more_correct'
-    , 'sharesOutstanding'
+    #, 'sharesOutstanding'
     , 'marCap'
     ]
 
