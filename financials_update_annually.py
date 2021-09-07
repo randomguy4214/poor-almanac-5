@@ -56,62 +56,11 @@ for t in tickers.split(' '):
             df_T['WC'] = df_T['totalCurrentAssets'] - df_T['totalCurrentLiabilities']
             df_T['symbol'] = t
             df_T['Period'] = df_T.index
-
-            # get "quote data"
-            df_yf_quote_data = get_quote_data(t)
-            df_yf_quote_data_1 = pd.Series(df_yf_quote_data)
-            df_yf_quote_data_2 = pd.DataFrame(df_yf_quote_data_1).T
-            df_yf_quote_data_2.reset_index(drop=False, inplace=True)
-            df_yf_quote_data_2 = df_yf_quote_data_2.drop(columns=['index'])
-
-            #get statistics
-            df_yf_stats = get_stats(t)
-            df_yf_stats.reset_index(drop=True, inplace=True)
-            df_yf_stats.set_index('Attribute', inplace=True)
-            df_stats = df_yf_stats.T
-            df_stats['symbol'] = t
-            df_stats.reset_index(drop=True, inplace=True)
-
-            #get company info
-            df_yf_info = get_company_info(t)
-            df_yf_info.reset_index(drop=False, inplace=True)
-            df_yf_info = df_yf_info[~df_yf_info['Breakdown'].duplicated(keep='first')] #catching double entries in values to properly reset the index
-            df_yf_info.set_index('Breakdown', inplace=True)
-            df_info = df_yf_info.T
-            df_info['symbol'] = t
-            df_info.reset_index(drop=False, inplace=True)
-
-            # merge
-            # financials to quote data
-            to_merge = df_T
-            df_merged = pd.merge(df_T, df_yf_quote_data_2, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
-            df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
-            df_merged.drop_duplicates()
-            df_merged.reset_index(drop=True, inplace=True)
-
-            # to stats
-            to_merge = df_merged
-            df_merged = pd.merge(to_merge, df_stats, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
-            df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
-            df_merged.drop_duplicates()
-            df_merged.reset_index(drop=True, inplace=True)
-
-            # to info
-            to_merge = df_merged
-            df_merged = pd.merge(to_merge, df_info, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
-            df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
-            df_merged.drop_duplicates()
-            df_merged.reset_index(drop=True, inplace=True)
-
-            # append
-            cols_to_order = ['Period', 'symbol', 'NAV', 'sharesOutstanding']
-            new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
-            df_merged = df_merged[new_columns]
-            #financials_table.append(df_merged)
+            df = df_T
 
             # export
             name = t + ".csv"
-            df_merged.to_csv(os.path.join(cwd, input_folder, temp_folder, financials_temp, name), index=False)
+            df.to_csv(os.path.join(cwd, input_folder, temp_folder, financials_temp, name), index=False)
         else:
             pass
     except:

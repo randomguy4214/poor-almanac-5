@@ -11,6 +11,7 @@ input_folder = "0_input"
 temp_folder = "temp"
 prices_temp = "prices"
 financials_temp = "financials"
+financials_annually_temp = "financials_annually"
 
 # check folder 0_input
 if not os.path.exists(os.path.join(cwd,input_folder)):
@@ -39,6 +40,13 @@ if not os.path.exists(os.path.join(cwd, input_folder, temp_folder, financials_te
     print("temp financials csv folder created")
 else:
     print("temp financials csv exists")
+
+# check prices and financials folders
+if not os.path.exists(os.path.join(cwd, input_folder, temp_folder, financials_temp)):
+    os.mkdir(os.path.join(cwd, input_folder, temp_folder, financials_annually_temp))
+    print("temp financials_annually folder created")
+else:
+    print("temp financials_annually exists")
 
 # check drop list tickers
 if not os.path.exists(os.path.join(cwd,input_folder,"0_drop_list.xlsx")):
