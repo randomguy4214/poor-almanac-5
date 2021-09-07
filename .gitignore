@@ -135,6 +135,7 @@ dmypy.json
 0ld/*
 0_input/temp/*
 0_input/temp/financials/
+0_input/temp/financials_annually/
 0_input/temp/prices/
 0_input/2_prices_updated.csv
 0_input/2_prices_updated.xlsx
