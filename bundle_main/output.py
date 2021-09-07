@@ -33,6 +33,7 @@ cols_to_order = [
     , 'OwnEa/S'
     , 'OwnEa/S/P'
     , '%QtrGrwth'
+    , '%YoYGrwth'
     , 'Short%'
     , 'B/S/P'
     , 'BVPS'
