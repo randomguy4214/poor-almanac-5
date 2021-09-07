@@ -1,8 +1,9 @@
 #!/usr/bin/python
 
-import pandas as pd
 import os
-import sys
+
+import pandas as pd
+
 pd.options.mode.chained_assignment = None  # default='warn'
 
 # set directories and files

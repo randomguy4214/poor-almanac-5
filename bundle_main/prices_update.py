@@ -1,7 +1,8 @@
 #!/usr/bin/python
 
-import pandas as pd
 import os
+
+import pandas as pd
 
 # formatting
 #pd.set_option('display.max_rows', None)
@@ -18,7 +19,6 @@ output_folder = "0_output"
 
 import pandas as pd
 import os
-import yahoo_fin as yf
 
 pd.set_option('display.max_columns', None)
 pd.options.display.float_format = '{:20,.2f}'.format
