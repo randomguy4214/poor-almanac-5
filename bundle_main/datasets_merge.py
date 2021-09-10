@@ -105,6 +105,7 @@ for col in cols_to_format:
         pass
 
 # adding from low/high
+df_merged.loc[df_merged['price'] < df_merged['52l'], 'price'] = df_merged['52l'] # fix too low price
 df_merged['from_low'] = (df_merged['price'] - df_merged['52l'])/df_merged['52l'] * 100
 df_merged['from_high'] = (df_merged['price'] - df_merged['52h'])/df_merged['52h'] * 100
 df_merged = df_merged[~(df_merged['from_low'] == 0) & ~(df_merged['from_high'] == -100)]
