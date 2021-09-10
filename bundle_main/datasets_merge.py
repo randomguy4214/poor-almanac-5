@@ -14,7 +14,6 @@ output_folder = "0_output"
 temp_folder = "temp"
 print('starting merging the financials and prices datasets')
 
-print(os.path.join(cwd,input_folder))
 # import
 fundamentals_table = pd.read_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.csv"), low_memory=False)
 fundamentals_table_annually = pd.read_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed_annually.csv"), low_memory=False)
