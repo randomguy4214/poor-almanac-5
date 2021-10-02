@@ -61,8 +61,9 @@ company_info = []
 for t in tickers.split(' '):
     try:
         # progress number
+        p = "price"
         n = pd.to_numeric(tickers_narrowed["symbol"][tickers_narrowed["symbol"] == t].index).values
-        print(t, n/index_max*100)
+        print(t, n/index_max*100, n, index_max, p)
 
         name = t + ".csv"
         if not os.path.exists(os.path.join(cwd, input_folder, temp_folder, prices_temp, name)):
