@@ -9,9 +9,9 @@ print('prices_updated - initiating. Printing Stock and % Progress.')
 from bundle_main import prices_update
 print('prices_updated - done')
 
-print('financials_update - initiating. Printing Stock and % Progress.')
-from bundle_main import financials_update
-print('financials_update - done')
+print('financials_update_quarterly - initiating. Printing Stock and % Progress.')
+from bundle_main import financials_update_quarterly
+print('financials_update_quarterly - done')
 
 print('financials_update_annually - initiating. Printing Stock and % Progress.')
 from bundle_main import financials_update_annually
@@ -23,7 +23,7 @@ from bundle_main import prices_process
 print('prices_combine - done')
 
 print('financials_process_quarterly - initiating.')
-from bundle_main import financials_process
+from bundle_main import financials_process_quarterly
 print('financials_process_quarterly - done')
 
 print('financials_process_annually - initiating.')

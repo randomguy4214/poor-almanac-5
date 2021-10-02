@@ -14,7 +14,7 @@ prices_folder = "data"
 output_folder = "0_output"
 temp_folder = "temp"
 prices_temp = "prices"
-financials_temp = "financials"
+financials_temp = "financials_quarterly"
 
 # prepare tickers list
 tickers_narrowed = pd.read_csv(os.path.join(cwd,input_folder,"1_tickers_narrowed.csv"))

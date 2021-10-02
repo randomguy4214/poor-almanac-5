@@ -11,7 +11,7 @@ pd.options.mode.use_inf_as_na = True
 cwd = os.getcwd()
 input_folder = "0_input"
 temp_folder = "temp"
-financials_temp = "financials"
+financials_temp = "financials_quarterly"
 
 from pathlib import Path
 paths = Path(os.path.join(cwd,input_folder,temp_folder,financials_temp)).glob('**/*.csv')

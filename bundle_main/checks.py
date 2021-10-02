@@ -11,7 +11,7 @@ cwd = os.getcwd()
 input_folder = "0_input"
 temp_folder = "temp"
 prices_temp = "prices"
-financials_temp = "financials"
+financials_quarterly_temp = "financials_quarterly"
 financials_annually_temp = "financials_annually"
 
 # check folder 0_input
@@ -36,8 +36,8 @@ else:
     print("temp prices csv folder exists")
 
 # check prices and financials folders
-if not os.path.exists(os.path.join(cwd, input_folder, temp_folder, financials_temp)):
-    os.mkdir(os.path.join(cwd, input_folder, temp_folder, financials_temp))
+if not os.path.exists(os.path.join(cwd, input_folder, temp_folder, financials_quarterly_temp)):
+    os.mkdir(os.path.join(cwd, input_folder, temp_folder, financials_quarterly_temp))
     print("temp financials csv folder created")
 else:
     print("temp financials csv exists")
