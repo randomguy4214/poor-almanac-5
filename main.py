@@ -22,9 +22,9 @@ print('prices_combine - initiating.')
 from bundle_main import prices_process
 print('prices_combine - done')
 
-print('financials_process - initiating.')
+print('financials_process_quarterly - initiating.')
 from bundle_main import financials_process
-print('financials_process - done')
+print('financials_process_quarterly - done')
 
 print('financials_process_annually - initiating.')
 from bundle_main import financials_process_annually
@@ -37,5 +37,4 @@ print('datasets_merge - done')
 
 from bundle_main import output
 print('output - done')
-
 

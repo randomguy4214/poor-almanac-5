@@ -27,7 +27,7 @@ for path in paths:
     except:
         pass
 
-# reorder and export
+# export everything
 prices_table = pd.concat(prices_table)
 prices_table.drop_duplicates()
 prices_table.to_csv(os.path.join(cwd,input_folder,"2_prices_updated.csv"), index=False)
@@ -38,5 +38,6 @@ stocks = prices_table[['symbol']].astype(str).sort_values(by=['symbol'], ascendi
 stocks.drop_duplicates()
 stocks.to_csv(os.path.join(cwd,input_folder,"2_tickers_filtered.csv"), index = False)
 
+# export columns
 df_columns=pd.DataFrame(prices_table.columns.T)
 df_columns.to_excel(os.path.join(cwd,input_folder,'2_prices_updated_columns.xlsx'))

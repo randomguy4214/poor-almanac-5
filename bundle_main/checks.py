@@ -43,7 +43,7 @@ else:
     print("temp financials csv exists")
 
 # check prices and financials folders
-if not os.path.exists(os.path.join(cwd, input_folder, temp_folder, financials_temp)):
+if not os.path.exists(os.path.join(cwd, input_folder, temp_folder, financials_annually_temp)):
     os.mkdir(os.path.join(cwd, input_folder, temp_folder, financials_annually_temp))
     print("temp financials_annually folder created")
 else:
