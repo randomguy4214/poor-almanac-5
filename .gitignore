@@ -145,6 +145,8 @@ dmypy.json
 0_input/3_fundamentals_columns.xlsx
 0_input/3_fundamentals_processed_annually.csv
 0_input/3_fundamentals_processed_annually.xlsx
+0_input/3_fundamentals_processed_quarterly.csv
+0_input/3_fundamentals_processed_quarterly.xlsx
 0_input/3_fundamentals_columns_annually.xlsx
 0_input/3_tickers_filtered.csv
 0_input/3_tickers_filtered_annually.csv
