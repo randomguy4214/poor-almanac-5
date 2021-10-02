@@ -33,8 +33,8 @@ for path in paths:
 # export
 financials_table = pd.concat(financials_table)
 financials_table.drop_duplicates()
-financials_table.to_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed.csv"), index=False)
-financials_table.to_excel(os.path.join(cwd,input_folder,"3_fundamentals_processed.xlsx"))
+financials_table.to_csv(os.path.join(cwd,input_folder,"3_fundamentals_processed_quarterly.csv"), index=False)
+financials_table.to_excel(os.path.join(cwd,input_folder,"3_fundamentals_processed_quarterly.xlsx"))
 
 # export tickers
 stocks = financials_table[['symbol']].astype(str).drop_duplicates()
