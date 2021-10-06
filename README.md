@@ -12,4 +12,5 @@ Designed in PyCharm, but will work anywhere. The code relies on yahoo_fin to get
 5. You should keep your tickers in "1_tickers_narrowed.csv" because it will take an infinite time to load all tickers and 99% of them will be some old non traded companies.
 
 6. Yes, there are files which will be generated, but you cannot see them on github. Because there are limits on uploads size. 
-7. Yes, if you know shit about coding it will be a bit of a challenge to install PyCharm and clone the repo. But I did it. So can you. 
+7. Yes, if you know shit about coding it will be a bit of a challenge to install PyCharm and clone the repo. But I did it. So can you.
+8. recommendation - when all the code is done, put tickers from 5_filtered to 1_narrowed to save time in the next iteration.

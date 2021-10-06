@@ -227,5 +227,5 @@ df_merged.to_excel(os.path.join(cwd,input_folder,"4_merged.xlsx"))
 
 # export tickers again. just to have more narrowed result
 stocks = df_merged[['symbol']].sort_values(by=['symbol'], ascending= True).drop_duplicates()
-stocks.to_csv(os.path.join(cwd,input_folder,"4_tickers_filtered.csv"), index = False)
+stocks.to_csv(os.path.join(cwd,input_folder,"4_tickers_narrowed.csv"), index = False)
 print("datasets are merged and exported")

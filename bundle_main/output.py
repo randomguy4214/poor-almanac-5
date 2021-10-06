@@ -80,4 +80,9 @@ df_export = df_export[(df_export['from_low'] < 30)] # less than x% increase from
 output_filtered = '5_df_output_filtered.xlsx'
 df_export.to_excel(os.path.join(cwd,output_filtered), index=False)
 
+# export tickers again. just to have more narrowed result
+stocks = df_export[['symbol']].sort_values(by=['symbol'], ascending= True).drop_duplicates()
+stocks.to_csv(os.path.join(cwd,input_folder,"5_tickers_filtered.csv"), index = False)
+print("datasets are merged and exported")
+
 print('please see the raw results in ' + output_raw + ' and filteted in '+ output_filtered)
