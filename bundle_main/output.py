@@ -38,7 +38,7 @@ cols_to_order = [
     , '%YoYGrwth'
     , 'Short%'
     , 'B/S/P'
-    , 'BVPS'
+    #, 'BVPS'
     , 'Rev/S/P'
     , 'WC/S/P'
     , 'WC/Debt'
