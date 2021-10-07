@@ -188,7 +188,7 @@ df['marg'] = (df['totalRevenueTTM'] - df['totalOperatingExpensesTTM']) / df['tot
 df['WC/S'] = df['WC'] / df['sharesOutstanding']
 df['WC/S/p'] = df['WC/S'] / df['p']
 df['WC/Debt'] = df['WC'] / df['Debt']
-df['Eq/Debt'] = df['totalStockholderEquity'] / df['Debt']
+df['Eq/Debt'] = df['totalStockholderEquity'] / (df['totalStockholderEquity'] + df['Debt'])
 df['Rev/S/p'] = df['Revenue Per Share (ttm)'] / df['p']
 print('additional variables calculated')
 
