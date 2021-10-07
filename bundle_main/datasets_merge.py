@@ -64,7 +64,7 @@ df_merged = pd.merge(fundamentals_table, prices_table, how='left', left_on=['sym
 df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
 df_merged.rename(columns={'52 Week High 3': '52h'
     , '52 Week Low 3': '52l'
-    , 'Quote Price': 'price'
+    , 'Quote Price': 'p'
     , 'Quarterly Revenue Growth (yoy)': 'QtrGrwth'}, inplace=True)
 print("raw fundamentals and prices merged")
 
@@ -87,19 +87,19 @@ df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inpl
 print("historical averaged data")
 
 # fix prices and shares if missing or trash
-df_merged['price'].fillna(df_merged['Previous Close'], inplace=True)
-df_merged['price'].fillna(df_merged['Open'], inplace=True)
+df_merged['p'].fillna(df_merged['Previous Close'], inplace=True)
+df_merged['p'].fillna(df_merged['Open'], inplace=True)
 df_merged['52l'].fillna(df_merged['fiftyTwoWeekLow'], inplace=True)
 df_merged['52h'].fillna(df_merged['fiftyTwoWeekHigh'], inplace=True)
-df_merged.loc[df_merged['sharesOutstanding'] < 1000, 'sharesOutstanding'] = df_merged['marketCap']/df_merged['price']
-df_merged['sharesOutstanding'].fillna(df_merged['marketCap']/df_merged['price'], inplace=True)
+df_merged.loc[df_merged['sharesOutstanding'] < 1000, 'sharesOutstanding'] = df_merged['marketCap']/df_merged['p']
+df_merged['sharesOutstanding'].fillna(df_merged['marketCap']/df_merged['p'], inplace=True)
 print('fixed prices and sharesOutstanding')
 
 #fix other if missing
 cols_to_format = [i for i in df_merged.columns]
 for col in cols_to_format:
     try:
-        if col in ['price', 'from_low', 'from_high', 'SharesOutstanding']:
+        if col in ['p', 'from_low', 'from_high', 'SharesOutstanding']:
             df_merged[col]=df_merged[col].fillna(0)
         else:
             pass
@@ -107,11 +107,11 @@ for col in cols_to_format:
         pass
 
 # adding from low/high
-df_merged.loc[df_merged['price'] < df_merged['52l'], 'price'] = df_merged['52l'] # fix too low price
-df_merged['from_low'] = (df_merged['price'] - df_merged['52l'])/df_merged['price'] * 100
-df_merged['from_high'] = (df_merged['price'] - df_merged['52h'])/df_merged['52h'] * 100
+df_merged.loc[df_merged['p'] < df_merged['52l'], 'p'] = df_merged['52l'] # fix too low price
+df_merged['from_low'] = (df_merged['p'] - df_merged['52l'])/df_merged['p'] * 100
+df_merged['from_high'] = (df_merged['p'] - df_merged['52h'])/df_merged['52h'] * 100
 df_merged = df_merged[~(df_merged['from_low'] == 0) & ~(df_merged['from_high'] == -100)]
-#df_merged = df_merged[(df_merged['price'] > 0.001)]
+#df_merged = df_merged[(df_merged['p'] > 0.001)]
 print('added low/high and filtered some trash')
 
 # find latest shorts value
@@ -179,23 +179,24 @@ df['capex_more_correct'] = df['capex_more_correct'].fillna(df['capitalExpenditur
 df['capex_more_correct'] = df['capex_more_correct'].fillna(df['totalCashflowsFromInvestingActivities'])
 
 df['NAV/S'] = df['NAV'] / df['sharesOutstanding']
-df['B/S/P'] = df['NAV/S'] / df['price']
+df['B/S/p'] = df['NAV/S'] / df['p']
 df['OwnEa'] =  df['totalCashFromOperatingActivitiesTTM'] + df['capex_more_correct']
 df['OwnEa/S'] = df['OwnEa'] / df['sharesOutstanding']
-df['OwnEa/S/P'] = df['OwnEa/S'] / df['price']
+df['OwnEa/S/p'] = df['OwnEa/S'] / df['p']
 
 df['marg'] = (df['totalRevenueTTM'] - df['totalOperatingExpensesTTM']) / df['totalRevenueTTM'] * 100
 df['WC/S'] = df['WC'] / df['sharesOutstanding']
-df['WC/S/P'] = df['WC/S'] / df['price']
+df['WC/S/p'] = df['WC/S'] / df['p']
 df['WC/Debt'] = df['WC'] / df['Debt']
-df['Rev/S/P'] = df['Revenue Per Share (ttm)'] / df['price']
+df['Eq/Debt'] = df['totalStockholderEquity'] / df['Debt']
+df['Rev/S/p'] = df['Revenue Per Share (ttm)'] / df['p']
 print('additional variables calculated')
 
 # fillna again
 cols_to_format = [i for i in df.columns]
 for col in cols_to_format:
     try:
-        if col in ['price', 'from_low', 'from_high', 'OpMarg', 'B/S/P', 'marg']:
+        if col in ['p', 'from_low', 'from_high', 'OpMarg', 'B/S/p', 'marg']:
             df[col]=df[col].fillna(0)
         else:
             pass
@@ -206,7 +207,7 @@ for col in cols_to_format:
 cols_to_format = [i for i in df.columns]
 for col in cols_to_format:
     try:
-        if col in ['price', 'B/S/P']:
+        if col in ['p', 'B/S/p']:
             df[col]=df[col].round(2)
         else:
             df[col] = df[col].round(0)
@@ -215,7 +216,7 @@ for col in cols_to_format:
 print('formatting is done')
 
 # reorder
-cols_to_order = ['symbol', 'price', '52l', '52h', 'from_low', 'from_high']
+cols_to_order = ['symbol', 'p', '52l', '52h', 'from_low', 'from_high']
 new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
 df_merged = df_merged[new_columns]
 print('reordering is done')
