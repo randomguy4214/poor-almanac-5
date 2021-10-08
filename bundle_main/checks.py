@@ -52,19 +52,15 @@ else:
 # check drop list tickers
 if not os.path.exists(os.path.join(cwd,input_folder,"0_drop_list.xlsx")):
     drop_list = pd.DataFrame({
-        'symbol': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-                    , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-                    , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        'symbol': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-        'industry': ['Biotechnology', 0, 0, 0, 0, 0, 0, 0, 0, 0
-                    , 'Shell Companies', 'Banks—Regional', 0, 0
-                    , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-                    , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        'industry': ['Biotechnology', 'Shell Companies', 'Banks—Regional', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
         'country': ['United States', 'Germany', 'France', 'United Kingdom', 'Belgium', 'Netherlands Antilles'
-                    , 'South Korea', 'Switzerland', 'Taiwan', 'Austria', 'Netherlands', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-                    , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-                    , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            , 'South Korea', 'Switzerland', 'Taiwan', 'Austria', 'Netherlands', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                              })
 
     drop_list.to_excel(os.path.join(cwd,input_folder,"0_drop_list.xlsx"))

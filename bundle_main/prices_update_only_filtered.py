@@ -33,7 +33,9 @@ prices_temp = "prices"
 financials_temp = "financials"
 
 # prepare tickers list
-tickers_narrowed = pd.read_csv(os.path.join(cwd,input_folder,"0_symbols.csv"))
+tickers_narrowed = pd.read_csv(os.path.join(cwd,input_folder,"5_tickers_narrowed.csv"))
+#tickers_narrowed = tickers_narrowed[tickers_narrowed['symbol'].str.contains("DE000A2GSVV5|ALTUW|UROY")] #test tickers
+#tickers_narrowed = tickers_narrowed #.head(n=3)  #test tickers
 ticker_narrowed = tickers_narrowed.values.tolist()
 tickers = ' '.join(tickers_narrowed["symbol"].astype(str)).strip()
 
@@ -42,6 +44,11 @@ from yahoo_fin.stock_info import * #initiate yahoo_fin
 company_info = []
 for t in tickers.split(' '):
     try:
+        # progress number
+        p = "price"
+        n = pd.to_numeric(tickers_narrowed["symbol"][tickers_narrowed["symbol"] == t].index).values
+        print(t, n/index_max*100, n, index_max, p)
+
         name = t + ".csv"
         # get quote
         df_yf_get_quote_table = get_quote_table(t, dict_result=True)
@@ -50,9 +57,5 @@ for t in tickers.split(' '):
         df['symbol'] = t
         # export
         df.to_csv(os.path.join(cwd, input_folder, temp_folder, prices_temp, name), index=False)
-
-        p = "price"
-        n = pd.to_numeric(tickers_narrowed["symbol"][tickers_narrowed["symbol"] == t].index).values
-        print(t, n/index_max*100, n, index_max, p)
     except:
         pass
