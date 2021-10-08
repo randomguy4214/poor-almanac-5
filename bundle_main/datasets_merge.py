@@ -143,7 +143,7 @@ print("shorts merged")
 print("start calculations")
 df = df_merged
 
-# fix debt naming
+# fix numbers naming with KMB
 # from https://stackoverflow.com/questions/39684548/convert-the-string-2-90k-to-2900-or-5-2m-to-5200000-in-pandas-dataframe
 df['Debt'] = (df['Total Debt (mrq)'].replace(r'[ktmbKTMB]+$', '', regex=True).astype(float) *
             df['Total Debt (mrq)'].str.extract(r'[\d\.]+([ktmbKTMB]+)', expand=False).fillna(1).replace(
@@ -160,6 +160,8 @@ df['marCap'] = (df['Market Cap'].replace(r'[ktmbKTMB]+$', '', regex=True).astype
             ['k', 't', 'm', 'b', 'K', 'T', 'M', 'B']
             , [10**3, 10**3, 10**6, 10**9, 10**3, 10**3, 10**6, 10**9]).astype(int))
 
+df['marCap'] = df['marCap'].fillna(df['SO'] * df['p'])
+df['marCap'] = df['marCap'] / 1000000
 
 # start creating new variables
 df['NAV'].fillna(df['totalStockholderEquity'], inplace=True)
@@ -190,18 +192,20 @@ df['WC/S/p'] = df['WC/S'] / df['p']
 df['WC/Debt'] = df['WC'] / df['Debt']
 df['Eq/Debt'] = df['totalStockholderEquity'] / (df['totalStockholderEquity'] + df['Debt'])
 df['Rev/S/p'] = df['Revenue Per Share (ttm)'] / df['p']
+
 print('additional variables calculated')
 
 # fillna again
-cols_to_format = [i for i in df.columns]
-for col in cols_to_format:
+cols_to_fillna = [i for i in df.columns]
+for col in cols_to_fillna:
     try:
-        if col in ['p', 'from_low', 'from_high', 'OpMarg', 'B/S/p', 'marg']:
+        if col in ['p', 'from_low', 'from_high', 'OpMarg', 'B/S/p', 'marg', 'marCap']:
             df[col]=df[col].fillna(0)
         else:
             pass
     except:
         pass
+print('fillna is done')
 
 # format
 cols_to_format = [i for i in df.columns]
