@@ -92,10 +92,17 @@ df_merged['p'].fillna(df_merged['Open'], inplace=True)
 df_merged['52l'].fillna(df_merged['fiftyTwoWeekLow'], inplace=True)
 df_merged['52h'].fillna(df_merged['fiftyTwoWeekHigh'], inplace=True)
 df_merged.loc[df_merged['sharesOutstanding'] < 1000, 'sharesOutstanding'] = df_merged['marketCap']/df_merged['p']
-df_merged['sharesOutstanding'].fillna(df_merged['marketCap']/df_merged['p'], inplace=True)
-print('fixed prices and sharesOutstanding')
 
-#fix other if missing
+# adding from low/high
+df_merged.loc[df_merged['p'] < df_merged['52l'], 'p'] = df_merged['52l'] # fix too low price
+df_merged['from_low'] = (df_merged['p'] - df_merged['52l'])/df_merged['52l'] * 100
+df_merged['from_high'] = (df_merged['p'] - df_merged['52h'])/df_merged['52h'] * 100
+#df_merged = df_merged[~(df_merged['from_low'] == 0) & ~(df_merged['from_high'] == -100)]
+#df_merged = df_merged[(df_merged['p'] > 0.001)]
+print('added low/high and filtered some trash')
+
+#fix  if missing
+df_merged['sharesOutstanding'].fillna(df_merged['marketCap']/df_merged['p'], inplace=True)
 cols_to_format = [i for i in df_merged.columns]
 for col in cols_to_format:
     try:
@@ -106,13 +113,7 @@ for col in cols_to_format:
     except:
         pass
 
-# adding from low/high
-df_merged.loc[df_merged['p'] < df_merged['52l'], 'p'] = df_merged['52l'] # fix too low price
-df_merged['from_low'] = (df_merged['p'] - df_merged['52l'])/df_merged['p'] * 100
-df_merged['from_high'] = (df_merged['p'] - df_merged['52h'])/df_merged['52h'] * 100
-df_merged = df_merged[~(df_merged['from_low'] == 0) & ~(df_merged['from_high'] == -100)]
-#df_merged = df_merged[(df_merged['p'] > 0.001)]
-print('added low/high and filtered some trash')
+print('fixed prices and sharesOutstanding')
 
 # find latest shorts value
 df_shorts = pd.DataFrame(df_merged.filter(regex='Short % of Float|symbol')).iloc[:,:]
