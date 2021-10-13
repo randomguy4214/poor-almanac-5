@@ -33,7 +33,7 @@ prices_temp = "prices"
 financials_temp = "financials"
 
 # prepare tickers list
-tickers_narrowed = pd.read_csv(os.path.join(cwd,input_folder,"5_tickers_narrowed.csv"))
+tickers_narrowed = pd.read_csv(os.path.join(cwd,input_folder,"5_tickers_filtered.csv"))
 #tickers_narrowed = tickers_narrowed[tickers_narrowed['symbol'].str.contains("DE000A2GSVV5|ALTUW|UROY")] #test tickers
 #tickers_narrowed = tickers_narrowed #.head(n=3)  #test tickers
 ticker_narrowed = tickers_narrowed.values.tolist()
