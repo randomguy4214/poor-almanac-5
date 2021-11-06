@@ -101,7 +101,7 @@ df_merged['from_high'] = (df_merged['p'] - df_merged['52h'])/df_merged['52h'] * 
 #df_merged = df_merged[(df_merged['p'] > 0.001)]
 print('added low/high and filtered some trash')
 
-#fix  if missing
+#fix if missing
 df_merged['sharesOutstanding'].fillna(df_merged['marketCap']/df_merged['p'], inplace=True)
 cols_to_format = [i for i in df_merged.columns]
 for col in cols_to_format:
@@ -141,9 +141,13 @@ df_merged.reset_index(drop=True, inplace=True)
 #df_merged.to_excel(os.path.join(cwd,input_folder,'5_df_shorts.xlsx'), index=False)
 print("shorts merged")
 
+# drop irrelevant shorts columns
+df_merged.drop([col for col in df_merged.columns if 'Short %' in col],axis=1,inplace=True)
+df_merged.drop([col for col in df_merged.columns if 'Shares Short' in col],axis=1,inplace=True)
+df_merged.drop([col for col in df_merged.columns if 'Short Ratio' in col],axis=1,inplace=True)
+
 print("start calculations")
 df = df_merged
-
 # fix numbers naming with KMB
 # from https://stackoverflow.com/questions/39684548/convert-the-string-2-90k-to-2900-or-5-2m-to-5200000-in-pandas-dataframe
 df['Debt'] = (df['Total Debt (mrq)'].replace(r'[ktmbKTMB]+$', '', regex=True).astype(float) *
@@ -235,3 +239,7 @@ df_merged.to_excel(os.path.join(cwd,input_folder,"4_merged.xlsx"))
 stocks = df_merged[['symbol']].sort_values(by=['symbol'], ascending= True).drop_duplicates()
 stocks.to_csv(os.path.join(cwd,input_folder,"4_tickers_narrowed.csv"), index = False)
 print("datasets are merged and exported")
+
+# export column
+df_columns=pd.DataFrame(df_merged.columns.T)
+df_columns.to_excel(os.path.join(cwd,input_folder,'4_merged_columns.xlsx'))
