@@ -17,7 +17,7 @@ prices_temp = "prices"
 financials_temp = "financials_quarterly"
 
 # prepare tickers list
-tickers_narrowed = pd.read_csv(os.path.join(cwd,input_folder,"2_tickers_narrowed.csv"))
+tickers_narrowed = pd.read_csv(os.path.join(cwd,input_folder,"3_tickers_filtered_annually.csv"))
 ticker_narrowed = tickers_narrowed.values.tolist()
 tickers = ' '.join(tickers_narrowed["symbol"].astype(str)).strip()
 
