@@ -5,29 +5,29 @@ bundle_main = "bundle_main"
 from bundle_main import checks
 print('0 checks - done')
 
-print('prices_updated - initiating. Printing Stock and % Progress.')
-from bundle_main import prices_update
-print('prices_updated - done')
-
-print('prices_process - initiating.')
-from bundle_main import prices_process
-print('prices_process - done')
-
 # multithreaded import of fundamentals quarterly and annually.
 from threading import Thread
 def a():
-    print('financials_process_quarterly - initiating.')
-    from bundle_main import financials_process_quarterly
-    print('financials_process_quarterly - done')
+    print('prices_update - initiating.')
+    from bundle_main import prices_update
+    print('prices_update - done')
 def b():
     print('financials_update_quarterly - initiating. Printing Stock and % Progress.')
     from bundle_main import financials_update_quarterly
     print('financials_update_quarterly - done')
+def c():
+    print('financials_update_annually - initiating. Printing Stock and % Progress.')
+    from bundle_main import financials_update_annually
+    print('financials_update_annually - done')
 
 Thread(target=a).start()
 Thread(target=b).start()
+Thread(target=c).start()
 
 
+print('prices_process - initiating.')
+from bundle_main import prices_process
+print('prices_process - done')
 
 print('financials_process_annually - initiating.')
 from bundle_main import financials_process_annually
