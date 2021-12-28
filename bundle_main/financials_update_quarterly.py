@@ -21,95 +21,106 @@ tickers_narrowed = pd.read_csv(os.path.join(cwd,input_folder,"3_tickers_filtered
 ticker_narrowed = tickers_narrowed.values.tolist()
 tickers = ' '.join(tickers_narrowed["symbol"].astype(str)).strip()
 
+# find last updated ticker (this is necessary if you lose internet connection, etc)
+financials_quarterly_last_ticker = pd.read_csv(os.path.join(cwd,input_folder,temp_folder,"financials_quarterly_last_ticker.csv"),index_col=0)
+last_ticker_n = financials_quarterly_last_ticker.values[0]
+print("last ticker in financials_quarterly was number ", last_ticker_n)
+
+# start importing
 index_max = pd.to_numeric(tickers_narrowed.index.values.max())
 from yahoo_fin.stock_info import * #initiate yahoo_fin
 financials_table = []
 company_info = []
+
 for t in tickers.split(' '):
     try:
-        # progress number
-        fq = "financials quarterly"
         n = pd.to_numeric(tickers_narrowed["symbol"][tickers_narrowed["symbol"] == t].index).values
-        print(t, n/index_max*100, n, index_max, fq)
+        if n > last_ticker_n:
+            # first loop through "values" in "dictionary"
+            df_yf_financials = get_financials(t, yearly=False, quarterly=True)
+            values_table = []
+            for keys, values in df_yf_financials.items():
+                #df_keys = keys #we dont need "keys"
+                df = values
+                df.reset_index(drop=False, inplace=True)
+                df.columns.values[[0, 1, 2, 3, 4]] = ['Breakdown', 't0', 't-1', 't-2', 't-3']
+                values_table.append(df)
+            values_table = pd.concat(values_table)
+            values_table = values_table[~values_table['Breakdown'].duplicated(keep='first')] #catching double entries in values to properly reset the index
+            values_table.drop_duplicates()
+            values_table.reset_index(drop=True, inplace=True)
+            values_table.set_index('Breakdown', inplace=True)
 
-        name = t + ".csv"
+            # transpose financials
+            df_T = values_table.T
+            df_T.rename(columns={'netTangibleAssets':'NAV'}, inplace=True)
+            df_T['WC'] = df_T['totalCurrentAssets'] - df_T['totalCurrentLiabilities']
+            df_T['symbol'] = t
+            df_T['Period'] = df_T.index
 
-        # first loop through "values" in "dictionary"
-        df_yf_financials = get_financials(t, yearly=False, quarterly=True)
-        values_table = []
-        for keys, values in df_yf_financials.items():
-            #df_keys = keys #we dont need "keys"
-            df = values
-            df.reset_index(drop=False, inplace=True)
-            df.columns.values[[0, 1, 2, 3, 4]] = ['Breakdown', 't0', 't-1', 't-2', 't-3']
-            values_table.append(df)
-        values_table = pd.concat(values_table)
-        values_table = values_table[~values_table['Breakdown'].duplicated(keep='first')] #catching double entries in values to properly reset the index
-        values_table.drop_duplicates()
-        values_table.reset_index(drop=True, inplace=True)
-        values_table.set_index('Breakdown', inplace=True)
+            # get "quote data"
+            df_yf_quote_data = get_quote_data(t)
+            df_yf_quote_data_1 = pd.Series(df_yf_quote_data)
+            df_yf_quote_data_2 = pd.DataFrame(df_yf_quote_data_1).T
+            df_yf_quote_data_2.reset_index(drop=False, inplace=True)
+            df_yf_quote_data_2 = df_yf_quote_data_2.drop(columns=['index'])
 
-        # transpose financials
-        df_T = values_table.T
-        df_T.rename(columns={'netTangibleAssets':'NAV'}, inplace=True)
-        df_T['WC'] = df_T['totalCurrentAssets'] - df_T['totalCurrentLiabilities']
-        df_T['symbol'] = t
-        df_T['Period'] = df_T.index
+            #get statistics
+            df_yf_stats = get_stats(t)
+            df_yf_stats.reset_index(drop=True, inplace=True)
+            df_yf_stats.set_index('Attribute', inplace=True)
+            df_stats = df_yf_stats.T
+            df_stats['symbol'] = t
+            df_stats.reset_index(drop=True, inplace=True)
 
-        # get "quote data"
-        df_yf_quote_data = get_quote_data(t)
-        df_yf_quote_data_1 = pd.Series(df_yf_quote_data)
-        df_yf_quote_data_2 = pd.DataFrame(df_yf_quote_data_1).T
-        df_yf_quote_data_2.reset_index(drop=False, inplace=True)
-        df_yf_quote_data_2 = df_yf_quote_data_2.drop(columns=['index'])
+            #get company info
+            df_yf_info = get_company_info(t)
+            df_yf_info.reset_index(drop=False, inplace=True)
+            df_yf_info = df_yf_info[~df_yf_info['Breakdown'].duplicated(keep='first')] #catching double entries in values to properly reset the index
+            df_yf_info.set_index('Breakdown', inplace=True)
+            df_info = df_yf_info.T
+            df_info['symbol'] = t
+            df_info.reset_index(drop=False, inplace=True)
 
-        #get statistics
-        df_yf_stats = get_stats(t)
-        df_yf_stats.reset_index(drop=True, inplace=True)
-        df_yf_stats.set_index('Attribute', inplace=True)
-        df_stats = df_yf_stats.T
-        df_stats['symbol'] = t
-        df_stats.reset_index(drop=True, inplace=True)
+            # merge
+            # financials to quote data
+            to_merge = df_T
+            df_merged = pd.merge(df_T, df_yf_quote_data_2, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
+            df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
+            df_merged.drop_duplicates()
+            df_merged.reset_index(drop=True, inplace=True)
 
-        #get company info
-        df_yf_info = get_company_info(t)
-        df_yf_info.reset_index(drop=False, inplace=True)
-        df_yf_info = df_yf_info[~df_yf_info['Breakdown'].duplicated(keep='first')] #catching double entries in values to properly reset the index
-        df_yf_info.set_index('Breakdown', inplace=True)
-        df_info = df_yf_info.T
-        df_info['symbol'] = t
-        df_info.reset_index(drop=False, inplace=True)
+            # to stats
+            to_merge = df_merged
+            df_merged = pd.merge(to_merge, df_stats, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
+            df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
+            df_merged.drop_duplicates()
+            df_merged.reset_index(drop=True, inplace=True)
 
-        # merge
-        # financials to quote data
-        to_merge = df_T
-        df_merged = pd.merge(df_T, df_yf_quote_data_2, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
-        df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
-        df_merged.drop_duplicates()
-        df_merged.reset_index(drop=True, inplace=True)
+            # to info
+            to_merge = df_merged
+            df_merged = pd.merge(to_merge, df_info, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
+            df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
+            df_merged.drop_duplicates()
+            df_merged.reset_index(drop=True, inplace=True)
 
-        # to stats
-        to_merge = df_merged
-        df_merged = pd.merge(to_merge, df_stats, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
-        df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
-        df_merged.drop_duplicates()
-        df_merged.reset_index(drop=True, inplace=True)
+            # append
+            cols_to_order = ['Period', 'symbol', 'NAV', 'sharesOutstanding']
+            new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
+            df_merged = df_merged[new_columns]
+            #financials_table.append(df_merged)
 
-        # to info
-        to_merge = df_merged
-        df_merged = pd.merge(to_merge, df_info, how='left', left_on=['symbol'], right_on=['symbol'], suffixes=('', '_drop'))
-        df_merged.drop([col for col in df_merged.columns if 'drop' in col], axis=1, inplace=True)
-        df_merged.drop_duplicates()
-        df_merged.reset_index(drop=True, inplace=True)
+            # print & export last_n
+            print(t, n/index_max*100, n, index_max, "financials quarterly update")
+            financials_quarterly_last_ticker = pd.DataFrame({'number':n})
+            financials_quarterly_last_ticker.to_csv(os.path.join(cwd, input_folder, temp_folder, "financials_quarterly_last_ticker.csv"))
 
-        # append
-        cols_to_order = ['Period', 'symbol', 'NAV', 'sharesOutstanding']
-        new_columns = cols_to_order + (df_merged.columns.drop(cols_to_order).tolist())
-        df_merged = df_merged[new_columns]
-        #financials_table.append(df_merged)
-
-        # export
-        name = t + ".csv"
-        df_merged.to_csv(os.path.join(cwd, input_folder, temp_folder, financials_temp, name), index=False)
+            # export files
+            name = t + ".csv"
+            df_merged.to_csv(os.path.join(cwd, input_folder, temp_folder, financials_temp, name), index=False)
     except:
         pass
+
+financials_quarterly_last_ticker = pd.DataFrame({'number': [0]})
+financials_quarterly_last_ticker.to_csv(
+    os.path.join(cwd, input_folder, temp_folder, "financials_quarterly_last_ticker.csv"))
