@@ -110,7 +110,7 @@ for t in tickers.split(' '):
             #financials_table.append(df_merged)
 
             # print & export last_n
-            print(t, n/index_max*100, n, index_max, "financials quarterly")
+            print(t, n/index_max*100, "% /", n, "from", index_max, " /financials quarterly")
             financials_quarterly_last_ticker = pd.DataFrame({'number':n})
             financials_quarterly_last_ticker.to_csv(os.path.join(cwd, input_folder, temp_folder, "financials_quarterly_last_ticker.csv"))
 
