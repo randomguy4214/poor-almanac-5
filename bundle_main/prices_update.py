@@ -37,22 +37,36 @@ tickers_narrowed = pd.read_csv(os.path.join(cwd,input_folder,"0_symbols.csv"))
 ticker_narrowed = tickers_narrowed.values.tolist()
 tickers = ' '.join(tickers_narrowed["symbol"].astype(str)).strip()
 
+# find last updated ticker (this is necessary if you lose internet connection, etc)
+prices_last_ticker = pd.read_csv(os.path.join(cwd,input_folder,temp_folder,"prices_last_ticker.csv"),index_col=0)
+last_ticker_n = prices_last_ticker.values[0]
+print("last ticker in prices update was number ", last_ticker_n)
+
+# start importing the prices
 index_max = pd.to_numeric(tickers_narrowed.index.values.max())
 from yahoo_fin.stock_info import * #initiate yahoo_fin
 company_info = []
+
 for t in tickers.split(' '):
     try:
-        name = t + ".csv"
-        # get quote
-        df_yf_get_quote_table = get_quote_table(t, dict_result=True)
-        df = pd.DataFrame.from_dict(df_yf_get_quote_table, orient='index')
-        df = df.T
-        df['symbol'] = t
-        # export
-        df.to_csv(os.path.join(cwd, input_folder, temp_folder, prices_temp, name), index=False)
-
-        p = "price"
         n = pd.to_numeric(tickers_narrowed["symbol"][tickers_narrowed["symbol"] == t].index).values
-        print(t, n/index_max*100, n, index_max, p)
+        if n > last_ticker_n:
+            name = t + ".csv"
+            # get quote
+            df_yf_get_quote_table = get_quote_table(t, dict_result=True)
+            df = pd.DataFrame.from_dict(df_yf_get_quote_table, orient='index')
+            df = df.T
+            df['symbol'] = t
+            # export
+            df.to_csv(os.path.join(cwd, input_folder, temp_folder, prices_temp, name), index=False)
+
+            # print & export last_n
+            print(t, n/index_max*100, n, index_max, "price")
+            prices_last_ticker = pd.DataFrame({'number':n})
+            prices_last_ticker.to_csv(os.path.join(cwd, input_folder, temp_folder, "prices_last_ticker.csv"))
+
     except:
         pass
+
+prices_last_ticker = pd.DataFrame({'number': [0] })
+prices_last_ticker.to_csv(os.path.join(cwd,input_folder,temp_folder,"prices_last_ticker.csv"))
