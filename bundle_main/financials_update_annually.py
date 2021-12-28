@@ -23,7 +23,7 @@ tickers = ' '.join(tickers_narrowed["symbol"].astype(str)).strip()
 # find last updated ticker (this is necessary if you lose internet connection, etc)
 prices_last_ticker = pd.read_csv(os.path.join(cwd,input_folder,temp_folder,"financials_annually_last_ticker.csv"),index_col=0)
 last_ticker_n = prices_last_ticker.values[0]
-print("last ticker in financials_annually_last_ticker was number ", last_ticker_n)
+print("last ticker in financials annually was number ", last_ticker_n)
 
 # start importing
 index_max = pd.to_numeric(tickers_narrowed.index.values.max())

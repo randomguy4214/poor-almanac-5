@@ -20,9 +20,15 @@ def c():
     from bundle_main import financials_update_annually
     print('financials_update_annually - done')
 
+# initiate multithreading
 Thread(target=a).start()
 Thread(target=b).start()
 Thread(target=c).start()
+
+# wait until they will finish
+Thread(target=a).join()
+Thread(target=b).join()
+Thread(target=c).join()
 
 
 print('prices_process - initiating.')
