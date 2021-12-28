@@ -25,24 +25,22 @@ cols_to_order = [
     , 'country'
     , 'longName'
     , 'symbol'
-    , 'price'
-    , 'Market Cap'
+    , 'p'
+    #, 'Market Cap'
     , 'from_low'
     , '52l'
     , 'from_high'
     , '52h'
     , 'OpMarg'
-    , 'OwnEa/S'
-    , 'OwnEa/S/P'
+    #, 'OwnEa/SO'
+    , 'OwnEa/S/p'
+    , 'Rev/S/p'
     , '%QtrGrwth'
     , '%YoYGrwth'
-    , 'Short%'
-    , 'B/S/P'
-    #, 'BVPS'
-    , 'Rev/S/P'
-    , 'WC/S/P'
+    , 'B/S/p'
     , 'WC/Debt'
-    , 'Debt'
+    , 'Eq/Debt'
+    , 'Short%'
     , '%Ins'
     #, 'totalCashFromOperatingActivitiesTTM'
     #, 'capitalExpendituresTTM'
@@ -66,13 +64,12 @@ df_export = df_export[~df_export['symbol'].isin(drop_list_ticker)] # drop some t
 drop_list_industry = drop_list['industry'].tolist()
 df_export = df_export[~df_export['industry'].isin(drop_list_industry)] # drop some industries
 drop_list_country = drop_list['country'].tolist()
-df_export = df_export[~df_export['country'].isin(drop_list_country)] # drop some industries
-df_export = df_export[~df_export['longName'].isnull()]
+df_export = df_export[df_export['country'].isin(drop_list_country)] # drop some industries
 
 # filter by variables
 #df_export = df_export[(df_export['from_low'] >= 0)] # impossible
-df_export = df_export[(df_export['marCap'] >= 1000000)] # more than 1m marcap
-df_export = df_export[(df_export['from_low'] < 30)] # less than x% increase from lowest point
+df_export = df_export[(df_export['marCap'] >= 1)] # more than 1m marcap
+#df_export = df_export[(df_export['from_low'] < 30)] # less than x% increase from lowest point
 #df_export = df_export[(df_export['price'] < 5)] # less than 5 bucks
 #df_export = df_export[df_export['B/S/P'] > 0.6] # Book to market
 

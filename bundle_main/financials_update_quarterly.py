@@ -17,26 +17,25 @@ prices_temp = "prices"
 financials_temp = "financials_quarterly"
 
 # prepare tickers list
-tickers_narrowed = pd.read_csv(os.path.join(cwd,input_folder,"1_tickers_narrowed.csv"))
-#tickers_narrowed = tickers_narrowed[tickers_narrowed['symbol'].str.contains("DE000A2GSVV5|ALTUW|UROY")] #test tickers
-#tickers_narrowed = tickers_narrowed #.head(n=3)  #test tickers
+tickers_narrowed = pd.read_csv(os.path.join(cwd,input_folder,"2_tickers_filtered.csv"))
 ticker_narrowed = tickers_narrowed.values.tolist()
 tickers = ' '.join(tickers_narrowed["symbol"].astype(str)).strip()
 
+# find last updated ticker (this is necessary if you lose internet connection, etc)
+financials_quarterly_last_ticker = pd.read_csv(os.path.join(cwd,input_folder,temp_folder,"financials_quarterly_last_ticker.csv"),index_col=0)
+last_ticker_n = financials_quarterly_last_ticker.values[0]
+print("last ticker in financials_quarterly was number ", last_ticker_n)
+
+# start importing
 index_max = pd.to_numeric(tickers_narrowed.index.values.max())
 from yahoo_fin.stock_info import * #initiate yahoo_fin
 financials_table = []
 company_info = []
+
 for t in tickers.split(' '):
     try:
-        # progress number
-        fq = "financials quarterly"
         n = pd.to_numeric(tickers_narrowed["symbol"][tickers_narrowed["symbol"] == t].index).values
-        print(t, n/index_max*100, n, index_max, fq)
-
-        name = t + ".csv"
-        if not os.path.exists(os.path.join(cwd, input_folder, temp_folder, financials_temp, name)):
-
+        if n > last_ticker_n:
             # first loop through "values" in "dictionary"
             df_yf_financials = get_financials(t, yearly=False, quarterly=True)
             values_table = []
@@ -111,10 +110,17 @@ for t in tickers.split(' '):
             df_merged = df_merged[new_columns]
             #financials_table.append(df_merged)
 
-            # export
+            # print & export last_n
+            print(t, n/index_max*100, n, index_max, "financials quarterly update")
+            financials_quarterly_last_ticker = pd.DataFrame({'number':n})
+            financials_quarterly_last_ticker.to_csv(os.path.join(cwd, input_folder, temp_folder, "financials_quarterly_last_ticker.csv"))
+
+            # export files
             name = t + ".csv"
             df_merged.to_csv(os.path.join(cwd, input_folder, temp_folder, financials_temp, name), index=False)
-        else:
-            pass
     except:
         pass
+
+financials_quarterly_last_ticker = pd.DataFrame({'number': [0]})
+financials_quarterly_last_ticker.to_csv(
+    os.path.join(cwd, input_folder, temp_folder, "financials_quarterly_last_ticker.csv"))

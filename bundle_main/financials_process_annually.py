@@ -43,7 +43,7 @@ financials_table.to_excel(os.path.join(cwd,input_folder,"3_fundamentals_processe
 # export tickers
 stocks = financials_table[['symbol']].astype(str).drop_duplicates()
 stocks = stocks.sort_values(by=['symbol'], ascending= True)
-stocks.to_csv(os.path.join(cwd,input_folder,"3_tickers_filtered_annually.csv"), index = False)
+stocks.to_csv(os.path.join(cwd,input_folder,"3_tickers_filtered.csv"), index = False)
 
 # export column
 df_columns=pd.DataFrame(financials_table.columns.T)

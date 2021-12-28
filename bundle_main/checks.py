@@ -52,26 +52,43 @@ else:
 # check drop list tickers
 if not os.path.exists(os.path.join(cwd,input_folder,"0_drop_list.xlsx")):
     drop_list = pd.DataFrame({
-        'symbol': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-                    , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        'symbol': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-        'industry': ['Biotechnology', 'Gold', 0, 0
-                    , 0, 'Other Industrial Metals & Mining'
-                    , 'Other Precious Metals & Mining', 'Silver', 'Asset Management', 'Insurance—Property & Casualty'
-                    , 'Shell Companies', 'Banks—Regional', 'Insurance—Life', 'Banks—Diversified'
-                    , 'Mortgage Finance', 'REIT—Mortgage', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-                    , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        'industry': ['Biotechnology', 'Shell Companies', 'Banks—Regional', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-        'country': ['China', 'Macau', 'Argentina', 'Chile', 'South Africa', 'Cayman Islands', 'Russia', 'India'
-                    , 'Greece', 'Brazil', 'Bermuda', 'Japan', 'Australia', 'Cyprus', 'Denmark', 'Peru', 'Spain'
-                    , 'Singapore', 'Turkey', 'Israel', 'Hong Kong', 'Netherlands', 'Philippines', 'Romania', 'Mexico'
-                    , 'New Zealand', 'Canada', 'Guernsey', 'Iceland', 'United Arab Emirates', 'Reunion', 'Jordan'
-                    , 'Indonesia', 'Malaysia', 'Thailand', 'Mongolia', 'Norway', 'Sweden', 'Isle of Man'
-                    , 'Italy', 'Finland', 'Colombia', 'Portugal', 'Morocco', 'Ivory Coast', 'Czech Republic', 'Uruguay'
-                    , 'Monaco', 'Jersey']
+        'country': ['United States', 'Germany', 'France', 'United Kingdom', 'Belgium', 'Netherlands Antilles'
+            , 'South Korea', 'Switzerland', 'Taiwan', 'Austria', 'Netherlands', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                              })
 
     drop_list.to_excel(os.path.join(cwd,input_folder,"0_drop_list.xlsx"))
     print("drop_list created")
 else:
     print("good! drop_list already exists")
+
+
+# check prices_last_ticker
+if not os.path.exists(os.path.join(cwd,input_folder,temp_folder,"prices_last_ticker.csv")):
+    prices_last_ticker = pd.DataFrame({'number': [0] })
+    prices_last_ticker.to_csv(os.path.join(cwd,input_folder,temp_folder,"prices_last_ticker.csv"))
+    print("prices_last_ticker created")
+else:
+    print("good! prices_last_ticker already exists")
+
+# check financials_quarterly_last_ticker
+if not os.path.exists(os.path.join(cwd,input_folder,temp_folder,"financials_quarterly_last_ticker.csv")):
+    financials_quarterly_last_ticker = pd.DataFrame({'number': [0] })
+    financials_quarterly_last_ticker.to_csv(os.path.join(cwd,input_folder,temp_folder,"financials_quarterly_last_ticker.csv"))
+    print("financials_quarterly_last_ticker created")
+else:
+    print("good! financials_quarterly_last_ticker already exists")
+
+# check financials_annually_last_ticker
+if not os.path.exists(os.path.join(cwd,input_folder,temp_folder,"financials_annually_last_ticker.csv")):
+    financials_annually_last_ticker = pd.DataFrame({'number': [0] })
+    financials_annually_last_ticker.to_csv(os.path.join(cwd,input_folder,temp_folder,"financials_annually_last_ticker.csv"))
+    print("financials_annually_last_ticker created")
+else:
+    print("good! financials_annually_last_ticker already exists")
