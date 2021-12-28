@@ -67,3 +67,28 @@ if not os.path.exists(os.path.join(cwd,input_folder,"0_drop_list.xlsx")):
     print("drop_list created")
 else:
     print("good! drop_list already exists")
+
+
+# check prices_last_ticker
+if not os.path.exists(os.path.join(cwd,input_folder,temp_folder,"prices_last_ticker.csv")):
+    prices_last_ticker = pd.DataFrame({'number': [0] })
+    prices_last_ticker.to_csv(os.path.join(cwd,input_folder,temp_folder,"prices_last_ticker.csv"))
+    print("prices_last_ticker created")
+else:
+    print("good! prices_last_ticker already exists")
+
+# check financials_quarterly_last_ticker
+if not os.path.exists(os.path.join(cwd,input_folder,temp_folder,"financials_quarterly_last_ticker.csv")):
+    financials_quarterly_last_ticker = pd.DataFrame({'number': [0] })
+    financials_quarterly_last_ticker.to_csv(os.path.join(cwd,input_folder,temp_folder,"financials_quarterly_last_ticker.csv"))
+    print("financials_quarterly_last_ticker created")
+else:
+    print("good! financials_quarterly_last_ticker already exists")
+
+# check financials_annually_last_ticker
+if not os.path.exists(os.path.join(cwd,input_folder,temp_folder,"financials_annually_last_ticker.csv")):
+    financials_annually_last_ticker = pd.DataFrame({'number': [0] })
+    financials_annually_last_ticker.to_csv(os.path.join(cwd,input_folder,temp_folder,"financials_annually_last_ticker.csv"))
+    print("financials_annually_last_ticker created")
+else:
+    print("good! financials_annually_last_ticker already exists")
