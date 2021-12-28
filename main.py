@@ -40,7 +40,7 @@ from bundle_main import financials_process_annually
 print('financials_process_annually - done')
 
 print('financials_update_annually - initiating. Printing Stock and % Progress.')
-from bundle_main import financials_update_annually
+from bundle_main import financials_process_quarterly
 print('financials_update_annually - done')
 
 
