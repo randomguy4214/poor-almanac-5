@@ -58,7 +58,7 @@ for t in tickers.split(' '):
             df = df_T
 
             # print & export last_n
-            print(t, n / index_max * 100, n, index_max, "financials annually update")
+            print(t, n / index_max * 100, n, index_max, "financials annually")
             financials_annually_last_ticker = pd.DataFrame({'number': n})
             financials_annually_last_ticker.to_csv(
                 os.path.join(cwd, input_folder, temp_folder, "financials_annually_last_ticker.csv"))
