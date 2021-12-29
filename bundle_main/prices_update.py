@@ -34,6 +34,10 @@ temp_folder = "temp"
 prices_temp = "prices"
 financials_temp = "financials"
 
+#check year
+todays_date = date.today()
+curr_year = todays_date.year
+
 # prepare tickers list
 tickers_narrowed = pd.read_csv(os.path.join(cwd,"0_symbols.csv"))
 ticker_narrowed = tickers_narrowed.values.tolist()
