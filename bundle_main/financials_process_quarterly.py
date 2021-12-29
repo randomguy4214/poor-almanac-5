@@ -22,7 +22,6 @@ for path in paths:
     path_in_str = str(path)
     try:
         fundamentals_parse = pd.read_csv(path,low_memory=False)
-        fundamentals_parse = fundamentals_parse[fundamentals_parse['Most Recent Quarter (mrq)'].str.contains("2020|2021|2022|2023|2024|2025|2026|2027", na=False)]
         if not fundamentals_parse.empty:
             financials_table.append(fundamentals_parse)
             print(path_in_str)
