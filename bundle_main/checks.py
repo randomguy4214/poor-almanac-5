@@ -1,7 +1,8 @@
 #!/usr/bin/python
 
-import os
+print('0 checks - initiated')
 
+import os
 import pandas as pd
 
 pd.options.mode.chained_assignment = None  # default='warn'
@@ -92,3 +93,5 @@ if not os.path.exists(os.path.join(cwd,input_folder,temp_folder,"financials_annu
     print("financials_annually_last_ticker created")
 else:
     print("good! financials_annually_last_ticker already exists")
+
+print('0 checks - done')

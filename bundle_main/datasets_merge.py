@@ -1,7 +1,8 @@
 #!/usr/bin/python
 
-import os
+print('datasets_merge - initiating.')
 
+import os
 import pandas as pd
 
 pd.options.mode.chained_assignment = None
@@ -241,3 +242,5 @@ print("datasets are merged and exported")
 # export column
 df_columns=pd.DataFrame(df_merged.columns.T)
 df_columns.to_excel(os.path.join(cwd,input_folder,'4_merged_columns.xlsx'))
+
+print('datasets_merge - done')

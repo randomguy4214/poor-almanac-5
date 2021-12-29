@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+print('financials_update_quarterly - initiating. Printing Stock and % Progress.')
+
 import os
 import pandas as pd
 
@@ -123,3 +125,5 @@ for t in tickers.split(' '):
 financials_quarterly_last_ticker = pd.DataFrame({'number': [0]})
 financials_quarterly_last_ticker.to_csv(
     os.path.join(cwd, input_folder, temp_folder, "financials_quarterly_last_ticker.csv"))
+
+print('financials_update_quarterly - done')

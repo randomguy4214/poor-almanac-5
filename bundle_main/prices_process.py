@@ -1,7 +1,8 @@
 #!/usr/bin/python
 
-import os
+print('prices_process - initiating.')
 
+import os
 import pandas as pd
 
 pd.options.mode.chained_assignment = None
@@ -41,3 +42,5 @@ stocks.to_csv(os.path.join(cwd,input_folder,"2_tickers_narrowed.csv"), index = F
 # export columns
 df_columns=pd.DataFrame(prices_table.columns.T)
 df_columns.to_excel(os.path.join(cwd,input_folder,'2_tickers_narrowed_columns.xlsx'))
+
+print('prices_process - done')

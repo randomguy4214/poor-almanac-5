@@ -1,7 +1,8 @@
 #!/usr/bin/python
 
-import os
+print('financials_update_annually - initiating. Printing Stock and % Progress.')
 
+import os
 import pandas as pd
 
 pd.set_option('display.max_columns', None)
@@ -44,3 +45,5 @@ stocks.to_csv(os.path.join(cwd,input_folder,"4_tickers_filtered_quarterly.csv"),
 # export column
 df_columns=pd.DataFrame(financials_table.columns.T)
 df_columns.to_excel(os.path.join(cwd,input_folder,'4_fundamentals_columns_quarterly.xlsx'))
+
+print('financials_update_annually - done')

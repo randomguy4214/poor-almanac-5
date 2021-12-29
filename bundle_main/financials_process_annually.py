@@ -1,7 +1,8 @@
 #!/usr/bin/python
 
-import os
+print('financials_process_annually - initiating.')
 
+import os
 import pandas as pd
 
 pd.set_option('display.max_columns', None)
@@ -48,4 +49,6 @@ stocks.to_csv(os.path.join(cwd,input_folder,"3_tickers_filtered.csv"), index = F
 # export column
 df_columns=pd.DataFrame(financials_table.columns.T)
 df_columns.to_excel(os.path.join(cwd,input_folder,'3_fundamentals_columns_annually.xlsx'))
+
+print('financials_process_annually - done')
 
