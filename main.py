@@ -11,14 +11,26 @@ def a():
     print('prices_update - initiating.')
     from bundle_main import prices_update
     print('prices_update - done')
+
+    print('prices_process - initiating.')
+    from bundle_main import prices_process
+    print('prices_process - done')
 def b():
     print('financials_update_quarterly - initiating. Printing Stock and % Progress.')
     from bundle_main import financials_update_quarterly
     print('financials_update_quarterly - done')
+
+    print('financials_update_annually - initiating. Printing Stock and % Progress.')
+    from bundle_main import financials_process_quarterly
+    print('financials_update_annually - done')
 def c():
     print('financials_update_annually - initiating. Printing Stock and % Progress.')
     from bundle_main import financials_update_annually
     print('financials_update_annually - done')
+
+    print('financials_process_annually - initiating.')
+    from bundle_main import financials_process_annually
+    print('financials_process_annually - done')
 
 # initiate multithreading
 Thread(target=a).start()
@@ -29,20 +41,6 @@ Thread(target=c).start()
 Thread(target=a).join()
 Thread(target=b).join()
 Thread(target=c).join()
-
-
-print('prices_process - initiating.')
-from bundle_main import prices_process
-print('prices_process - done')
-
-print('financials_update_annually - initiating. Printing Stock and % Progress.')
-from bundle_main import financials_process_quarterly
-print('financials_update_annually - done')
-
-print('financials_process_annually - initiating.')
-from bundle_main import financials_process_annually
-print('financials_process_annually - done')
-
 
 print('datasets_merge - initiating.')
 from bundle_main import datasets_merge
