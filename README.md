@@ -14,10 +14,11 @@ The code relies on yahoo_fin to get the data and pandas to process it.
 2. Run "main.py" and wait A FEW DAYS (Yahoo blocks too many requests, welcome to the world of free data).
 3. Run "main_update_only_prices.py" to update only the market prices and recalculate the output.
 
-In case anybody interested to maintain the repo, feel free to connect on reddit.com/user/randomguy53124/.
 The code consists of 4 main elements that are split into many .py scripts in "bundle_main".
 First part is about loading prices and fundamentals (ttm quarters and last 4 years).
 In this part, prefiltering is done by checking whether last data is from a year ago or newer. Everything else is not downloaded.
 Next part is combining 3 datasets from CSVs on ticker level in "*process* .py" files.
 After that, the main dataset is created through "datasets_merge.py".
 The last step is in file "output.py" - whatever variables and filters you wish to see, or sorting -> all goes into output files.
+
+In case anybody interested to maintain the repo, feel free to connect on reddit.com/user/randomguy53124/.
