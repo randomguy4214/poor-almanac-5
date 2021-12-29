@@ -4,6 +4,7 @@ print('prices_update - initiating.')
 
 import os
 import pandas as pd
+from datetime import date
 
 # formatting
 #pd.set_option('display.max_rows', None)
@@ -52,19 +53,27 @@ for t in tickers.split(' '):
     try:
         n = pd.to_numeric(tickers_narrowed["symbol"][tickers_narrowed["symbol"] == t].index).values
         if n > last_ticker_n:
-            name = t + ".csv"
-            # get quote
-            df_yf_get_quote_table = get_quote_table(t, dict_result=True)
-            df = pd.DataFrame.from_dict(df_yf_get_quote_table, orient='index')
-            df = df.T
-            df['symbol'] = t
-            # export
-            df.to_csv(os.path.join(cwd, input_folder, temp_folder, prices_temp, name), index=False)
+            # check if last quarter is recent (many tickers are dead for example)
+            df_yf_stats = get_stats(t)
+            df_check_mrq = df_yf_stats["Value"][df_yf_stats["Attribute"] == "Most Recent Quarter (mrq)"]
+            datetime_object = pd.to_datetime(df_check_mrq)  # , errors='coerce')
+            df_mrq_year = datetime_object.dt.year
+            mrq_year = df_mrq_year.values[0]
 
-            # print & export last_n
-            print(t, n/index_max*100, "% /", n, "from", index_max, " /prices")
-            prices_last_ticker = pd.DataFrame({'number':n})
-            prices_last_ticker.to_csv(os.path.join(cwd, input_folder, temp_folder, "prices_last_ticker.csv"))
+            if (mrq_year + 1) >= curr_year:
+                name = t + ".csv"
+                # get quote
+                df_yf_get_quote_table = get_quote_table(t, dict_result=True)
+                df = pd.DataFrame.from_dict(df_yf_get_quote_table, orient='index')
+                df = df.T
+                df['symbol'] = t
+                # export
+                df.to_csv(os.path.join(cwd, input_folder, temp_folder, prices_temp, name), index=False)
+
+                # print & export last_n
+                print(t, n/index_max*100, "% /", n, "from", index_max, " /prices")
+                prices_last_ticker = pd.DataFrame({'number':n})
+                prices_last_ticker.to_csv(os.path.join(cwd, input_folder, temp_folder, "prices_last_ticker.csv"))
 
     except:
         pass
