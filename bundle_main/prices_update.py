@@ -7,21 +7,6 @@ import pandas as pd
 from datetime import date
 
 # formatting
-#pd.set_option('display.max_rows', None)
-pd.set_option('display.max_columns', None)
-pd.options.display.float_format = '{:20,.2f}'.format
-pd.options.mode.use_inf_as_na = True
-
-# set directories and files
-cwd = os.getcwd()
-input_folder = "0_input"
-output_folder = "0_output"
-
-#!/usr/bin/python
-
-import pandas as pd
-import os
-
 pd.set_option('display.max_columns', None)
 pd.options.display.float_format = '{:20,.2f}'.format
 pd.options.mode.use_inf_as_na = True
