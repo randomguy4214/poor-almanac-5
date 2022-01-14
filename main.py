@@ -1,13 +1,14 @@
 #!/usr/bin/python
 bundle_main = "bundle_main"
 from bundle_main import checks
-# multithreaded import of fundamentals quarterly and annually.
+# multithreaded import of prices and fundamentals.
 from threading import Thread
 def a():
     from bundle_main import prices_update
     from bundle_main import prices_process
 def b():
     from bundle_main import financials_update_quarterly
+    # quarterly financials will be processed separately due to large size
 def c():
     from bundle_main import financials_update_annually
     from bundle_main import financials_process_annually
