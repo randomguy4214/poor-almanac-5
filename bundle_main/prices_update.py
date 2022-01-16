@@ -61,7 +61,7 @@ for t in tickers.split(' '):
                 df.to_csv(os.path.join(cwd, input_folder, temp_folder, prices_temp, name), index=False)
                 # print & export last_n
                 nn = n[0] # get number out of numpy.array
-                nnn = round(nn/index_max*100,0)
+                nnn = round(nn/index_max*100,1)
                 print("prices:", t, "/" ,nn, "from", index_max, "/", nnn, "%")
                 prices_last_ticker = pd.DataFrame({'number':n})
                 prices_last_ticker.to_csv(os.path.join(cwd, input_folder, temp_folder, "prices_last_ticker.csv"))
