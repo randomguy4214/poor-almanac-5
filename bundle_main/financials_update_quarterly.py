@@ -127,7 +127,7 @@ for t in tickers.split(' '):
 
                 # print & export last_n
                 nn = n[0] # get number out of numpy.array
-                nnn = round(nn/index_max*100,2)
+                nnn = round(nn/index_max*100,0)
                 print("quarter:", t, "/" ,nn, "from", index_max, "/", nnn, "%")
                 financials_quarterly_last_ticker = pd.DataFrame({'number':n})
                 financials_quarterly_last_ticker.to_csv(os.path.join(cwd, input_folder, temp_folder, "financials_quarterly_last_ticker.csv"))
