@@ -31,7 +31,8 @@ tickers = ' '.join(tickers_narrowed["symbol"].astype(str)).strip()
 # find last updated ticker (this is necessary if you lose internet connection, etc)
 prices_last_ticker = pd.read_csv(os.path.join(cwd,input_folder,temp_folder,"prices_last_ticker.csv"),index_col=0)
 last_ticker_n = prices_last_ticker.values[0]
-print("last ticker in prices update was number ", last_ticker_n)
+last_ticker_nn = last_ticker_n[0]
+print("last ticker in prices update was number ", last_ticker_nn)
 
 # start importing the prices
 index_max = pd.to_numeric(tickers_narrowed.index.values.max())
@@ -41,7 +42,7 @@ company_info = []
 for t in tickers.split(' '):
     try:
         n = pd.to_numeric(tickers_narrowed["symbol"][tickers_narrowed["symbol"] == t].index).values
-        if n > last_ticker_n:
+        if n > last_ticker_nn:
             # check if last quarter is recent (many tickers are dead for example)
             df_yf_stats = get_stats(t)
             df_check_mrq = df_yf_stats["Value"][df_yf_stats["Attribute"] == "Most Recent Quarter (mrq)"]
@@ -58,9 +59,10 @@ for t in tickers.split(' '):
                 df['symbol'] = t
                 # export
                 df.to_csv(os.path.join(cwd, input_folder, temp_folder, prices_temp, name), index=False)
-
                 # print & export last_n
-                print(t, n/index_max*100, "% /", n, "from", index_max, " /prices")
+                nn = n[0] # get number out of numpy.array
+                nnn = round(nn/index_max*100,2)
+                print(t, "% / ", nnn, "% / ", nn, "from", index_max, " / prices")
                 prices_last_ticker = pd.DataFrame({'number':n})
                 prices_last_ticker.to_csv(os.path.join(cwd, input_folder, temp_folder, "prices_last_ticker.csv"))
 

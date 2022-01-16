@@ -30,7 +30,8 @@ tickers = ' '.join(tickers_narrowed["symbol"].astype(str)).strip()
 # find last updated ticker (this is necessary if you lose internet connection, etc)
 prices_last_ticker = pd.read_csv(os.path.join(cwd,input_folder,temp_folder,"financials_annually_last_ticker.csv"),index_col=0)
 last_ticker_n = prices_last_ticker.values[0]
-print("last ticker in financials annually was number ", last_ticker_n)
+last_ticker_nn = last_ticker_n[0]
+print("last ticker in financials annually was number ", last_ticker_nn)
 
 # start importing
 index_max = pd.to_numeric(tickers_narrowed.index.values.max())
@@ -71,9 +72,10 @@ for t in tickers.split(' '):
                 df_T['symbol'] = t
                 df_T['Period'] = df_T.index
                 df = df_T
-
                 # print & export last_n
-                print(t, n/index_max*100, "% /", n, "from", index_max, " /financials annually")
+                nn = n[0] # get number out of numpy.array
+                nnn = round(nn/index_max*100,2)
+                print(t, "% / ", nnn, "% / ", nn, "from", index_max, " / annual")
                 financials_annually_last_ticker = pd.DataFrame({'number': n})
                 financials_annually_last_ticker.to_csv(
                     os.path.join(cwd, input_folder, temp_folder, "financials_annually_last_ticker.csv"))
