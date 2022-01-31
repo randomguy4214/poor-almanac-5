@@ -1,3 +1,6 @@
+moved to: https://github.com/randomguy4214/poor-almanac-8
+this one is just a legacy running on yahoo_fin
+
 # poor-almanac-5
 
 All I want to know is where I'm going to die, so I'll never go there.
